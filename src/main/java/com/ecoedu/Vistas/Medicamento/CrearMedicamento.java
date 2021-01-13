@@ -58,7 +58,7 @@ public class CrearMedicamento extends javax.swing.JPanel{
     }
     public void ConsultaBD(){
         Lista_Medicamento=jpa.createQuery("SELECT p FROM Medicamento p").getResultList();
-        Lista_RolOrigen=jpa.createQuery("select p From Rol p where id_tipo_Roles=10").getResultList();
+        Lista_RolOrigen=jpa.createQuery("select p From Rol p where id_tipo_Roles=4").getResultList();
         
             
     }   
@@ -304,7 +304,7 @@ public class CrearMedicamento extends javax.swing.JPanel{
 
         jLabel31.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 18)); // NOI18N
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel31.setText("Lista de Medicamento Actual");
+        jLabel31.setText("Lista de medicamentos agregados");
         jLabel31.setPreferredSize(new java.awt.Dimension(300, 30));
         jPanel11.add(jLabel31);
 

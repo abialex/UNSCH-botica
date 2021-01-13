@@ -73,7 +73,7 @@ public class ModificarMedicamento extends javax.swing.JPanel{
            
     }
     public void ConsultaBD(){
-        Lista_RolOrigen=jpa.createQuery("select p From Rol p where id_tipo_Roles=10").getResultList();
+        Lista_RolOrigen=jpa.createQuery("select p From Rol p where id_tipo_Roles=4").getResultList();
         Query query1=jpa.createQuery("SELECT p FROM Medicamento p");
         Lista_Medicamento=query1.getResultList();      
     }   
@@ -443,7 +443,7 @@ public class ModificarMedicamento extends javax.swing.JPanel{
       objMedicamento.setNombre(jtfProductoFarmaceutico.getText());
       objMedicamento.setConcentracion(jtfConcentracion.getText());
       objMedicamento.setRolorigen((Rol)jcbOrigen.getSelectedItem());
-      jpa.createQuery("update Medicamento set id_RolOrigen="+((Rol)jcbOrigen.getSelectedItem()).getId()+" where id_Medicamento= "+objMedicamento.getId() ).executeUpdate();
+      jpa.createQuery("update Medicamento set id_RolOrigen="+((Rol)jcbOrigen.getSelectedItem()).getId()+" where id= "+objMedicamento.getId() ).executeUpdate();
       jpa.persist(objMedicamento);
       jpa.flush();
       jpa.getTransaction().commit();
