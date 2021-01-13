@@ -295,9 +295,9 @@ public class Reporte_de_Atenciones extends javax.swing.JPanel {
                 }//fin for receta
             Collections.sort(Lista_zObjetoProdiag);
             for(int i=Lista_zObjetoProdiag.size()-1;0<=i;i--){
-                table.addCell(new Paragraph(Lista_zObjetoProdiag.get(i).getObjRolesMuchos().getNombre_rol()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//codigo
+                table.addCell(new Paragraph(Lista_zObjetoProdiag.get(i).getObjEscuela().getNombre()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//codigo
                 table.addCell(new Paragraph(Lista_zObjetoProdiag.get(i).getCantidad()+"").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//inforpersona
-                fila_actividad[0]=Lista_zObjetoProdiag.get(i).getObjRolesMuchos().getNombre_rol();       
+                fila_actividad[0]=Lista_zObjetoProdiag.get(i).getObjEscuela().getNombre();       
                 fila_actividad[1]=Lista_zObjetoProdiag.get(i).getCantidad();   
                 modelo.addRow(fila_actividad);
             }            
