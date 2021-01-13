@@ -352,10 +352,10 @@ public class Reporte_Diagnostico extends javax.swing.JPanel {
             }//fin for receta
             Collections.sort(Lista_zObjetoProdiag);
             for(int i=Lista_zObjetoProdiag.size()-1;0<=i;i--){
-                table.addCell(new Paragraph(Lista_zObjetoProdiag.get(i).getObjDiagnostico().getId_DiagnosticoCodigo()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//codigo
+                table.addCell(new Paragraph(Lista_zObjetoProdiag.get(i).getObjDiagnostico().getId()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//codigo
                 table.addCell(new Paragraph(Lista_zObjetoProdiag.get(i).getObjDiagnostico().getDescripcion_Diagnostico()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//inforpersona
                 table.addCell(new Paragraph(Lista_zObjetoProdiag.get(i).getCantidad()+"").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//Serie
-                fila_actividad[0]=Lista_zObjetoProdiag.get(i).getObjDiagnostico().getId_DiagnosticoCodigo();       
+                fila_actividad[0]=Lista_zObjetoProdiag.get(i).getObjDiagnostico().getId();       
                 fila_actividad[1]=Lista_zObjetoProdiag.get(i).getObjDiagnostico().getDescripcion_Diagnostico();  
                 fila_actividad[2]=Lista_zObjetoProdiag.get(i).getCantidad();   
                 modelo.addRow(fila_actividad);

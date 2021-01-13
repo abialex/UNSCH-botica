@@ -400,12 +400,12 @@ public class ProveedorLaboratorio extends javax.swing.JPanel{
         if(((String)jcbPROFaCambio.getSelectedItem()).equals("Laboratorio")){
             objFaPro.setNombre_rol(jtfFabricanteProveedorCambio.getText());
             jpa.persist(objFaPro);
-            jpa.createNativeQuery("update Rol set id_tipo_Roles=3"+" where id_Rol="+objFaPro.getId_Rol()).executeUpdate();
+            jpa.createNativeQuery("update Rol set id_tipo_Roles=3"+" where id_Rol="+objFaPro.getId()).executeUpdate();
         }
         else{
             objFaPro.setNombre_rol(jtfFabricanteProveedorCambio.getText());
             jpa.persist(objFaPro);
-            jpa.createNativeQuery("update Rol set id_tipo_Roles=2"+" where id_Rol="+objFaPro.getId_Rol()).executeUpdate();
+            jpa.createNativeQuery("update Rol set id_tipo_Roles=2"+" where id_Rol="+objFaPro.getId()).executeUpdate();
             }
         jpa.getTransaction().commit();
         ConsultaBD();
@@ -457,7 +457,7 @@ public class ProveedorLaboratorio extends javax.swing.JPanel{
         if(((String)jcbPROFa1.getSelectedItem()).equals("Proveedor")){
             objFaprovi.setNombre_rol(jtfFabricanteGuardar.getText());
             for (Tipo_Roles roles : Lista_Roles){
-                if (roles.getId_tipo_Roles()==2){
+                if (roles.getId()==2){
                     objFaprovi.setTipo_Roles(roles);
                     }
                 }
@@ -465,7 +465,7 @@ public class ProveedorLaboratorio extends javax.swing.JPanel{
         else{
             objFaprovi.setNombre_rol(jtfFabricanteGuardar.getText());
             for (Tipo_Roles roles : Lista_Roles){
-                if (roles.getId_tipo_Roles()==3){
+                if (roles.getId()==3){
                     objFaprovi.setTipo_Roles(roles);
                     }
                 }

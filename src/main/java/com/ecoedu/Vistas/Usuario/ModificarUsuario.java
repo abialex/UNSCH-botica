@@ -59,8 +59,8 @@ public class ModificarUsuario extends javax.swing.JPanel {
     }
     public void ConsultaBD(){       
             
-        Lista_Rol=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles="+objUsuarioLogueado.getRol().getTipo_Roles().getId_tipo_Roles()).getResultList();  
-        auxiliar=objUsuarioLogueado.getRol().getTipo_Roles().getId_tipo_Roles();
+        Lista_Rol=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles="+objUsuarioLogueado.getRol().getTipo_Roles().getId()).getResultList();  
+        auxiliar=objUsuarioLogueado.getRol().getTipo_Roles().getId();
         Query query2=jpa.createQuery("SELECT p FROM Usuario p");
         Lista_Usuario=query2.getResultList(); 
       
@@ -92,7 +92,7 @@ public class ModificarUsuario extends javax.swing.JPanel {
              //.....................................TABLA...........Fin......................          
              fila_actividad=new Object[modelo.getColumnCount()];  
              for (int i = 0; i <listUsuario.size(); i++){
-                 if(listUsuario.get(i).getRol().getTipo_Roles().getId_tipo_Roles()==auxiliar){
+                 if(listUsuario.get(i).getRol().getTipo_Roles().getId()==auxiliar){
                      fila_actividad[0]=listUsuario.get(i).getRol().getNombre_rol();
                      fila_actividad[1]=listUsuario.get(i);             
                      fila_actividad[2]=listUsuario.get(i).getNickname();
@@ -438,7 +438,7 @@ public class ModificarUsuario extends javax.swing.JPanel {
             jpa.getTransaction().begin();
             jpa.persist(objPersona);  
             jpa.persist(objUsuario);
-            jpa.createNativeQuery("update Usuario set id_Rol="+((Rol)jcbRol.getSelectedItem()).getId_Rol()+" where id_Usuario="+objUsuario.getId_Usuario()).executeUpdate();
+            jpa.createNativeQuery("update Usuario set id_Rol="+((Rol)jcbRol.getSelectedItem()).getId()+" where id_Usuario="+objUsuario.getId()).executeUpdate();
             jpa.flush();
             objPrincipal.actualizar_Usuario(objUsuario);
             jlblMensaje.setText("se cambió con exito");

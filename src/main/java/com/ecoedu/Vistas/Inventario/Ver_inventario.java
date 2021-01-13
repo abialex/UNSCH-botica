@@ -414,7 +414,7 @@ public class Ver_inventario extends javax.swing.JPanel {
                     table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getInventario().getMedicamento().getNombre()).setFont(font).setTextAlignment(TextAlignment.LEFT)).setFontSize(fontTamaño);//P.F
                     table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getInventario().getMedicamento().getConcentracion()).setFont(font).setTextAlignment(TextAlignment.CENTER)).setFontSize(fontTamaño);//Conc
                     table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getInventario().getMedicamento().getForma_farmaceutica()).setFont(font).setTextAlignment(TextAlignment.CENTER)).setFontSize(fontTamaño);//FF
-                    table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getRolFabricante().getNombre_rol()).setFont(font).setTextAlignment(TextAlignment.CENTER)).setFontSize(fontTamaño);//labo
+                    table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getLaboratorio().getNombre()).setFont(font).setTextAlignment(TextAlignment.CENTER)).setFontSize(fontTamaño);//labo
                     table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getCodigo()).setFont(font).setTextAlignment(TextAlignment.CENTER)).setFontSize(fontTamaño);//lote
                     table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getPrecio_Venta_Redondeado()+"").setFont(font).setTextAlignment(TextAlignment.CENTER)).setFontSize(fontTamaño);//P.A
                     if(Lote_RegistroCierre.getLote_detalle().getFecha_vencimiento().getTime()-(new Date()).getTime()>=0){
@@ -429,7 +429,7 @@ public class Ver_inventario extends javax.swing.JPanel {
                         table.addCell(new Paragraph(Herramienta.formatoFecha(Lote_RegistroCierre.getLote_detalle().getFecha_vencimiento())).setFont(font).setTextAlignment(TextAlignment.CENTER).setBackgroundColor(com.itextpdf.kernel.color.Color.RED)).setFontSize(fontTamaño);
                         }
                     table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getFactura().getCodigo_factura()).setFont(font).setTextAlignment(TextAlignment.CENTER)).setFontSize(fontTamaño);//stock final
-                    table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getFactura().getRolProveedor().getNombre_rol()).setFont(font).setTextAlignment(TextAlignment.CENTER)).setFontSize(fontTamaño);//stock final
+                    table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getFactura().getProveedor().getNombre()).setFont(font).setTextAlignment(TextAlignment.CENTER)).setFontSize(fontTamaño);//stock final
                     table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getCantidad()+"").setFont(font).setTextAlignment(TextAlignment.CENTER)).setFontSize(fontTamaño);//stock final
 
             //table.addCell(new Paragraph(Integer.toString(Lote_RegistroCierre.getLote_detalle().getCantidad())).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
@@ -504,7 +504,7 @@ public class Ver_inventario extends javax.swing.JPanel {
             table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getInventario().getMedicamento().getNombre()).setFont(font).setTextAlignment(TextAlignment.CENTER));//P.F
             table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getInventario().getMedicamento().getConcentracion()).setFont(font).setTextAlignment(TextAlignment.CENTER));//Conc
             table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getInventario().getMedicamento().getForma_farmaceutica()).setFont(font).setTextAlignment(TextAlignment.CENTER));//FF
-            table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getRolFabricante().getNombre_rol()).setFont(font).setTextAlignment(TextAlignment.CENTER));//labo
+            table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getLaboratorio().getNombre()).setFont(font).setTextAlignment(TextAlignment.CENTER));//labo
             table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getCodigo()).setFont(font).setTextAlignment(TextAlignment.CENTER));//lote
             table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getPrecio_Venta_Redondeado()+"").setFont(font).setTextAlignment(TextAlignment.CENTER));//P.A
             if(Lote_detalle.getLote_detalle().getFecha_vencimiento().getTime()-(new Date()).getTime()>=0){
@@ -521,7 +521,7 @@ public class Ver_inventario extends javax.swing.JPanel {
                 }
             table.addCell(new Paragraph(Integer.toString(Lote_detalle.getCantidad())).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
             table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getFactura().getCodigo_factura()).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
-            table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getRolFabricante().getNombre_rol()).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
+            table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getLaboratorio().getNombre()).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
             table.addCell(new Paragraph(Integer.toString(Lote_detalle.getLote_detalle().getCantidad())).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
             }
         }     

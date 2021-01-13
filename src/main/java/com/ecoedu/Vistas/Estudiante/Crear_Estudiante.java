@@ -6,6 +6,7 @@ package com.ecoedu.Vistas.Estudiante;
 
 import com.ecoedu.Vistas.vista_base.Principal;
 import com.ecoedu.model.Control_paciente;
+import com.ecoedu.model.Escuela;
 import com.ecoedu.model.Estudiante;
 import com.ecoedu.model.Persona;
 import com.ecoedu.model.Rol;
@@ -33,7 +34,7 @@ public class Crear_Estudiante extends javax.swing.JPanel {
     Principal objPrincipal;
     TextAutoCompleter TextAutoCompleterEscuela;
     List<Rol> Lista_Sexo;
-    List<Rol> Lista_Escuela;
+    List<Escuela> Lista_Escuela;
     
     public class Proceso extends Thread{
         public Proceso( ){
@@ -84,8 +85,8 @@ public class Crear_Estudiante extends javax.swing.JPanel {
     }   
     public void principalEjecucion(){
         TextAutoCompleterEscuela.removeAllItems();
-        for (Rol RolEscuela : Lista_Escuela) {
-            TextAutoCompleterEscuela.addItem(RolEscuela);
+        for (Escuela escuela : Lista_Escuela) {
+            TextAutoCompleterEscuela.addItem(escuela);
             
             
         } 
@@ -521,26 +522,26 @@ public class Crear_Estudiante extends javax.swing.JPanel {
         FechaNacimiento.setSeconds(0);
         Estudiante objEstudiante=new Estudiante();
         Control_paciente objControl_paciente=new Control_paciente();
-        objControl_paciente.setMonto_Total(0); 
+        objControl_paciente.setMonto_total(0); 
         objControl_paciente.setLimite_control(110);
-        objControl_paciente.setiSactivo(true);
+        objControl_paciente.setIsActivo(true);
         objControl_paciente.setFecha_registro(new Date());
         objControl_paciente.setSemestre(objSemestre);
         objPersona.setNombres(jtfNombres.getText());
-        objEstudiante.setNroTelefonico(jtfCelular.getText());
+        objEstudiante.setNrotelefonico(jtfCelular.getText());
         objPersona.setApellido_Paterno(jtfApellidoPaterno.getText());
         objPersona.setApellido_Materno(jtfApellidoMaterno.getText());
         objPersona.setDni(jtfDNI.getText());
         objEstudiante.setFecha_nacimiento(FechaNacimiento);
         
-        objEstudiante.setRolSexo((Rol)jcbSexo.getSelectedItem());
+        objEstudiante.setSexo((Rol)jcbSexo.getSelectedItem());
         objEstudiante.setCodigo(jtfCodigo.getText());
         objEstudiante.setSerie((String)jcbSerie.getSelectedItem());
-        objEstudiante.setRolCondicion(objCondicion);
-        objEstudiante.setEscuela((Rol)TextAutoCompleterEscuela.getItemSelected());
-        for (Rol RolEscuela : Lista_Escuela){
-            if(RolEscuela.getNombre_rol().equals(jtfEscuela.getText())){
-                objEstudiante.setEscuela(RolEscuela);
+        objEstudiante.setCondicion(objCondicion);
+        objEstudiante.setEscuela((Escuela)TextAutoCompleterEscuela.getItemSelected());
+        for (Escuela escuela : Lista_Escuela){
+            if(escuela.getNombre().equals(jtfEscuela.getText())){
+                objEstudiante.setEscuela(escuela);
             }
         }                      
         try {
@@ -650,8 +651,8 @@ public class Crear_Estudiante extends javax.swing.JPanel {
     }//GEN-LAST:event_jtfEscuelaActionPerformed
 
     private void jtfEscuelaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfEscuelaKeyReleased
-        for (Rol RolEscuela : Lista_Escuela){
-            if(RolEscuela.getNombre_rol().equals(jtfEscuela.getText())){
+        for (Escuela escuela : Lista_Escuela){
+            if(escuela.getNombre().equals(jtfEscuela.getText())){
                 jlblAsteriscoEscuela.setText("");
                 break;
             }

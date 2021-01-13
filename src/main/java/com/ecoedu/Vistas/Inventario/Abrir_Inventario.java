@@ -551,7 +551,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
             if(auxComprobante!=inventario.getCantidad()){
                 
                 jpa.getTransaction().rollback();
-                JOptionPane.showMessageDialog(cuerpo1,inventario.getMedicamento().getNombre()+" "+inventario.getId_Inventario()+" real: "+auxComprobante+" sistema: "+inventario.getCantidad() + " no coincide la suma de lostes iniciales con el inventario inicial");
+                JOptionPane.showMessageDialog(cuerpo1,inventario.getMedicamento().getNombre()+" "+inventario.getId()+" real: "+auxComprobante+" sistema: "+inventario.getCantidad() + " no coincide la suma de lostes iniciales con el inventario inicial");
             }
             auxComprobante=0;            
         }//fin for2   
@@ -670,7 +670,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
             table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getInventario().getMedicamento().getNombre()).setFontSize(tam).setFont(font).setTextAlignment(TextAlignment.LEFT));//P.F
             table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getInventario().getMedicamento().getConcentracion()).setFontSize(tam).setFont(font).setTextAlignment(TextAlignment.CENTER));//Conc
             table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getInventario().getMedicamento().getForma_farmaceutica()).setFontSize(tam).setFont(font).setTextAlignment(TextAlignment.CENTER));//FF
-            table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getRolFabricante().getNombre_rol()).setFontSize(tam).setFont(font).setTextAlignment(TextAlignment.CENTER));//labo
+            table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getLaboratorio().getNombre()).setFontSize(tam).setFont(font).setTextAlignment(TextAlignment.CENTER));//labo
             table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getCodigo()).setFontSize(tam).setFont(font).setTextAlignment(TextAlignment.CENTER));//lote
             table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getPrecio_Venta_Redondeado()+"").setFontSize(tam).setFont(font).setTextAlignment(TextAlignment.CENTER));//P.A
             if(Lote_detalle.getLote_detalle().getFecha_vencimiento().getTime()-(new Date()).getTime()>=0){
@@ -686,7 +686,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
                 table.addCell(new Paragraph(Herramienta.formatoFecha(Lote_detalle.getLote_detalle().getFecha_vencimiento())).setFontSize(tam).setFont(font).setTextAlignment(TextAlignment.CENTER).setBackgroundColor(com.itextpdf.kernel.color.Color.RED));
                 }
             table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getFactura().getCodigo_factura()).setFontSize(tam).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
-            table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getFactura().getRolProveedor().getNombre_rol()).setFontSize(tam).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
+            table.addCell(new Paragraph(Lote_detalle.getLote_detalle().getFactura().getProveedor().getNombre()).setFontSize(tam).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
             table.addCell(new Paragraph(Lote_detalle.getCantidad_inicial()+"").setFontSize(tam).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
 
 
@@ -722,7 +722,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
                  fila_actividad[2]=objLote.getLote_detalle().getCantidad();
                  fila_actividad[3]=objLote.getLote_detalle().getPrecio_Venta_Redondeado();  
                  fila_actividad[4]=objLote.getLote_detalle().getFactura().getCodigo_factura();   
-                 fila_actividad[5]=objLote.getLote_detalle().getRolFabricante().getNombre_rol();   
+                 fila_actividad[5]=objLote.getLote_detalle().getLaboratorio().getNombre();   
                  fila_actividad[6]=Herramienta.formatoFecha(objLote.getLote_detalle().getFecha_vencimiento());  
                  modelo.addRow(fila_actividad);//agregando filas
                  }

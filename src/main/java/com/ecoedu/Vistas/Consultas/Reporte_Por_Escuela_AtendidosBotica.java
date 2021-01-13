@@ -3,6 +3,7 @@ import com.ecoedu.Vistas.Herramienta;
 import com.ecoedu.Vistas.vista_base.Principal;
 import com.ecoedu.model.Control_paciente;
 import com.ecoedu.model.Detalle_Medicamentos;
+import com.ecoedu.model.Escuela;
 import com.ecoedu.model.Estudiante;
 import com.ecoedu.model.Receta;
 import com.ecoedu.model.Rol;
@@ -68,7 +69,7 @@ public class Reporte_Por_Escuela_AtendidosBotica extends javax.swing.JPanel {
                  }
              }
             Rol objEscuela1=new Rol();
-            objEscuela1.setId_Rol(450);
+            objEscuela1.setId(450);
             imprimir(objEscuela1);
             jbtnImprimir.setEnabled(false);
             }
@@ -264,7 +265,7 @@ public class Reporte_Por_Escuela_AtendidosBotica extends javax.swing.JPanel {
              Lista_control_paciente=Herramienta.findbyBeetWeen(Control_paciente.class, "fecha_registro", jcbYearDesde.getDatoFecha(), jcbYearHasta.getDatoFecha(), jpa);
             
         if(!Lista_control_paciente.isEmpty()){
-            List<Rol> listaCondiciones=desglozarControlPacientetoEscuelas(Lista_control_paciente);
+            List<Escuela> listaCondiciones=desglozarControlPacientetoEscuelas(Lista_control_paciente);
             jbtnImprimir.setEnabled(true);
             String ol="images\\unsch.png";
             Image unsch=new Image(ImageDataFactory.create(ol));            
@@ -296,7 +297,7 @@ public class Reporte_Por_Escuela_AtendidosBotica extends javax.swing.JPanel {
             table.addHeaderCell(new Cell().add(new Paragraph("Escuela").setFont(bold)).setTextAlignment(TextAlignment.CENTER).setFontSize(fontHeadTamaño));         
             table.addHeaderCell(new Cell().add(new Paragraph("Cantidad").setFont(bold)).setTextAlignment(TextAlignment.CENTER).setFontSize(fontHeadTamaño));  
             //Control_paciente control_paciente : Lista_ControlPaciente
-            for(Rol objCondicion : listaCondiciones){
+            for(Escuela objCondicion : listaCondiciones){
                 int cant=0;
                 for(Control_paciente control_paciente : Lista_control_paciente){
                     if(control_paciente.getEstudiante().getEscuela()==objCondicion){
@@ -353,7 +354,7 @@ public class Reporte_Por_Escuela_AtendidosBotica extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnImprimirActionPerformed
   
     public void imprimir(Rol objEscuela) throws FileNotFoundException, DocumentException, IOException{
-        List<Estudiante> listaE=Herramienta.findbyWhere(Estudiante.class,"id_Rolescuela", objEscuela.getId_Rol(), jpa); 
+        List<Estudiante> listaE=Herramienta.findbyWhere(Estudiante.class,"id_Rolescuela", objEscuela.getId(), jpa); 
         DefaultTableModel modelo;
         Object[] fila_actividad;
              //.....................................TABLA......................................
@@ -399,11 +400,11 @@ public class Reporte_Por_Escuela_AtendidosBotica extends javax.swing.JPanel {
         table.addHeaderCell(new Cell().add(new Paragraph("Apellidos y Nombres").setFont(bold)).setTextAlignment(TextAlignment.CENTER).setFontSize(fontHeadTamaño));         
               
       for(Estudiante estudiante : listaE){
-          List<Control_paciente> objControl=Herramienta.findbyWhere(Control_paciente.class,"id_Estudiante", estudiante.getId_Estudiante(), jpa);
-          List<Receta> listaReceta=Herramienta.findbyBeetWeen(Receta.class,"fecha_creada",jcbYearDesde.getDatoFecha(),jcbYearHasta.getDatoFecha(),objControl.get(0).getId_Control_paciente(), jpa);
+          List<Control_paciente> objControl=Herramienta.findbyWhere(Control_paciente.class,"id_Estudiante", estudiante.getId(), jpa);
+          List<Receta> listaReceta=Herramienta.findbyBeetWeen(Receta.class,"fecha_creada",jcbYearDesde.getDatoFecha(),jcbYearHasta.getDatoFecha(),objControl.get(0).getId(), jpa);
           Collections.sort(listaReceta);//ordenando A-Z (método como Override)          
           for(Receta receta : listaReceta){
-              List<Detalle_Medicamentos> listMedi=Herramienta.findbyWhere(Detalle_Medicamentos.class,"id_Receta", receta.getId_Receta(), jpa);
+              List<Detalle_Medicamentos> listMedi=Herramienta.findbyWhere(Detalle_Medicamentos.class,"id_Receta", receta.getId(), jpa);
             Collections.sort(listMedi);//ordenando A-Z (método como Override)            
             for (Detalle_Medicamentos Detalle_Medicamento : listMedi){   
             table.addCell(new Paragraph(estudiante.getCodigo()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//codigo
@@ -425,18 +426,18 @@ public class Reporte_Por_Escuela_AtendidosBotica extends javax.swing.JPanel {
         else{
             jbtnImprimir.setEnabled(false);
             llenar_Tabla_de_Recetas(modelo); 
-            if(objEscuela.getId_Rol()!=450){
+            if(objEscuela.getId()!=450){
                 JOptionPane.showMessageDialog(jPanel5, "No se encontró Estudiante");                
             }
             
 
         }
     }
-    public List<Rol> desglozarControlPacientetoEscuelas(List<Control_paciente> lista_control){
-         List<Rol> listaAuxEscuelas=new ArrayList<>();
+    public List<Escuela> desglozarControlPacientetoEscuelas(List<Control_paciente> lista_control){
+         List<Escuela> listaAuxEscuelas=new ArrayList<>();
         for (Control_paciente lista_controll : lista_control){
              boolean auxEscuela=true;
-             for (Rol listaAuxCondicion1: listaAuxEscuelas){
+             for (Escuela listaAuxCondicion1: listaAuxEscuelas){
                  if(listaAuxCondicion1==lista_controll.getEstudiante().getEscuela()){
                     auxEscuela=false;		
                     break;

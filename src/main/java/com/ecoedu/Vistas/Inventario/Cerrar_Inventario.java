@@ -1385,12 +1385,12 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
             jlblFechaAperturada.setText(Herramienta.formatoFechaHoraMas1(objRegistroMensualLotes.getFecha_apertura_real()));
             jlblFechaVen.setText(Herramienta.formatoFechaMas1(objRegistroMensualLotes.getLote_detalle().getFecha_vencimiento()));
             List<Detalle_Medicamentos> lista_Medicamentos_del_mes=
-            Herramienta.findbyBeetWeen(Detalle_Medicamentos.class,"fecha", objRegistroMensualLotes.getFecha_apertura_real(), new Date(), jpa, objRegistroMensualLotes.getLote_detalle().getId_Lote_detalle());
+            Herramienta.findbyBeetWeen(Detalle_Medicamentos.class,"fecha", objRegistroMensualLotes.getFecha_apertura_real(), new Date(), jpa, objRegistroMensualLotes.getLote_detalle().getId());
             List<Descruce> lista_Descruce=jpa.createQuery(
-                    "select p from Descruce p where id_Lote_detalle="+objRegistroMensualLotes.getLote_detalle().getId_Lote_detalle()+" or id_Lote_detalle2="+objRegistroMensualLotes.getLote_detalle().getId_Lote_detalle()).getResultList();
+                    "select p from Descruce p where id_Lote_detalle="+objRegistroMensualLotes.getLote_detalle().getId()+" or id_Lote_detalle2="+objRegistroMensualLotes.getLote_detalle().getId()).getResultList();
             
             List<Descarga> lista_Descarga=jpa
-            .createQuery("select p from Descarga p where month(fecha)>="+(objRegistroMensualLotes.getFecha_apertura().getMonth()+1)+"and id_Lote_detalle="+objRegistroMensualLotes.getLote_detalle().getId_Lote_detalle()).getResultList();
+            .createQuery("select p from Descarga p where month(fecha)>="+(objRegistroMensualLotes.getFecha_apertura().getMonth()+1)+"and id_Lote_detalle="+objRegistroMensualLotes.getLote_detalle().getId()).getResultList();
         
             llenarTablaDetalleMedicamento(lista_Medicamentos_del_mes,lista_Descruce,lista_Descarga);
             vistaRegistroLotes.setVisible(false);
@@ -1444,12 +1444,12 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
             for (RegistroMensualLotes registroMensualLotes : Lista_Registro_Mensual){
                 registroMensualLotes.setFecha_cierre_real(new Date());
                 registroMensualLotes.setCantidad_final(registroMensualLotes.getLote_detalle().getCantidad());
-                jpa.createQuery("update RegistroMensualLotes set id_Usuario_cierre= "+objUsuario.getId_Usuario()+" where id_Registro_mensual_lotes= "+registroMensualLotes.getId_Registro_mensual_lotes()).executeUpdate();
+                jpa.createQuery("update RegistroMensualLotes set id_Usuario_cierre= "+objUsuario.getId()+" where id_Registro_mensual_lotes= "+registroMensualLotes.getId()).executeUpdate();
                 jpa.persist(registroMensualLotes);
                     }
             for (RegistroMensualInventario registroMensualInventario : Lista_Mensual_Inventario){
                 registroMensualInventario.setFecha_cierre_real(new Date());
-                jpa.createQuery("update RegistroMensualInventario set id_Usuario_cierre= "+objUsuario.getId_Usuario()+" where id_Registro_mensual_inventario= "+registroMensualInventario.getId_Registro_mensual_Inventario()).executeUpdate();
+                jpa.createQuery("update RegistroMensualInventario set id_Usuario_cierre= "+objUsuario.getId()+" where id_Registro_mensual_inventario= "+registroMensualInventario.getId()).executeUpdate();
                 registroMensualInventario.setCantidad_final(registroMensualInventario.getInventario().getCantidad());
                 jpa.persist(registroMensualInventario);
                 }
@@ -1480,12 +1480,12 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
         jlblFechaAperturada.setText(Herramienta.formatoFechaMas1(objRegistroMensualLotes.getFecha_apertura()));
         jlblFechaVen.setText(Herramienta.formatoFechaMas1(objRegistroMensualLotes.getLote_detalle().getFecha_vencimiento()));
         List<Detalle_Medicamentos> lista_Medicamentos_del_mes=
-            Herramienta.findbyBeetWeen(Detalle_Medicamentos.class,"fecha", objRegistroMensualLotes.getFecha_apertura_real(), new Date(), jpa, objRegistroMensualLotes.getLote_detalle().getId_Lote_detalle());
+            Herramienta.findbyBeetWeen(Detalle_Medicamentos.class,"fecha", objRegistroMensualLotes.getFecha_apertura_real(), new Date(), jpa, objRegistroMensualLotes.getLote_detalle().getId());
         List<Descruce> lista_Descruce=jpa.createQuery(
-                    "select p from Descruce p where month(fecha_registro)="+(objRegistroMensualLotes.getFecha_apertura().getMonth()+1)+"and (id_Lote_detalle="+objRegistroMensualLotes.getLote_detalle().getId_Lote_detalle()+" or id_Lote_detalle2="+objRegistroMensualLotes.getLote_detalle().getId_Lote_detalle()+")").getResultList();
+                    "select p from Descruce p where month(fecha_registro)="+(objRegistroMensualLotes.getFecha_apertura().getMonth()+1)+"and (id_Lote_detalle="+objRegistroMensualLotes.getLote_detalle().getId()+" or id_Lote_detalle2="+objRegistroMensualLotes.getLote_detalle().getId()+")").getResultList();
             
         List<Descarga> lista_Descarga=jpa
-        .createQuery("select p from Descarga p where month(fecha)>="+(objRegistroMensualLotes.getFecha_apertura().getMonth()+1)+"and id_Lote_detalle="+objRegistroMensualLotes.getLote_detalle().getId_Lote_detalle()).getResultList();
+        .createQuery("select p from Descarga p where month(fecha)>="+(objRegistroMensualLotes.getFecha_apertura().getMonth()+1)+"and id_Lote_detalle="+objRegistroMensualLotes.getLote_detalle().getId()).getResultList();
         
         llenarTablaDetalleMedicamento(lista_Medicamentos_del_mes,lista_Descruce,lista_Descarga);
         vistaMedicamentesVer.setVisible(false);
@@ -1498,14 +1498,14 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
         //maybe
         jpa.getTransaction().begin();
         objRegistroMensualInventario.setCantidad_final(objRegistroMensualInventario.getInventario().getCantidad());
-        jpa.createQuery("update RegistroMensualInventario set id_Usuario_cierre= "+objUsuario.getId_Usuario()+" where id_Registro_mensual_inventario= "+objRegistroMensualInventario.getId_Registro_mensual_Inventario()).executeUpdate();
+        jpa.createQuery("update RegistroMensualInventario set id_Usuario_cierre= "+objUsuario.getId()+" where id_Registro_mensual_inventario= "+objRegistroMensualInventario.getId()).executeUpdate();
         objRegistroMensualInventario.setFecha_cierre_real(new Date());
         jpa.persist(objRegistroMensualInventario);
         int auxCant=0;
         for (RegistroMensualLotes registroMensualLotes : Lista_Registro_Mensual){
             if(registroMensualLotes.getRegistroMensualInventario()==objRegistroMensualInventario){
                 registroMensualLotes.setFecha_cierre_real(new Date());
-                jpa.createQuery("update RegistroMensualLotes set id_Usuario_cierre= "+objUsuario.getId_Usuario()+" where id_Registro_mensual_lotes= "+registroMensualLotes.getId_Registro_mensual_lotes()).executeUpdate();
+                jpa.createQuery("update RegistroMensualLotes set id_Usuario_cierre= "+objUsuario.getId()+" where id_Registro_mensual_lotes= "+registroMensualLotes.getId()).executeUpdate();
                 registroMensualLotes.setCantidad_final(registroMensualLotes.getLote_detalle().getCantidad());
                 jpa.persist(registroMensualLotes);
                 auxCant=auxCant+registroMensualLotes.getLote_detalle().getCantidad();
@@ -1643,7 +1643,7 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
         for (RegistroMensualInventario registroMensualInventario : Lista_Inventario_Descruce){
             if(registroMensualInventario.getInventario().getMedicamento().getNombre().equals(jtfDescruzeMedicamento1.getText())){
                 List<Lote_detalle> lista_Lotes=jpa.createQuery("select p from Lote_detalle p where id_Inventario="+
-                registroMensualInventario.getInventario().getId_Inventario()+"and isVencido=0").getResultList();
+                registroMensualInventario.getInventario().getId()+"and isVencido=0").getResultList();
                 jlblDescruceFF1.setText(registroMensualInventario.getInventario().getMedicamento().getForma_farmaceutica());
                 jlblDescruceCon1.setText(registroMensualInventario.getInventario().getMedicamento().getConcentracion());
                 llenarLotesMedicamento1(lista_Lotes);
@@ -1676,7 +1676,7 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
         for (RegistroMensualInventario registroMensualInventario : Lista_Inventario_Descruce){
             if(registroMensualInventario.getInventario().getMedicamento().getNombre().equals(jtfDescruceMedicamento2.getText())){
                 List<Lote_detalle> lista_Lotes=jpa.createQuery("select p from Lote_detalle p where id_Inventario="+
-                registroMensualInventario.getInventario().getId_Inventario()).getResultList();
+                registroMensualInventario.getInventario().getId()).getResultList();
                 jlblDescruceFF2.setText(registroMensualInventario.getInventario().getMedicamento().getForma_farmaceutica());
                 jlblDescruceConc2.setText(registroMensualInventario.getInventario().getMedicamento().getConcentracion());
                 llenarLotesMedicamento2(lista_Lotes);
@@ -1774,12 +1774,12 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
             jlblFechaAperturada.setText(Herramienta.formatoFechaHoraMas1(objRegistroMensualLotes.getFecha_apertura_real()));
             jlblFechaVen.setText(Herramienta.formatoFechaMas1(objRegistroMensualLotes.getLote_detalle().getFecha_vencimiento()));
             List<Detalle_Medicamentos> lista_Medicamentos_del_mes=
-            Herramienta.findbyBeetWeen(Detalle_Medicamentos.class,"fecha", objRegistroMensualLotes.getFecha_apertura_real(), new Date(), jpa, objRegistroMensualLotes.getLote_detalle().getId_Lote_detalle());
+            Herramienta.findbyBeetWeen(Detalle_Medicamentos.class,"fecha", objRegistroMensualLotes.getFecha_apertura_real(), new Date(), jpa, objRegistroMensualLotes.getLote_detalle().getId());
             List<Descruce> lista_Descruce=jpa.createQuery(
-                    "select p from Descruce p where id_Lote_detalle="+objRegistroMensualLotes.getLote_detalle().getId_Lote_detalle()+" or id_Lote_detalle2="+objRegistroMensualLotes.getLote_detalle().getId_Lote_detalle()).getResultList();
+                    "select p from Descruce p where id_Lote_detalle="+objRegistroMensualLotes.getLote_detalle().getId()+" or id_Lote_detalle2="+objRegistroMensualLotes.getLote_detalle().getId()).getResultList();
             
             List<Descarga> lista_Descarga=jpa
-            .createQuery("select p from Descarga p where month(fecha)>="+(objRegistroMensualLotes.getFecha_apertura().getMonth()+1)+"and id_Lote_detalle="+objRegistroMensualLotes.getLote_detalle().getId_Lote_detalle()).getResultList();
+            .createQuery("select p from Descarga p where month(fecha)>="+(objRegistroMensualLotes.getFecha_apertura().getMonth()+1)+"and id_Lote_detalle="+objRegistroMensualLotes.getLote_detalle().getId()).getResultList();
         
             llenarTablaDetalleMedicamento(lista_Medicamentos_del_mes,lista_Descruce,lista_Descarga);
             vistaRegistroLotes.setVisible(false);
@@ -1984,7 +1984,7 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
             table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getInventario().getMedicamento().getNombre()).setFontSize(Tamaño).setFont(font).setTextAlignment(TextAlignment.LEFT));//P.F
             table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getInventario().getMedicamento().getConcentracion()).setFontSize(Tamaño).setFont(font).setTextAlignment(TextAlignment.CENTER));//Conc
             table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getInventario().getMedicamento().getForma_farmaceutica()).setFontSize(Tamaño).setFont(font).setTextAlignment(TextAlignment.CENTER));//FF
-            table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getRolFabricante().getNombre_rol()).setFontSize(Tamaño).setFont(font).setTextAlignment(TextAlignment.CENTER));//labo
+            table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getLaboratorio().getNombre()).setFontSize(Tamaño).setFont(font).setTextAlignment(TextAlignment.CENTER));//labo
             table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getCodigo()).setFontSize(Tamaño).setFont(font).setTextAlignment(TextAlignment.CENTER));//lote
             table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getPrecio_Venta_Redondeado()+"").setFontSize(Tamaño).setFont(font).setTextAlignment(TextAlignment.CENTER));//P.A
             if(Lote_RegistroCierre.getLote_detalle().getFecha_vencimiento().getTime()-(new Date()).getTime()>=0){
@@ -1999,7 +1999,7 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
                 table.addCell(new Paragraph(Herramienta.formatoFecha(Lote_RegistroCierre.getLote_detalle().getFecha_vencimiento())).setFontSize(Tamaño).setFont(font).setTextAlignment(TextAlignment.CENTER).setBackgroundColor(com.itextpdf.kernel.color.Color.RED));
                 }
             table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getFactura().getCodigo_factura()).setFontSize(Tamaño).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
-            table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getFactura().getRolProveedor().getNombre_rol()).setFontSize(Tamaño).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
+            table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getFactura().getProveedor().getNombre()).setFontSize(Tamaño).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
             table.addCell(new Paragraph(Lote_RegistroCierre.getCantidad_inicial()+"").setFontSize(Tamaño).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
             table.addCell(new Paragraph(Lote_RegistroCierre.getLote_detalle().getCantidad()+"").setFont(font).setFontSize(Tamaño).setTextAlignment(TextAlignment.CENTER));//stock final
 
@@ -2053,7 +2053,7 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
         List<Descarga> Lista_Descarga=jpa.createQuery("select p from Descarga p where month(fecha)>="+(listaRegistroMensualImprimir.get(0).getFecha_apertura().getMonth()+1)).getResultList();
         for (Descarga descarga : Lista_Descarga){
             tableDescarga.addCell(new Paragraph(Herramienta.formatoFechaHoraMas1(descarga.getFecha())).setFontSize(Tam).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
-            tableDescarga.addCell(new Paragraph(descarga.getRolTipo().getNombre_rol()).setFontSize(Tam).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
+            tableDescarga.addCell(new Paragraph(descarga.getTipo().getNombre_rol()).setFontSize(Tam).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
             tableDescarga.addCell(new Paragraph(descarga.getCantidad()+"").setFontSize(Tam).setFont(font).setTextAlignment(TextAlignment.CENTER));
             tableDescarga.addCell(new Paragraph(descarga.getLote_detalle().getCodigo()).setFontSize(Tam).setFont(font).setTextAlignment(TextAlignment.CENTER));
             //tableDescruce.addCell(new Paragraph(descarga.getMotivo()).setFont(font).setTextAlignment(TextAlignment.CENTER));            
@@ -2322,7 +2322,7 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
              for (Descarga descarga : lista_Descarga){
                  fila_actividad[0]="--DESCARGO--";
                  fila_actividad[1]=descarga.getCantidad();
-                 fila_actividad[2]="--"+descarga.getRolTipo().getNombre_rol()+"--";
+                 fila_actividad[2]="--"+descarga.getTipo().getNombre_rol()+"--";
                  fila_actividad[3]=Herramienta.formatoFechaHoraMas1(descarga.getFecha());
                  fila_actividad[4]=descarga.getUsuario().getPersona().getInfoPersona();
                  modelo.addRow(fila_actividad);//agregando filas

@@ -78,7 +78,7 @@ public class Servicio_Asistencial extends javax.swing.JPanel {
          List<Semestre> lis=jpa.createQuery("SELECT p from Semestre p where fecha_fin_Real is null").getResultList();  
          if(!lis.isEmpty()){
              objSemestre=lis.get(0);
-             Lista_control_paciente=jpa.createQuery("SELECT p FROM Control_paciente p where iSactivo=1 and id_Semestre="+objSemestre.getId_Semestre()).getResultList();
+             Lista_control_paciente=jpa.createQuery("SELECT p FROM Control_paciente p where iSactivo=1 and id_Semestre="+objSemestre.getId()).getResultList();
          }
      }    
      public void principalEjecucion(){ 
@@ -650,13 +650,13 @@ public class Servicio_Asistencial extends javax.swing.JPanel {
                 aux=false;
                 objControl_paciente_Final=Lista_control_paciente.get(i);
                 limite_seguro=objControl_paciente_Final.getLimite_control();  
-                Monto_totalControlEstudiante=objControl_paciente_Final.getMonto_Total();                
-                saldo_totalControlEstudiante=limite_seguro-objControl_paciente_Final.getMonto_Total();                
+                Monto_totalControlEstudiante=objControl_paciente_Final.getMonto_total();                
+                saldo_totalControlEstudiante=limite_seguro-objControl_paciente_Final.getMonto_total();                
                 jlblNombres.setText(Lista_control_paciente.get(i).getEstudiante().getPersona().getInfoPersona());
                 jlblSerie.setText(Lista_control_paciente.get(i).getEstudiante().getSerie());
-                jlblEscuela.setText(Lista_control_paciente.get(i).getEstudiante().getRolescuela().getNombre_rol());
-                jlblMontoTotal.setText("S/"+Herramienta.dosDecimales(Lista_control_paciente.get(i).getMonto_Total()));              
-                Lista_servicio_social=Herramienta.findbyWhere(Servicio_social.class,"id_Control_paciente",objControl_paciente_Final.getId_Control_paciente(), jpa);
+                jlblEscuela.setText(Lista_control_paciente.get(i).getEstudiante().getEscuela().getNombre());
+                jlblMontoTotal.setText("S/"+Herramienta.dosDecimales(Lista_control_paciente.get(i).getMonto_total()));              
+                Lista_servicio_social=Herramienta.findbyWhere(Servicio_social.class,"id_Control_paciente",objControl_paciente_Final.getId(), jpa);
                 jbtnCrearServicio.setEnabled(true);
                 jbtnImprimirServicios.setEnabled(true);
                 if(Lista_servicio_social.isEmpty()){
@@ -699,7 +699,7 @@ public class Servicio_Asistencial extends javax.swing.JPanel {
 
     private void jtblServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblServiciosMouseClicked
         Servicio_social objServicio_Social=(Servicio_social)jtblServicios.getValueAt(jtblServicios.getSelectedRow(),1);
-        lista_DetalleServicioSocial=Herramienta.findbyWhere(Detalle_Servicio_Social.class, "id_Servicio_social", objServicio_Social.getId_Detalle_servicio_social(), jpa);
+        lista_DetalleServicioSocial=Herramienta.findbyWhere(Detalle_Servicio_Social.class, "id_Servicio_social", objServicio_Social.getId(), jpa);
         llenar_Tabla_de_DetalleAsistencialesMirar(lista_DetalleServicioSocial);
         jlblFechaVer.setText(Herramienta.formatoFechaHoraMas1(objServicio_Social.getFecha()));
         cuerpoListaServicios.setVisible(false);
@@ -913,7 +913,7 @@ public class Servicio_Asistencial extends javax.swing.JPanel {
         
         
         Paragraph paraEscCodSerie=new Paragraph(new Text("Serie: ").setFont(bold)).add(objControl_paciente_Final.getEstudiante().getSerie())
-                .add(new Text("      E.P: ").setFont(bold)).add(objControl_paciente_Final.getEstudiante().getRolescuela().getNombre_rol()).setTextAlignment(TextAlignment.LEFT)
+                .add(new Text("      E.P: ").setFont(bold)).add(objControl_paciente_Final.getEstudiante().getEscuela().getNombre()).setTextAlignment(TextAlignment.LEFT)
                 .add(new Text("      Procedencia del servicio: ").setFont(bold)).add(".............................")
                 ;
         

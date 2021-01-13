@@ -6,6 +6,7 @@ package com.ecoedu.Vistas;
 import com.ecoedu.model.Control_paciente;
 import com.ecoedu.model.Detalle_Medicamentos;
 import com.ecoedu.model.Detalle_Servicio_Social;
+import com.ecoedu.model.Escuela;
 import com.ecoedu.model.Lote_detalle;
 import com.ecoedu.model.Receta;
 import com.ecoedu.model.Rol;
@@ -66,7 +67,7 @@ public class Inicio extends javax.swing.JPanel {
     List<Rol> Lista_RolUsuarios;
     List<Usuario> Lista_Usuario;
     List<Control_paciente> Lista_ControlPacienteSemestreActual;
-    List<Rol> Lista_Escuelas;
+    List<Escuela> Lista_Escuelas;
     List<Receta> Lista_Recetas;
     List<Lote_detalle> Lotes_vencidos;
     List<Lote_detalle> Lotes_por_vencer;
@@ -83,10 +84,10 @@ public class Inicio extends javax.swing.JPanel {
     public void ConsultaBD(){
         lotes_por_agotamiento=jpa.createQuery("select p from Lote_detalle p where isVencido=0 and cantidad< 30 ORDER BY cantidad ").getResultList();
         Lista_Detalle_Medicamento=jpa.createQuery("SELECT p FROM Detalle_Medicamentos p").getResultList();
-        Lista_RolUsuarios=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles="+objUsuario.getRol().getTipo_Roles().getId_tipo_Roles()).getResultList();  
+        Lista_RolUsuarios=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles="+objUsuario.getRol().getTipo_Roles().getId()).getResultList();  
         Lista_Usuario=jpa.createQuery("SELECT p FROM Usuario p").getResultList();
         Lista_Recetas=jpa.createQuery("select p from Receta p").getResultList();
-        Lista_ControlPacienteSemestreActual=jpa.createQuery("select p from Control_paciente p where id_Semestre="+objSemestre.getId_Semestre()).getResultList();
+        Lista_ControlPacienteSemestreActual=jpa.createQuery("select p from Control_paciente p where id_Semestre="+objSemestre.getId()).getResultList();
         Lista_Escuelas=jpa.createQuery("select p from Rol p where id_tipo_Roles=1").getResultList();      
         //
         Lotes_vencidos=jpa.createQuery("select p from Lote_detalle p where  DATEDIFF(day,  GETDATE(),fecha_vencimiento)<=0 and isVencido=0").getResultList();
@@ -218,16 +219,16 @@ public class Inicio extends javax.swing.JPanel {
     public List<ZObjetoProDiag> getListaEstudiantesCaceritos(List<Control_paciente> lista){
         List<ZObjetoProDiag> lista_EstudiantesCaceritos=new ArrayList<>();
         for (Control_paciente control_paciente : lista) {
-            lista_EstudiantesCaceritos.add(new ZObjetoProDiag(control_paciente.getEstudiante(),Herramienta.findbyWhere(Receta.class, "id_Control_Paciente", control_paciente.getId_Control_paciente(), jpa).size()));
+            lista_EstudiantesCaceritos.add(new ZObjetoProDiag(control_paciente.getEstudiante(),Herramienta.findbyWhere(Receta.class, "id_Control_Paciente", control_paciente.getId(), jpa).size()));
         }
         Collections.sort(lista_EstudiantesCaceritos);
         return lista_EstudiantesCaceritos;
         
     }
-    public List<List<Receta>> getCuadro(List<Receta> lista_receta,List<Rol> lista_escuelas){
+    public List<List<Receta>> getCuadro(List<Receta> lista_receta,List<Escuela> lista_escuelas){
         boolean auxSave=false;
         List<List<Receta>> Lista_Escuelas_Ordenados_porAlumno=new ArrayList<>();
-        for (Rol escuela : lista_escuelas){
+        for (Escuela escuela : lista_escuelas){
             auxSave=false;
             List<Receta> Lista_alumnos_escuela=new ArrayList<>();
             for (Receta receta : lista_receta){
@@ -709,7 +710,7 @@ public class Inicio extends javax.swing.JPanel {
                         cant_Procedencia_otros++;
                         break;   
                         }
-                switch(receta.getControl_Paciente().getEstudiante().getRolCondicion().getNombre_rol()){
+                switch(receta.getControl_Paciente().getEstudiante().getCondicion().getNombre_rol()){
                     case "Nuevo":
                         cant_nuevo++;
                         break;                        
@@ -720,7 +721,7 @@ public class Inicio extends javax.swing.JPanel {
                         cant_reingresante++;
                         break;
                         }
-                switch(receta.getControl_Paciente().getEstudiante().getRolSexo().getNombre_rol()){
+                switch(receta.getControl_Paciente().getEstudiante().getSexo().getNombre_rol()){
                     case "Masculino":
                         cant_masculino++;
                         break;
@@ -729,7 +730,7 @@ public class Inicio extends javax.swing.JPanel {
                         break;                    
                 }                                
             }
-            fila_actividad[0]=objlista_escuelas_por_receta.get(0).getControl_Paciente().getEstudiante().getEscuela().getNombre_rol();
+            fila_actividad[0]=objlista_escuelas_por_receta.get(0).getControl_Paciente().getEstudiante().getEscuela().getNombre();
             fila_actividad[1]=cant_Procedencia_medicina;
             fila_actividad[2]=cant_Procedencia_obstetricia;
             fila_actividad[3]=cant_Procedencia_odontologia;
@@ -746,7 +747,7 @@ public class Inicio extends javax.swing.JPanel {
             fila_actividad[14]=Herramienta.dosDecimales((float)objlista_escuelas_por_receta.size()/cantAcum)+"%";
             modelo.addRow(fila_actividad);//agregando filas
             
-            table.addCell(new Paragraph(objlista_escuelas_por_receta.get(0).getControl_Paciente().getEstudiante().getEscuela().getNombre_rol()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));
+            table.addCell(new Paragraph(objlista_escuelas_por_receta.get(0).getControl_Paciente().getEstudiante().getEscuela().getNombre()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));
             table.addCell(new Paragraph(cant_Procedencia_medicina+"").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));
             table.addCell(new Paragraph(cant_Procedencia_obstetricia+"").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));
             table.addCell(new Paragraph(cant_Procedencia_odontologia+"").setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));

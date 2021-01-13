@@ -52,9 +52,9 @@ public class ActualizarControlDelAlumno extends javax.swing.JPanel{
     } 
   
     public void principalEjecucion(){
-        jlblEstEscuela.setText(objEstudiante.getEscuela().getNombre_rol());
+        jlblEstEscuela.setText(objEstudiante.getEscuela().getNombre());
         jlblEstCodigo.setText(objEstudiante.getCodigo());
-        jlblEstCondicion.setText(objEstudiante.getRolCondicion().getNombre_rol());
+        jlblEstCondicion.setText(objEstudiante.getCondicion().getNombre_rol());
         jlblEstNombres.setText(objEstudiante.getPersona().getInfoPersona());
         jcbSerie.setSelectedItem((String)objEstudiante.getSerie());
         desglozarDatos(); 
@@ -224,10 +224,10 @@ public class ActualizarControlDelAlumno extends javax.swing.JPanel{
         Control_paciente objControlNuevo=new Control_paciente();
         objControlNuevo.setEstudiante(objEstudiante);
         objControlNuevo.setLimite_control(110);
-        objControlNuevo.setMonto_Total(0);
+        objControlNuevo.setMonto_total(0);
         objControlNuevo.setSemestre(objSemestre);
         objControlNuevo.setFecha_registro(new Date());
-        objControlNuevo.setiSactivo(true);
+        objControlNuevo.setIsActivo(true);
         jpa.getTransaction().begin();
         objEstudiante.setSerie((String)jcbSerie.getSelectedItem());
         jpa.persist(objEstudiante);//he descubierto que ya no es necesario el persist, con tan solo que detecte

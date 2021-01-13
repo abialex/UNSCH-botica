@@ -67,7 +67,7 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
              jcbEscuela.addItem(RolEscuela);
              }
          Rol objEscuela1=new Rol();
-         objEscuela1.setId_Rol(450);
+         objEscuela1.setId(450);
          imprimir(objEscuela1);
          jbtnImprimir.setEnabled(false);
          }
@@ -277,7 +277,7 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnImprimirActionPerformed
   
     public void imprimir(Rol objEscuela) throws FileNotFoundException, DocumentException, IOException{
-        List<Estudiante> listaE=Herramienta.findbyWhere(Estudiante.class,"id_Rolescuela", objEscuela.getId_Rol(), jpa); 
+        List<Estudiante> listaE=Herramienta.findbyWhere(Estudiante.class,"id_Rolescuela", objEscuela.getId(), jpa); 
         DefaultTableModel modelo;
         Object[] fila_actividad;
              //.....................................TABLA......................................
@@ -334,19 +334,19 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
         table.addHeaderCell(new Cell().add(new Paragraph("Q.F").setFont(bold)).setTextAlignment(TextAlignment.CENTER).setFontSize(fontHeadTamaño));               
                
       for(Estudiante estudiante : listaE){
-          List<Control_paciente> objControl=Herramienta.findbyWhere(Control_paciente.class,"id_Estudiante", estudiante.getId_Estudiante(), jpa);
-          List<Receta> listaReceta=Herramienta.findbyBeetWeen(Receta.class,"fecha_creada",jcbYearDesde.getDatoFecha(),jcbYearHasta.getDatoFecha(),objControl.get(0).getId_Control_paciente(), jpa);
+          List<Control_paciente> objControl=Herramienta.findbyWhere(Control_paciente.class,"id_Estudiante", estudiante.getId(), jpa);
+          List<Receta> listaReceta=Herramienta.findbyBeetWeen(Receta.class,"fecha_creada",jcbYearDesde.getDatoFecha(),jcbYearHasta.getDatoFecha(),objControl.get(0).getId(), jpa);
           Collections.sort(listaReceta);//ordenando A-Z (método como Override)          
           for(Receta receta : listaReceta){
-              List<Detalle_Medicamentos> listMedi=Herramienta.findbyWhere(Detalle_Medicamentos.class,"id_Receta", receta.getId_Receta(), jpa);
+              List<Detalle_Medicamentos> listMedi=Herramienta.findbyWhere(Detalle_Medicamentos.class,"id_Receta", receta.getId(), jpa);
             Collections.sort(listMedi);//ordenando A-Z (método como Override)            
             for (Detalle_Medicamentos Detalle_Medicamento : listMedi){   
             table.addCell(new Paragraph(estudiante.getCodigo()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//codigo
             table.addCell(new Paragraph(estudiante.getPersona().getInfoPersona()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//inforpersona
             table.addCell(new Paragraph(estudiante.getSerie()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//Serie
             table.addCell(new Paragraph(Integer.toString(Herramienta.getAñosFrom(estudiante.getFecha_nacimiento()))).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//edad
-            table.addCell(new Paragraph(estudiante.getRolSexo().getAbre_rol()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//sexo
-            table.addCell(new Paragraph(estudiante.getRolCondicion().getAbre_rol()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//sexo
+            table.addCell(new Paragraph(estudiante.getSexo().getAbre_rol()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//sexo
+            table.addCell(new Paragraph(estudiante.getCondicion().getAbre_rol()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//sexo
             table.addCell(new Paragraph(receta.getRolProcedencia().getNombre_rol()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//Procedencia          
             table.addCell(new Paragraph(Detalle_Medicamento.getId_Medicamento().getNombre()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//P.F
             table.addCell(new Paragraph(Integer.toString(Detalle_Medicamento.getCantidad())).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//cantidad
@@ -357,8 +357,8 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
             fila_actividad[1]=estudiante.getPersona().getInfoPersona();  
             fila_actividad[2]=estudiante.getSerie();   
             fila_actividad[3]=Herramienta.getAñosFrom(estudiante.getFecha_nacimiento());  
-            fila_actividad[4]=estudiante.getRolSexo().getAbre_rol(); 
-            fila_actividad[5]=estudiante.getRolCondicion().getAbre_rol();             
+            fila_actividad[4]=estudiante.getSexo().getAbre_rol(); 
+            fila_actividad[5]=estudiante.getCondicion().getAbre_rol();             
             fila_actividad[6]=receta.getRolProcedencia().getNombre_rol(); 
             fila_actividad[7]=Detalle_Medicamento.getId_Medicamento().getNombre(); 
             fila_actividad[8]=Detalle_Medicamento.getCantidad();
@@ -380,7 +380,7 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
         else{
             jbtnImprimir.setEnabled(false);
             llenar_Tabla_de_Recetas(modelo); 
-            if(objEscuela.getId_Rol()!=450){
+            if(objEscuela.getId()!=450){
                 JOptionPane.showMessageDialog(jPanel5, "No se encontró Estudiante");                
             }
             

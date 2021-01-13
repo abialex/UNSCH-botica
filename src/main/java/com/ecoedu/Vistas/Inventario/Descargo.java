@@ -1039,7 +1039,7 @@ public class Descargo extends javax.swing.JPanel{
         objDescargoFaltante.setMotivo(jtfMotivoPerdida.getText());
         objDescargoFaltante.setUsuario(objUsuario);
         objDescargoFaltante.setCodigo_documento(jtfCodigoDocumento.getText());
-        objDescargoFaltante.setRolTipo((Rol)jcbTipoDescargo.getSelectedItem());
+        objDescargoFaltante.setTipo((Rol)jcbTipoDescargo.getSelectedItem());
         objLote.setCantidad(objLote.getCantidad()-objDescargoFaltante.getCantidad());
         objLote.getInventario().setCantidad(objLote.getInventario().getCantidad()-objDescargoFaltante.getCantidad());
         jpa.getTransaction().begin();
@@ -1069,7 +1069,7 @@ public class Descargo extends javax.swing.JPanel{
                     objDescargoVencido.setMotivo(jtfMotivoVencido.getText());
                     objDescargoVencido.setUsuario(objUsuario);
                     objDescargoVencido.setCodigo_documento(jtfCodigoDocumento.getText());
-                    objDescargoVencido.setRolTipo((Rol)jcbTipoDescargo.getSelectedItem());
+                    objDescargoVencido.setTipo((Rol)jcbTipoDescargo.getSelectedItem());
                     lote.getInventario().setCantidad(lote.getInventario().getCantidad()-objDescargoVencido.getCantidad());
                     lote.setIsVencido(true);
                     jpa.persist(objDescargoVencido);
@@ -1163,7 +1163,7 @@ public class Descargo extends javax.swing.JPanel{
                     objDescargaCampaña.setDestino_persona(jtfNombresPersona.getText());
                     objDescargaCampaña.setFecha(new Date());
                     objDescargaCampaña.setLote_detalle(objDetalleMedicamento.getLote_detalle());
-                    objDescargaCampaña.setRolTipo((Rol)jcbTipoDescargo.getSelectedItem());
+                    objDescargaCampaña.setTipo((Rol)jcbTipoDescargo.getSelectedItem());
                     objDescargaCampaña.setUsuario(objUsuario);  
                     objDescargaCampaña.setUsuarioRecibe(objPersonaReceptor);
                     jpa.persist(objDescargaCampaña);

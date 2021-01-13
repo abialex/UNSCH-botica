@@ -216,13 +216,13 @@ public class Reporte_Condicion extends javax.swing.JPanel {
         for (Control_paciente lista_controll : lista_control){
              boolean auxInventario=true;
              for (Rol listaAuxCondicion1: listaAuxCondicion){
-                 if(listaAuxCondicion1==lista_controll.getEstudiante().getRolCondicion()){
+                 if(listaAuxCondicion1==lista_controll.getEstudiante().getCondicion()){
                     auxInventario=false;		
                     break;
                     }
              }
             if(auxInventario){               
-                listaAuxCondicion.add(lista_controll.getEstudiante().getRolCondicion());
+                listaAuxCondicion.add(lista_controll.getEstudiante().getCondicion());
                 }
         } 
          return listaAuxCondicion;
@@ -285,7 +285,7 @@ public class Reporte_Condicion extends javax.swing.JPanel {
             for(Rol objCondicion : listaCondiciones){
                 int cant=0;
                 for(Control_paciente control_paciente : Lista_ControlPaciente){
-                    if(control_paciente.getEstudiante().getRolCondicion()==objCondicion){
+                    if(control_paciente.getEstudiante().getCondicion()==objCondicion){
                         cant++;          
                         }
                     }//fin for allreceta

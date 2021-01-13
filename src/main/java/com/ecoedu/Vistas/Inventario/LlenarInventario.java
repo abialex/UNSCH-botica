@@ -11,7 +11,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import com.ecoedu.model.Inventario;
+import com.ecoedu.model.Laboratorio;
 import com.ecoedu.model.Lote_detalle;
+import com.ecoedu.model.Proveedor;
 import com.ecoedu.model.RegistroMensualLotes;
 import com.ecoedu.model.Rol;
 import com.mxrck.autocompleter.AutoCompleterCallback;
@@ -36,8 +38,8 @@ public class LlenarInventario extends javax.swing.JPanel {
     List<Inventario> Lista_Inventario;    
     List<Lote_detalle> Lista_Lote_detalle_final=new ArrayList<>();
     List<Detalle_llenado> Lista_Detalle_Llenado_final=new ArrayList<>();    
-    List<Rol> Lista_Proveedor;
-    List<Rol> Lista_Fabricante;//lo uso mucho 
+    List<Proveedor> lista_proveedor;
+    List<Laboratorio> lista_laboratorio;//lo uso mucho 
     EntityManager jpa;
     Principal objPrincipal;
     TextAutoCompleter autoCompleterProductoFarmaceutico;
@@ -67,9 +69,9 @@ public class LlenarInventario extends javax.swing.JPanel {
             Query query2=jpa.createQuery("SELECT p FROM Inventario p");
             Lista_Inventario=query2.getResultList();
             Query query3=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=3");
-            Lista_Fabricante=query3.getResultList();        
+            lista_laboratorio=query3.getResultList();        
             Query query4=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=2");
-            Lista_Proveedor=query4.getResultList();
+            lista_proveedor=query4.getResultList();
             principalEjecucion();
             }
         else{
@@ -97,11 +99,11 @@ public class LlenarInventario extends javax.swing.JPanel {
         for (int i = 0; i < Lista_Inventario.size(); i++) {
             autoCompleterProductoFarmaceutico.addItem(Lista_Inventario.get(i).getMedicamento().getNombre());
         }   
-        for (int i = 0; i < Lista_Fabricante.size(); i++) {
-            autoCompleterFabricante.addItem(Lista_Fabricante.get(i).getNombre_rol());
+        for (int i = 0; i < lista_laboratorio.size(); i++) {
+            autoCompleterFabricante.addItem(lista_laboratorio.get(i).getNombre());
         }  
-        for (int i = 0; i < Lista_Proveedor.size(); i++) {
-            autoCompleterProveedor.addItem(Lista_Proveedor.get(i).getNombre_rol());
+        for (int i = 0; i < lista_proveedor.size(); i++) {
+            autoCompleterProveedor.addItem(lista_proveedor.get(i).getNombre());
         }  
         jlblFechaHoy.setText(Herramienta.formatoFechaMas1(new Date()));
         TextPrompt txr=new TextPrompt("AA",jtfAñovencimiento);
@@ -715,14 +717,14 @@ public class LlenarInventario extends javax.swing.JPanel {
          objLote_Detalle.setFecha_vencimiento(objFechaVencimiento);
          objLote_Detalle.setInventario(objInventario_final);
          MensajeFabricante="Ingrese un laboratorio Existente";
-         for (int i = 0; i < Lista_Fabricante.size(); i++){
-             if(Lista_Fabricante.get(i).getNombre_rol().equals(jtfLaboratorio.getText())){
-                 objLote_Detalle.setRolFabricante(Lista_Fabricante.get(i));
+         for (int i = 0; i < lista_laboratorio.size(); i++){
+             if(lista_laboratorio.get(i).getNombre().equals(jtfLaboratorio.getText())){
+                 objLote_Detalle.setLaboratorio(lista_laboratorio.get(i));
                  MensajeFabricante="";
              break;
              }             
         }      
-        objLote_Detalle.setPrecio_Venta_Redondeado(Float.parseFloat(jlblPVR.getText()));
+        objLote_Detalle.setPrecio_venta_redondeado(Float.parseFloat(jlblPVR.getText()));
         //fin Lote_detalle         
         //Detalle_Llenado
         //P.u,id_medicamento,user,fecha_registro----id_lote_detalle
@@ -735,16 +737,16 @@ public class LlenarInventario extends javax.swing.JPanel {
         //objInventario_final.setCantidad(objInventario_final.getCantidad()+Integer.parseInt(jtfCantidad.getText()));
         Factura objFactura=new Factura();
          //factura
-         Rol objProveedor = new Rol();
+            Proveedor objProveedor = new Proveedor();
          //codigo_factura
          objFactura.setCodigo_factura(jtfCodigoFactura.getText());
-         for (int i = 0; i < Lista_Proveedor.size(); i++){
-             if(Lista_Proveedor.get(i).getNombre_rol().equals(jtfProveedor.getText())){
-                 objProveedor=Lista_Proveedor.get(i);
+         for (int i = 0; i < lista_proveedor.size(); i++){
+             if(lista_proveedor.get(i).getNombre().equals(jtfProveedor.getText())){
+                 objProveedor=lista_proveedor.get(i);
              }
         }
         //maybe
-        objFactura.setRolProveedor(objProveedor);
+        objFactura.setProveedor(objProveedor);
         objLote_Detalle.setFactura(objFactura);
         Lista_Detalle_Llenado_final.add(objDetalle_llenado);
         Lista_Lote_detalle_final.add(objLote_Detalle);        
@@ -802,9 +804,9 @@ public class LlenarInventario extends javax.swing.JPanel {
                  fila_actividad[3]=listaLlenado.get(i);
                  fila_actividad[4]=listaLote.get(i).getPrecio_Venta_Redondeado();
                  fila_actividad[5]=Herramienta.formatoFecha(listaLote.get(i).getFecha_vencimiento());
-                 fila_actividad[6]=listaLote.get(i).getRolFabricante().getNombre_rol();
-                 fila_actividad[7]=listaLote.get(i).getFactura().getRolProveedor().getNombre_rol();
-                 fila_actividad[7]=listaLote.get(i).getFactura().getRolProveedor().getNombre_rol();
+                 fila_actividad[6]=listaLote.get(i).getLaboratorio().getNombre();
+                 fila_actividad[7]=listaLote.get(i).getFactura().getProveedor().getNombre();
+                 fila_actividad[7]=listaLote.get(i).getFactura().getProveedor().getNombre();
                  fila_actividad[8]=listaLote.get(i).getFactura().getCodigo_factura();             
                  modelo.addRow(fila_actividad);//agregando filas
                  }             
@@ -1082,8 +1084,8 @@ public class LlenarInventario extends javax.swing.JPanel {
     }//GEN-LAST:event_jtfCantidadKeyReleased
 
     private void jtfLaboratorioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfLaboratorioKeyReleased
-        for (Rol RolEscuela : Lista_Fabricante){
-            if(RolEscuela.getNombre_rol().equals(jtfLaboratorio.getText())){
+        for (Laboratorio laboratorio : lista_laboratorio){
+            if(laboratorio.getNombre().equals(jtfLaboratorio.getText())){
                 jlblAsteFabricante.setText("");
                 break;
             }
@@ -1141,8 +1143,8 @@ public class LlenarInventario extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnAgregarLotesKeyPressed
 
     private void jtfProveedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfProveedorKeyReleased
-        for (Rol RolEscuela : Lista_Proveedor){
-            if(RolEscuela.getNombre_rol().equals(jtfProveedor.getText())){
+        for (Proveedor proveedor : lista_proveedor){
+            if(proveedor.getNombre().equals(jtfProveedor.getText())){
                 jlblAsteProveedor.setText("");
                 break;
             }

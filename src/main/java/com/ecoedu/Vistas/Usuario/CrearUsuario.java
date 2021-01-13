@@ -62,7 +62,7 @@ public class CrearUsuario extends javax.swing.JPanel {
         }        
     }
     public void ConsultaBD(){          
-        Lista_Rol=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles="+objUsuarioVer.getRol().getTipo_Roles().getId_tipo_Roles()).getResultList();
+        Lista_Rol=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles="+objUsuarioVer.getRol().getTipo_Roles().getId()).getResultList();
            
     }   
     public void principalEjecucion(){  
@@ -320,7 +320,7 @@ public class CrearUsuario extends javax.swing.JPanel {
                 jpa.persist(objPersona);
                 jpa.refresh(objPersona);
                 objUsuarioo.setPersona(objPersona);
-                objUsuarioo.setNickname("farmacia"+objPersona.getId_Persona());
+                objUsuarioo.setNickname("farmacia"+objPersona.getId());
                 jpa.persist(objUsuarioo);
                 jpa.refresh(objUsuarioo);
                 //poner un thread de mensaje

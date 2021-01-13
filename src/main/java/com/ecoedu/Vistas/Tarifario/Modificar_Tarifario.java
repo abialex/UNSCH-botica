@@ -251,7 +251,7 @@ public class Modificar_Tarifario extends javax.swing.JPanel {
         objTarifarioGet.setRolTipo_asistencial((Rol)jcbTipo.getSelectedItem());
         jpa.getTransaction().begin();
         jpa.persist(objTarifarioGet);
-        jpa.createQuery("update Tarifario set id_RolTipo_asistencial="+( (Rol)jcbTipo.getSelectedItem()).getId_Rol()+"where id_Tarifario="+objTarifarioGet.getId_Tarifario()).executeUpdate();
+        jpa.createQuery("update Tarifario set id_RolTipo_asistencial="+( (Rol)jcbTipo.getSelectedItem()).getId()+"where id_Tarifario="+objTarifarioGet.getId()).executeUpdate();
         jpa.flush();
         ConsultaBD();
         principalEjecucion();
