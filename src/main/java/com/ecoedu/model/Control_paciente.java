@@ -24,24 +24,24 @@ import javax.persistence.ManyToOne;
 public class Control_paciente implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Control_paciente;
+    private int id;
     
     @JoinColumn(insertable = true,updatable = false,name="id_estudiante",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
     private Estudiante estudiante;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_Semestre",nullable = true)
+    @JoinColumn(insertable = true,updatable = false,name="id_semestre",nullable = true)
     @ManyToOne(cascade = CascadeType.ALL)
     private Semestre semestre;
     
-    @Column(name="monto_Total",nullable = false)
-    private float  monto_Total;
+    @Column(name="monto_total",nullable = false)
+    private float  monto_total;
     
     @Column(name="limite_control",nullable = true)
     private int limite_control;
 
-    @Column(name="iSactivo",nullable = false)
-    private boolean  iSactivo;
+    @Column(name="isActivo",nullable = false)
+    private boolean  isActivo;
     
     @Column(name="fecha_registro",nullable = true)
     private Date  fecha_registro;
@@ -62,14 +62,23 @@ public class Control_paciente implements Serializable{
     public void setFecha_registro(Date fecha_registro) {
         this.fecha_registro = fecha_registro;
     }   
-        
-    public boolean isiSactivo(){
-        return iSactivo;
+
+    public float getMonto_total() {
+        return monto_total;
     }
 
-    public void setiSactivo(boolean iSactivo) {
-        this.iSactivo = iSactivo;
+    public void setMonto_total(float monto_total) {
+        this.monto_total = monto_total;
     }
+
+    public boolean isIsActivo() {
+        return isActivo;
+    }
+
+    public void setIsActivo(boolean isActivo) {
+        this.isActivo = isActivo;
+    }
+        
 
     public int getLimite_control() {
         return limite_control;
@@ -79,14 +88,13 @@ public class Control_paciente implements Serializable{
         this.limite_control = limite_control;
     }
     
-    
-    
-    public int getId_Control_paciente() {
-        return id_Control_paciente;
+     
+    public int getId() {
+        return id;
     }
 
-    public void setId_Control_paciente(int id_Receta) {
-        this.id_Control_paciente = id_Receta;
+    public void setId(int id_Receta) {
+        this.id = id_Receta;
     }
 
     public Estudiante getEstudiante() {
@@ -97,15 +105,8 @@ public class Control_paciente implements Serializable{
         this.estudiante = estudiante;
     }
 
-    public float getMonto_Total() {
-        return monto_Total;
-    }
-
-    public void setMonto_Total(float monto_Total) {
-        this.monto_Total = monto_Total;
-    }
     public Control_paciente agregarPrecioTotal(float precio_total){
-        this.monto_Total=monto_Total+precio_total;
+        this.monto_total=monto_total+precio_total;
         return this;
     }
     
