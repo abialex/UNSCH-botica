@@ -18,7 +18,7 @@ import javax.persistence.Id;
 public class Diagnostico{
     @Id
     @Column(unique = true, length = 6, nullable = false)
-    private String id_DiagnosticoCodigo;
+    private String id;
     
     @Column(name = "descripcion_Diagnostico",nullable = false)
     private String descripcion_Diagnostico;
@@ -29,12 +29,12 @@ public class Diagnostico{
     
     
 
-    public String getId_DiagnosticoCodigo(){
-        return id_DiagnosticoCodigo;
+    public String getId(){
+        return id;
     }
 
-    public void setId_DiagnosticoCodigo(String id_DiagnosticoCodigo) {
-        this.id_DiagnosticoCodigo = id_DiagnosticoCodigo;
+    public void setId(String id_DiagnosticoCodigo) {
+        this.id = id_DiagnosticoCodigo;
     }
 
     public String getDescripcion_Diagnostico() {

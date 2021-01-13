@@ -23,7 +23,7 @@ import javax.persistence.ManyToOne;
 public class Detalle_Medicamentos  implements Comparable<Detalle_Medicamentos>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Detalle_control_paciente;
+    private int id;
     
     @JoinColumn(insertable = true,updatable = false,name="id_Medicamento",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
@@ -77,12 +77,12 @@ public class Detalle_Medicamentos  implements Comparable<Detalle_Medicamentos>{
         this.usuario = usuario;
     }
     
-    public int getId_Detalle_control_paciente() {
-        return id_Detalle_control_paciente;
+    public int getId() {
+        return id;
     }
 
-    public void setId_Detalle_control_paciente(int id_Detalle_control_paciente) {
-        this.id_Detalle_control_paciente = id_Detalle_control_paciente;
+    public void setId(int id_Detalle_control_paciente) {
+        this.id = id_Detalle_control_paciente;
     }
 
     public Medicamento getId_Medicamento() {

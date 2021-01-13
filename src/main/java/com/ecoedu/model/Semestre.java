@@ -21,7 +21,7 @@ import javax.persistence.Id;
 public class Semestre implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Semestre;
+    private int id;
     
     @Column(name = "fecha_inicio",nullable = false)
     private Date fecha_Inicio;
@@ -38,12 +38,12 @@ public class Semestre implements Serializable {
     
    
 
-    public int getId_Semestre() {
-        return id_Semestre;
+    public int getId() {
+        return id;
     }
 
-    public void setId_Semestre(int id_Semestre) {
-        this.id_Semestre = id_Semestre;
+    public void setId(int id_Semestre) {
+        this.id = id_Semestre;
     }
 
     public Date getFecha_Inicio() {

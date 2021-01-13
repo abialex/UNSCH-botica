@@ -24,18 +24,18 @@ public class Estudiante{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Estudiante;
+    private int id;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_Persona",nullable = false)
+    @JoinColumn(insertable = true,updatable = false,name="id_persona",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
     private Persona persona;
     
     @Column(name="fecha_nacimiento",nullable = true)
     private Date  fecha_nacimiento;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_Rolescuela",nullable = false)
+    @JoinColumn(insertable = true,updatable = false,name="id_escuela",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
-    private Rol Rolescuela;
+    private Escuela escuela;
     
     @Column(name="codigo",unique = true,length = 8,nullable = false)
     private String codigo;
@@ -43,77 +43,23 @@ public class Estudiante{
     @Column(name="serie",length = 3,nullable = false)
     private String serie;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_RolCondicion",nullable = true)
+    @JoinColumn(insertable = true,updatable = false,name="id_condicion",nullable = true)
     @ManyToOne(cascade = CascadeType.ALL)
-    private Rol RolCondicion;
+    private Rol Condicion;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_RolSexo",nullable = false)
+    @JoinColumn(insertable = true,updatable = false,name="id_sexo",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
-    private Rol RolSexo;
+    private Rol Sexo;
     
-    @Column(name="nroTelefonico",unique = true,length = 9,nullable = true)
-    private String NroTelefonico;
+    @Column(name="nrotelefonico",unique = true,length = 9,nullable = true)
+    private String nrotelefonico;
 
-    public String getNroTelefonico() {
-        return NroTelefonico;
+    public int getId() {
+        return id;
     }
 
-    public void setNroTelefonico(String NroTelefonico) {
-        this.NroTelefonico = NroTelefonico;
-    }
-    
-    
-
-    public Rol getRolescuela() {
-        return Rolescuela;
-    }
-
-    public void setRolescuela(Rol Rolescuela) {
-        this.Rolescuela = Rolescuela;
-    }
-
-    public Rol getRolSexo() {
-        return RolSexo;
-    }
-
-    public void setRolSexo(Rol RolSexo) {
-        this.RolSexo = RolSexo;
-    }
-
-    public Rol getRolCondicion() {
-        return RolCondicion;
-    }
-
-    public void setRolCondicion(Rol RolCondicion) {
-        this.RolCondicion = RolCondicion;
-    }
-
-    public Date getFecha_nacimiento() {
-        return fecha_nacimiento;
-    }
-
-    public void setFecha_nacimiento(Date fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
-    }
-    
-        
-
-    public String getSerie() {
-        return serie;
-    }
-
-    public void setSerie(String serie) {
-        this.serie = serie;
-    }
-
-    
-    
-    public int getId_Estudiante() {
-        return id_Estudiante;
-    }
-
-    public void setId_Estudiante(int id_Estudiante) {
-        this.id_Estudiante = id_Estudiante;
+    public void setId(int id_Estudiante) {
+        this.id = id_Estudiante;
     }
 
     public Persona getPersona() {
@@ -124,12 +70,20 @@ public class Estudiante{
         this.persona = persona;
     }
 
-    public Rol getEscuela() {
-        return Rolescuela;
+    public Date getFecha_nacimiento() {
+        return fecha_nacimiento;
     }
 
-    public void setEscuela(Rol rolescuela) {
-        this.Rolescuela = rolescuela;
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
+
+    public Escuela getEscuela() {
+        return escuela;
+    }
+
+    public void setEscuela(Escuela escuela) {
+        this.escuela = escuela;
     }
 
     public String getCodigo() {
@@ -139,6 +93,40 @@ public class Estudiante{
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+
+    public String getSerie() {
+        return serie;
+    }
+
+    public void setSerie(String serie) {
+        this.serie = serie;
+    }
+
+    public Rol getCondicion() {
+        return Condicion;
+    }
+
+    public void setCondicion(Rol Condicion) {
+        this.Condicion = Condicion;
+    }
+
+    public Rol getSexo() {
+        return Sexo;
+    }
+
+    public void setSexo(Rol Sexo) {
+        this.Sexo = Sexo;
+    }
+
+    public String getNrotelefonico() {
+        return nrotelefonico;
+    }
+
+    public void setNrotelefonico(String nrotelefonico) {
+        this.nrotelefonico = nrotelefonico;
+    }
+
+   
     
     
     

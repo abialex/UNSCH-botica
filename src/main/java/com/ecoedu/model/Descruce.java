@@ -24,7 +24,7 @@ import javax.persistence.ManyToOne;
 public class Descruce implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Descruce;
+    private int id;
     
     @Column(name = "motivo",nullable = false,length = 200)
     private String motivo;
@@ -77,12 +77,12 @@ public class Descruce implements Serializable {
         this.lote_detalle2 = lote_detalle2;
     }
     
-    public int getId_Descruce() {
-        return id_Descruce;
+    public int getId() {
+        return id;
     }
 
-    public void setId_Descruce(int id_Descruce) {
-        this.id_Descruce = id_Descruce;
+    public void setId(int id_Descruce) {
+        this.id = id_Descruce;
     }
 
     public String getMotivo() {

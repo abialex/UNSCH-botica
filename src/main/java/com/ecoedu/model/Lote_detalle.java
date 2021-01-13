@@ -20,25 +20,25 @@ import javax.persistence.ManyToOne;
  * @author yrma
  */
 @Entity
-public class Lote_detalle implements Comparable<Lote_detalle>, Serializable{
+public class Lote_detalle implements Comparable<Lote_detalle>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Lote_detalle;
+    private int id;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_Inventario",nullable = false)
+    @JoinColumn(insertable = true,updatable = false,name="id_inventario",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
     private Inventario inventario;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_RolFabricante",nullable = true)
+    @JoinColumn(insertable = true,updatable = false,name="id_laboratorio",nullable = true)
     @ManyToOne(cascade = CascadeType.ALL)
-    private Rol RolFabricante;
+    private Laboratorio laboratorio;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_Factura",nullable = false)
+    @JoinColumn(insertable = true,updatable = false,name="id_factura",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
     private Factura factura;
     
-    @Column(name = "Precio_Venta_Redondeado",nullable = false)
-    private float precio_Venta_Redondeado;
+    @Column(name = "precio_venta_redondeado",nullable = false)
+    private float precio_venta_redondeado;
     
     @Column(name="fecha_vencimiento",nullable = false)
     private Date  fecha_vencimiento;
@@ -52,7 +52,7 @@ public class Lote_detalle implements Comparable<Lote_detalle>, Serializable{
     @Column(name="isVencido",nullable = false)
     private boolean  isVencido;
     public float getPrecio_Venta_Redondeado() {
-        return precio_Venta_Redondeado;
+        return precio_venta_redondeado;
     }
 
     public boolean isIsVencido() {
@@ -64,9 +64,6 @@ public class Lote_detalle implements Comparable<Lote_detalle>, Serializable{
     }
     
 
-    public void setPrecio_Venta_Redondeado(float precio_Venta_Redondeado) {
-        this.precio_Venta_Redondeado = precio_Venta_Redondeado;
-    }
 
     public Factura getFactura() {
         return factura;
@@ -76,19 +73,26 @@ public class Lote_detalle implements Comparable<Lote_detalle>, Serializable{
         this.factura = factura;
     }   
     
-    public int getId_Lote_detalle() {
-        return id_Lote_detalle;
+    public int getId() {
+        return id;
     }
 
-    public Rol getRolFabricante() {
-        return RolFabricante;
+    public Laboratorio getLaboratorio() {
+        return laboratorio;
     }
 
-    public void setRolFabricante(Rol RolFabricante) {
-        this.RolFabricante = RolFabricante;
+    public float getPrecio_venta_redondeado() {
+        return precio_venta_redondeado;
     }
 
-      
+    public void setLaboratorio(Laboratorio laboratorio) {
+        this.laboratorio = laboratorio;
+    }
+
+    public void setPrecio_venta_redondeado(float precio_venta_redondeado) {
+        this.precio_venta_redondeado = precio_venta_redondeado;
+    }
+
 
     public Date getFecha_vencimiento() {
         return fecha_vencimiento;
@@ -98,8 +102,8 @@ public class Lote_detalle implements Comparable<Lote_detalle>, Serializable{
         this.fecha_vencimiento = fecha_vencimiento;
     }
     
-    public void setId_Lote_detalle(int id_Lote_detalle) {
-        this.id_Lote_detalle = id_Lote_detalle;
+    public void setId(int id_Lote_detalle) {
+        this.id = id_Lote_detalle;
     }
 
     public Inventario getInventario() {

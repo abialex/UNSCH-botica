@@ -24,23 +24,23 @@ import javax.persistence.ManyToOne;
 public class Descarga implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Descarga;
+    private int id;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_Usuario",nullable = false)
+    @JoinColumn(insertable = true,updatable = false,name="id_usuario",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
     private Usuario usuario;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_UsuarioReceptor",nullable = true)
+    @JoinColumn(insertable = true,updatable = false,name="id_usuarioreceptor",nullable = true)
     @ManyToOne(cascade = CascadeType.ALL)
-    private Usuario usuarioRecibe;
+    private Usuario usuarioreceptor;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_Lote_detalle",nullable = false)
+    @JoinColumn(insertable = true,updatable = false,name="id_lote_detalle",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
     private Lote_detalle lote_detalle;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_RolTipo",nullable = false)
+    @JoinColumn(insertable = true,updatable = false,name="id_tipo",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
-    private Rol rolTipo;
+    private Rol tipo;
     
     @Column(name = "cantidad",nullable = false)
     private int cantidad;
@@ -66,19 +66,19 @@ public class Descarga implements Serializable {
     }
 
     public Usuario getUsuarioRecibe() {
-        return usuarioRecibe;
+        return usuarioreceptor;
     }
 
-    public void setUsuarioRecibe(Usuario usuarioRecibe) {
-        this.usuarioRecibe = usuarioRecibe;
+    public void setUsuarioRecibe(Usuario usuarioreceptor) {
+        this.usuarioreceptor = usuarioreceptor;
     }  
     
-    public int getId_Descarga() {
-        return id_Descarga;
+    public int getId() {
+        return id;
     }
 
-    public void setId_Descarga(int id_Descarga) {
-        this.id_Descarga = id_Descarga;
+    public void setId(int id_Descarga) {
+        this.id = id_Descarga;
     }
 
     public Usuario getUsuario() {
@@ -101,12 +101,12 @@ public class Descarga implements Serializable {
         return cantidad;
     }
 
-    public Rol getRolTipo() {
-        return rolTipo;
+    public Rol getTipo() {
+        return tipo;
     }
 
-    public void setRolTipo(Rol rolTipo) {
-        this.rolTipo = rolTipo;
+    public void setTipo(Rol Tipo) {
+        this.tipo = Tipo;
     }
     
     public void setCantidad(int cantidad) {

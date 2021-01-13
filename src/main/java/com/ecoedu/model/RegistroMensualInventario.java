@@ -36,7 +36,7 @@ public class RegistroMensualInventario implements Serializable,Comparable<Regist
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Registro_mensual_Inventario;
+    private int id;
     
     @Column(name = "cantidad_inicial",nullable = false)
     private int cantidad_inicial;
@@ -76,12 +76,12 @@ public class RegistroMensualInventario implements Serializable,Comparable<Regist
         this.inventario = inventario;
     }   
 
-    public int getId_Registro_mensual_Inventario() {
-        return id_Registro_mensual_Inventario;
+    public int getId() {
+        return id;
     }
 
-    public void setId_Registro_mensual_Inventario(int id_Registro_mensual_Inventario) {
-        this.id_Registro_mensual_Inventario = id_Registro_mensual_Inventario;
+    public void setId(int id_Registro_mensual_Inventario) {
+        this.id = id_Registro_mensual_Inventario;
     }
 
     public int getCantidad_inicial() {

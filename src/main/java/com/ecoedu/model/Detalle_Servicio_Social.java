@@ -19,18 +19,18 @@ import javax.persistence.ManyToOne;
 public class Detalle_Servicio_Social implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Detalle_servicio_social;
+    private int id;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_Servicio_social",nullable = false)
+    @JoinColumn(insertable = true,updatable = false,name="id_servicio_social",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
     private Servicio_social servicio_social;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_Usuario",nullable = false)
+    @JoinColumn(insertable = true,updatable = false,name="id_usuario",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
     private Usuario usuario;
     
     
-    @JoinColumn(insertable = true,updatable = false,name="id_Tarifario",nullable = false)
+    @JoinColumn(insertable = true,updatable = false,name="id_tarifario",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
     private Tarifario tarifario;
    
@@ -38,12 +38,12 @@ public class Detalle_Servicio_Social implements Serializable{
     @Column(name="precio",nullable = false)
     private float  precio_Total;
 
-    public int getId_Detalle_servicio_social() {
-        return id_Detalle_servicio_social;
+    public int getId() {
+        return id;
     }
 
-    public void setId_Detalle_servicio_social(int id_Detalle_servicio_social) {
-        this.id_Detalle_servicio_social = id_Detalle_servicio_social;
+    public void setId(int id_Detalle_servicio_social) {
+        this.id = id_Detalle_servicio_social;
     }
 
     public Servicio_social getServicio_social() {

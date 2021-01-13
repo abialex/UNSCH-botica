@@ -23,7 +23,7 @@ import javax.persistence.ManyToOne;
 public class Tarifario implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Tarifario;
+    private int id;
     
     @Column(name = "descripcion", nullable = false)
     private String descripcion;
@@ -56,12 +56,12 @@ public class Tarifario implements Serializable{
     
     
     
-    public int getId_Tarifario() {
-        return id_Tarifario;
+    public int getId() {
+        return id;
     }
 
-    public void setId_Tarifario(int id_Tarifario) {
-        this.id_Tarifario = id_Tarifario;
+    public void setId(int id_Tarifario) {
+        this.id = id_Tarifario;
     }
 
     public String getDescripcion() {

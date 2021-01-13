@@ -18,7 +18,7 @@ import javax.persistence.Id;
 public class Escuela {
     @Id
     @Column(unique = true, nullable = false)
-    private String id_escuela;
+    private String id;
     
     
     @Column(name = "nombre",nullable = false)
@@ -27,12 +27,12 @@ public class Escuela {
     @Column(name = "abreviatura",nullable = true)
     private String abreviatura;
 
-    public String getId_escuela() {
-        return id_escuela;
+    public String getId() {
+        return id;
     }
 
-    public void setId_escuela(String id_escuela) {
-        this.id_escuela = id_escuela;
+    public void setId(String id_escuela) {
+        this.id = id_escuela;
     }
 
     public String getNombre() {

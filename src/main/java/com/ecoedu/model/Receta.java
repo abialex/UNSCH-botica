@@ -25,7 +25,7 @@ import javax.persistence.ManyToOne;
 public class Receta implements Comparable<Receta>, Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Diagnostico;
+    private int id;
     
     @JoinColumn(insertable = true,updatable = false,name="id_Control_paciente",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
@@ -80,12 +80,12 @@ public class Receta implements Comparable<Receta>, Serializable{
         this.total_costo_medicinas = total_costo_medicinas;
     }     
 
-    public int getId_Receta() {
-        return id_Diagnostico;
+    public int getId() {
+        return id;
     }
 
-    public void setId_Receta(int id_Diagnostico) {
-        this.id_Diagnostico = id_Diagnostico;
+    public void setId(int id_Diagnostico) {
+        this.id = id_Diagnostico;
     }
 
     public Date getFecha_creada() {

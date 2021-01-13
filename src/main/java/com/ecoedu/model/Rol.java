@@ -22,7 +22,7 @@ import javax.persistence.ManyToOne;
 public class Rol implements Comparable<Rol>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Rol;
+    private int id;
     
     @Column(name = "nombre_rol",nullable = false,length = 30)
     private String nombre_rol;
@@ -30,12 +30,12 @@ public class Rol implements Comparable<Rol>{
     @Column(name = "abre_rol",nullable = true,length = 2)
     private String abre_rol;
 
-    public int getId_Rol() {
-        return id_Rol;
+    public int getId() {
+        return id;
     }
 
-    public void setId_Rol(int id_Rol) {
-        this.id_Rol = id_Rol;
+    public void setId(int id_Rol) {
+        this.id = id_Rol;
     }
     
     @JoinColumn(insertable = true,updatable = false,name="id_tipo_Roles",nullable = true)

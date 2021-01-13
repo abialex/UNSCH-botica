@@ -17,17 +17,17 @@ import javax.persistence.Id;
 public class Tipo_Roles implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_tipo_Roles;
+    private int id;
     
     @Column(name = "nombre_rol",nullable = false,length = 30)
     private String nombre_rol;
 
-    public int getId_tipo_Roles() {
-        return id_tipo_Roles;
+    public int getId() {
+        return id;
     }
 
-    public void setId_tipo_Roles(int id_tipo_Roles) {
-        this.id_tipo_Roles = id_tipo_Roles;
+    public void setId(int id_tipo_Roles) {
+        this.id = id_tipo_Roles;
     }
 
     public String getNombre_rol() {

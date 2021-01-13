@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 public class Medicamento{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Medicamento;  
+    private int id;  
     
     @Column(name="nombre",unique = true,length = 100,nullable = false)
     private String  nombre;
@@ -53,12 +53,12 @@ public class Medicamento{
         this.Rolorigen = Rolorigen;
     }
     
-    public int getId_Medicamento() {
-        return id_Medicamento;
+    public int getId() {
+        return id;
     }
     
-    public void setId_Medicamento(int id_Medicamento) {
-        this.id_Medicamento = id_Medicamento;
+    public void setId(int id_Medicamento) {
+        this.id = id_Medicamento;
     }
 
     public String getNombre() {

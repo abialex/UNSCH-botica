@@ -19,14 +19,14 @@ import javax.persistence.ManyToOne;
 public class Factura implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Factura;
+    private int id;
     
     @Column(name = "codigo_factura",nullable = false)
     private String codigo_factura;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_RolProveedor",nullable = true)
+    @JoinColumn(insertable = true,updatable = false,name="id_proveedor",nullable = true)
     @ManyToOne(cascade = CascadeType.ALL)
-    private Rol RolProveedor;
+    private Proveedor proveedor;
 
     public String getCodigo_factura() {
         return codigo_factura;
@@ -36,21 +36,26 @@ public class Factura implements Serializable{
         this.codigo_factura = codigo_factura;
     }
 
-    public int getId_Factura() {
-        return id_Factura;
+    public int getId() {
+        return id;
     }
 
-    public void setId_Factura(int id_Factura) {
-        this.id_Factura = id_Factura;
+    public void setId(int id_Factura) {
+        this.id = id_Factura;
     }
 
-    public Rol getRolProveedor() {
-        return RolProveedor;
+    public Proveedor getProveedor() {
+        return proveedor;
     }
 
-    public void setRolProveedor(Rol RolProveedor) {
-        this.RolProveedor = RolProveedor;
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
     }
+    
+    
+    
+
+
 
     
     

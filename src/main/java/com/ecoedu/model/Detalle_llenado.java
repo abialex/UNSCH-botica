@@ -24,21 +24,21 @@ import javax.persistence.ManyToOne;
 public class Detalle_llenado implements Comparable<Detalle_llenado>, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Detalle_llenado;
+    private int id;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_Usuario",nullable = false)
+    @JoinColumn(insertable = true,updatable = false,name="id_usuario",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
     private Usuario usuario;
     
-    @JoinColumn(insertable = true,updatable = false,name="id_Medicamento",nullable = false)
+    @JoinColumn(insertable = true,updatable = false,name="id_medicamento",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
     private Medicamento medicamento;
     
-    @JoinColumn(insertable = true,updatable = false,unique = true,name="id_Lote_detalle",nullable = false)
+    @JoinColumn(insertable = true,updatable = false,unique = true,name="id_lote_detalle",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
     private Lote_detalle lote_detalle;
     
-    @Column(name="precio_Unitario",nullable = false)
+    @Column(name="precio_unitario",nullable = false)
     private float  precio_unitario;
     
     @Column(name="fecha_de_registro",nullable = false)
@@ -47,8 +47,8 @@ public class Detalle_llenado implements Comparable<Detalle_llenado>, Serializabl
     @Column(name = "cantidad", nullable = false)
     private int cantidad;
 
-    public int getId_Detalle_llenado() {
-        return id_Detalle_llenado;
+    public int getId() {
+        return id;
     }
 
     public Date getFecha_de_registro() {
@@ -68,8 +68,8 @@ public class Detalle_llenado implements Comparable<Detalle_llenado>, Serializabl
     }
     
 
-    public void setId_Detalle_llenado(int id_Detalle_llenado) {
-        this.id_Detalle_llenado = id_Detalle_llenado;
+    public void setId(int id_Detalle_llenado) {
+        this.id = id_Detalle_llenado;
     }
 
     public Usuario getUsuario() {

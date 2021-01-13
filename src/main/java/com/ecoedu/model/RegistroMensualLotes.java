@@ -38,7 +38,7 @@ public class RegistroMensualLotes implements Comparable<RegistroMensualLotes>,Se
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Registro_mensual_lotes;
+    private int id;
     
     @Column(name = "cantidad_inicial",nullable = false)
     private int cantidad_inicial;
@@ -83,12 +83,12 @@ public class RegistroMensualLotes implements Comparable<RegistroMensualLotes>,Se
     }  
     
     
-    public int getId_Registro_mensual_lotes() {
-        return id_Registro_mensual_lotes;
+    public int getId() {
+        return id;
     }
 
-    public void setId_Registro_mensual_lotes(int id_Registro_mensual_lotes) {
-        this.id_Registro_mensual_lotes = id_Registro_mensual_lotes;
+    public void setId(int id_Registro_mensual_lotes) {
+        this.id = id_Registro_mensual_lotes;
     }
 
     public int getCantidad_inicial() {

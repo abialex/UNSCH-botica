@@ -24,7 +24,7 @@ import javax.persistence.ManyToOne;
 public class Servicio_social implements Serializable,Comparable<Servicio_social> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Detalle_servicio_social;//cambiar xd
+    private int id;//cambiar xd
     
     
     
@@ -46,12 +46,12 @@ public class Servicio_social implements Serializable,Comparable<Servicio_social>
         this.control_Paciente = control_Paciente;
     } 
 
-    public int getId_Detalle_servicio_social() {
-        return id_Detalle_servicio_social;
+    public int getId() {
+        return id;
     }
 
-    public void setId_Detalle_servicio_social(int id_Detalle_servicio_social) {
-        this.id_Detalle_servicio_social = id_Detalle_servicio_social;
+    public void setId(int id_Detalle_servicio_social) {
+        this.id = id_Detalle_servicio_social;
     }
 
     public Date getFecha() {

@@ -24,7 +24,7 @@ import javax.persistence.ManyToOne;
 public class Persona{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Persona;
+    private int id;
     
     @Column(name="nombres",length = 50,nullable = false)
     private String nombres;
@@ -46,12 +46,12 @@ public class Persona{
         this.nombres = nombres;
     }
 
-    public int getId_Persona() {
-        return id_Persona;
+    public int getId() {
+        return id;
     }
 
-    public void setId_Persona(int id_Persona) {
-        this.id_Persona = id_Persona;
+    public void setId(int id_Persona) {
+        this.id = id_Persona;
     }   
 
     public String getApellido_Paterno() {

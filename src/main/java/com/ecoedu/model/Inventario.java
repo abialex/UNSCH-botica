@@ -22,7 +22,7 @@ import javax.persistence.ManyToOne;
 public class Inventario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_Inventario;
+    private int id;
     
     @JoinColumn(insertable = true,updatable = false,unique = true,name="id_Medicamento",nullable = false)
     @ManyToOne(cascade = CascadeType.ALL)
@@ -31,12 +31,12 @@ public class Inventario {
     @Column(name="cantidad",nullable = false)
     private int  cantidad;
 
-    public int getId_Inventario() {
-        return id_Inventario;
+    public int getId() {
+        return id;
     }
 
-    public void setId_Inventario(int id_Inventario) {
-        this.id_Inventario = id_Inventario;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Medicamento getMedicamento() {
