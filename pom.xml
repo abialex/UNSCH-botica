@@ -22,32 +22,7 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jdbc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		 <exclusions>
-		  <exclusion>
-		   <groupId>org.apache.logging.log4j</groupId>
-		   <artifactId>log4j-to-slf4j</artifactId>
-		  </exclusion>
-		  <exclusion>
-		   <groupId>org.apache.logging.log4j</groupId>
-		   <artifactId>log4j-api</artifactId>
-		  </exclusion>
-		  <exclusion>
-		   <groupId>com.fasterxml.jackson.core</groupId>
-		   <artifactId>jackson-core</artifactId>
-		  </exclusion>
-		 </exclusions>
-		</dependency>
+	
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -102,30 +77,51 @@
         <scope>compile</scope>
     </dependency>
     <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.4.24.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.32.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zsoltfabok</groupId>
+            <artifactId>sqlite-dialect</artifactId>
+            <version>1.0</version>
+        </dependency>
+    <dependency>
         <groupId>com.itextpdf</groupId>
         <artifactId>pdftest</artifactId>
         <version>7.0.0</version>
         <scope>compile</scope>
     </dependency>
+
+	 <dependency>
+	  <groupId>commons-codec</groupId>
+	  <artifactId>commons-codec</artifactId>
+	  <version>1.13</version>
+	 </dependency>
+	 <dependency>
+	  <groupId>org.webjars.npm</groupId>
+	  <artifactId>autocompleter</artifactId>
+	  <version>5.2.0</version>
+	 </dependency>
 	 <dependency>
 	  <groupId>unknown.binary</groupId>
 	  <artifactId>RSCalendar</artifactId>
 	  <version>SNAPSHOT</version>
 	 </dependency>
 	 <dependency>
-	  <groupId>unknown.binary</groupId>
-	  <artifactId>AutoCompleter</artifactId>
-	  <version>SNAPSHOT</version>
-	 </dependency>
-	 <dependency>
-	  <groupId>unknown.binary</groupId>
+	  <groupId>org.netbeans.external</groupId>
 	  <artifactId>AbsoluteLayout</artifactId>
-	  <version>SNAPSHOT</version>
+	  <version>RELEASE90</version>
 	 </dependency>
 	 <dependency>
-	  <groupId>commons-codec</groupId>
-	  <artifactId>commons-codec</artifactId>
-	  <version>1.13</version>
+	  <groupId>mysql</groupId>
+	  <artifactId>mysql-connector-java</artifactId>
+	  <version>8.0.22</version>
 	 </dependency>
 	</dependencies>
 

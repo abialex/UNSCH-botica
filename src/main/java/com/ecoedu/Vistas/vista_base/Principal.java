@@ -1023,7 +1023,7 @@ public class Principal extends javax.swing.JFrame{
         jleftServicioFarmacia.setLayout(new java.awt.BorderLayout());
 
         jLabel6.setBackground(new java.awt.Color(153, 0, 153));
-        jLabel6.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 24)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tw Cen MT Condensed", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("Servicio Farmacia");

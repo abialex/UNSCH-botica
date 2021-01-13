@@ -19,14 +19,14 @@ import org.apache.commons.codec.digest.DigestUtils;
  * @author yrma
  */
 public class Herramienta { 
-    public  static void main(String asdasd[]){
+    /*public  static void main(String asdasd[]){
         String encriptado=DigestUtils.md5Hex("123456");
         String encriptado2=DigestUtils.md5Hex("alexcito");
         System.out.println(encriptado.equals(encriptado2));
         System.out.println(DigestUtils.md5Hex(encriptado));
         System.out.println(DigestUtils.md5Hex(encriptado2));
         
-    }
+    }*/
     public static float redondeo(float a){
        int b=(int)a*100;
        int uy=b/100;

@@ -1,11 +1,11 @@
 package com.ecoedu;
-
+/*
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ecoedu.dao.ClasepruebaDao;
-import com.ecoedu.dao.PersonaDao;
+import com.ecoedu.dao.PersonaDao;s
 import com.ecoedu.model.Claseprueba;
 import com.ecoedu.model.Persona;
 import com.ecoedu.services.ClasepruebaServices;
@@ -27,4 +27,4 @@ class AprenderCieloApplicationTests {
 		}
 	}
 
-}
+}*/

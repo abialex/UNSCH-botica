@@ -506,7 +506,9 @@ public class Login extends javax.swing.JPanel{
             jbtnIngresar.setEnabled(true);
             }
         catch(Exception e) {
-            jlblMensaje.setText("Falló la conexión");
+            jlblMensaje.setText(""+ e.toString());
+            JOptionPane.showMessageDialog(loginframe, e.toString());
+            
             auxOpera=false; 
             }        
     }
@@ -522,7 +524,7 @@ public class Login extends javax.swing.JPanel{
         if(auxOpera){
             try{
                 Query query=jpa.createQuery("SELECT e FROM Usuario e where nickname="+"'"+jtfUsuario.getText()+"'"+" and "+
-                "contraseña="+"'"+ DigestUtils.md5Hex(jtfContraseña.getText())+"'");
+                "contraseña="+"'"+ jtfContraseña.getText()+"'");//DigestUtils.md5Hex(jtfContraseña.getText())
                 List<Usuario> listaUsuario=query.getResultList();
                 if(!listaUsuario.isEmpty()){
                     usuario = listaUsuario.get(0);

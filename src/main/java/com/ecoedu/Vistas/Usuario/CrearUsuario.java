@@ -313,7 +313,7 @@ public class CrearUsuario extends javax.swing.JPanel {
             objPersona.setDni(jtfDni.getText());
             Usuario objUsuarioo=new Usuario();
             objUsuarioo.setRol((Rol)jcbRol.getSelectedItem());
-            objUsuarioo.setContraseña(DigestUtils.md5Hex(jtfDni.getText()));
+            objUsuarioo.setContraseña(DigestUtils.md5Hex(jtfDni.getText()));//encriptando contraseña
             objUsuarioo.setCambio(false);
             try{
                 jpa.getTransaction().begin();

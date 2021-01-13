@@ -143,9 +143,10 @@ public class ProveedorLaboratorio extends javax.swing.JPanel{
         setPreferredSize(new java.awt.Dimension(900, 650));
         setLayout(new java.awt.BorderLayout());
 
-        head.setBackground(new java.awt.Color(153, 255, 204));
+        head.setBackground(new java.awt.Color(255, 51, 51));
         head.setPreferredSize(new java.awt.Dimension(900, 70));
 
+        jLabel12.setBackground(new java.awt.Color(255, 102, 102));
         jLabel12.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
