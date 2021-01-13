@@ -14,12 +14,17 @@ public class ZObjetoProDiag implements Comparable<ZObjetoProDiag>{
     private Diagnostico objDiagnostico;
     private Rol objRolesMuchos;
     private int cantidad;
+    private Escuela objEscuela;
     private Estudiante objEstudiante;
     private String mes_Name;
     private int mes_ind;
 
     public ZObjetoProDiag(Rol objRol, int cantidad) {
         this.objRolesMuchos = objRol;
+        this.cantidad = cantidad;
+    }
+    public ZObjetoProDiag(Escuela escuela, int cantidad) {
+        this.objEscuela = escuela;
         this.cantidad = cantidad;
     }
     public ZObjetoProDiag(String mes_Name, int mes_ind) {
