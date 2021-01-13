@@ -54,8 +54,8 @@ public class Modificar_Estudiante extends javax.swing.JPanel{
         
     }
     public void ConsultaBD(){
-        Lista_Escuela=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=1").getResultList();        
-        Lista_sexo=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=4").getResultList();
+        Lista_Escuela=jpa.createQuery("SELECT p FROM Escuela p ").getResultList();        
+        Lista_sexo=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=1").getResultList();
         Lista_Estudiantes=jpa.createQuery("Select p FROM Estudiante p").getResultList(); 
     }   
     public void principalEjecucion(){
@@ -535,8 +535,7 @@ guardarModificacionEstudiante();
         objEstudianteM.getFecha_nacimiento().setDate(Integer.parseInt(jtfDiaVenc.getText()));  
         objEstudianteM.setSexo((Rol)jcbSexo.getSelectedItem());
         objEstudianteM.setCodigo(jtfCodigoModificar.getText());
-        
-        //objEstudiante.setSerie(jtfSerie.getText());
+
         for (Escuela escuela : Lista_Escuela) {
             if(escuela.getNombre().equals(jtfEscuela.getText())){
                 objEstudianteM.setEscuela(escuela);
@@ -547,7 +546,7 @@ guardarModificacionEstudiante();
             jpa.persist(objPersona);
             objEstudianteM.setPersona(objPersona);
             jpa.persist(objEstudianteM);
-            jpa.createNativeQuery("update Estudiante set id_Rolescuela="+objEstudianteM.getEscuela().getId()+" ,id_RolSexo="+objEstudianteM.getSexo().getId()+" where id_Estudiante="+objEstudianteM.getId()).executeUpdate();
+            jpa.createNativeQuery("update Estudiante set id_escuela="+objEstudianteM.getEscuela().getId()+" ,id_sexo="+objEstudianteM.getSexo().getId()+" where id="+objEstudianteM.getId()).executeUpdate();
             jpa.flush();
             jlblMensaje.setText("se modificó con exito");
             new Proceso().start();

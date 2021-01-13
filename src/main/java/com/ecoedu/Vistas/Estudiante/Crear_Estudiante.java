@@ -65,10 +65,10 @@ public class Crear_Estudiante extends javax.swing.JPanel {
     }
     private Semestre objSemestre;
     public void ConsultaBD(){
-        Query query1=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=1");
+        Query query1=jpa.createQuery("SELECT p FROM Escuela p ");
         Lista_Escuela=query1.getResultList();
         
-        Query query2=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=4");
+        Query query2=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=1");
         Lista_Sexo=query2.getResultList();
          List<Semestre> lis=jpa.createQuery("SELECT p from Semestre p where fecha_fin_Real is null").getResultList();  
         if(!lis.isEmpty()){
@@ -77,7 +77,7 @@ public class Crear_Estudiante extends javax.swing.JPanel {
             jButton3.setEnabled(true);
         }
         else{
-            jlblMensaje.setText("No hay un semestre vigente");
+            jlblMensaje.setText("No hay un semestre activo");
             jButton3.setEnabled(false);
         }
         
@@ -507,11 +507,12 @@ public class Crear_Estudiante extends javax.swing.JPanel {
     }//GEN-LAST:event_jtfApellidoPaternoKeyReleased
  
     public void guardarEstudiante(){
+        //3=nuevo, 4=concurrente, 5= reingresante
         if(jlblAsteriscoDNI.getText().isEmpty() && jlblAsteriscoApellidoMaterno.getText().isEmpty() &&
                 jlblAsteriscoApelloPaterno.getText().isEmpty() && jlblAsteriscoCodigo.getText().isEmpty()
                 && jlblAsteriscoEscuela.getText().isEmpty() && jlblAsteriscoFecha.getText().isEmpty()
                 && jlblAsteriscoNombress.getText().isEmpty()){
-            Rol objCondicion=(Rol)jpa.createQuery("select p from Rol p where id_Rol=4").getResultList().get(0);//condicion en nuevo
+            Rol objCondicion=(Rol)jpa.createQuery("select p from Rol p where id=3").getResultList().get(0);//condicion en nuevo
         Persona objPersona=new Persona();
         Date FechaNacimiento=new Date();
         FechaNacimiento.setYear(Integer.parseInt(jtfAño.getText())-1900);
