@@ -5,7 +5,7 @@
  */
 package com.ecoedu.Vistas.vista_base;
 
-import com.ecoedu.Vistas.CrearSemestredeAtencion;
+
 import com.ecoedu.Vistas.Inventario.Descargo;
 import com.ecoedu.Vistas.ServicioAsistencial.Servicio_Asistencial;
 import com.ecoedu.Vistas.ServicioFarmacia.ActualizarControlDelAlumno;
@@ -21,19 +21,12 @@ import javax.persistence.EntityManager;
 public class CuadroCarritoMedicinas extends javax.swing.JFrame {
     Cantidad_Medicinas objCantMedicinas;
     ActualizarControlDelAlumno objActualizarControlDelAlumno;
-    CrearSemestredeAtencion objSemestreAtencion;
     EntityManager jpa;    
     
     public CuadroCarritoMedicinas(EntityManager objJPA,ServicioFarmacia objServicioFarmacia,int limite_seguro){
         initComponents();
         this.objCantMedicinas=new Cantidad_Medicinas(objJPA, this, objServicioFarmacia,limite_seguro);
         contenedor.add(objCantMedicinas);     
-        this.setLocationRelativeTo(null);
-    }
-    public CuadroCarritoMedicinas(EntityManager objJPA,boolean algo,Principal objPrincipal){
-        initComponents();
-        this.objSemestreAtencion=new CrearSemestredeAtencion(objJPA,this,objPrincipal);
-        contenedor.add(objSemestreAtencion);     
         this.setLocationRelativeTo(null);
     }
     public CuadroCarritoMedicinas(EntityManager objJPA,Estudiante objEstudiante,ServicioFarmacia objServicioFarmacia,Semestre objSemestres){

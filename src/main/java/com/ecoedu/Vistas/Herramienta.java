@@ -65,7 +65,7 @@ public class Herramienta {
         return (1900+fecha.getYear())+"-"+conOsin0(fecha.getMonth()+1)+"-"+conOsin0(fecha.getDate())
                 +" "+conOsin0(fecha.getHours())+":"+conOsin0(fecha.getMinutes())+":"+conOsin0(fecha.getSeconds());
     }
-    public static boolean fechaMenor(Date fechamenor,Date fechaMayor){
+    public static boolean isMenor(Date fechamenor,Date fechaMayor){
         return fechamenor.getTime()<=fechaMayor.getTime();
         
     }

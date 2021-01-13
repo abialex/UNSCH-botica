@@ -54,7 +54,7 @@ import org.dom4j.DocumentException;
  */
 public class Principal extends javax.swing.JFrame{
     
-    private boolean auxFarmacia=false;
+    private boolean auxFarmacia=false;//usado para habilitar la modificación del adm_qf
     List<Lote_detalle> lotes_por_vencer;
     List<Lote_detalle> lotes_por_vencidos;
     Semestre objSemestreF;
@@ -69,8 +69,9 @@ public class Principal extends javax.swing.JFrame{
             //lotes_por_vencer=jpa.createQuery("select p from Lote_detalle p where  DATEDIFF(day,  GETDATE(),fecha_vencimiento)<60 and DATEDIFF(day,  GETDATE(),fecha_vencimiento)>0  and isVencido=0").getResultList();
             //llenar_tabla_LoteDetalleVencidos(lotes_por_vencidos);
             //llenar_tabla_LoteDetalle(lotes_por_vencer);
-            objInicio.ConsultaBD();
-            objInicio.principalEjecucion();
+            
+//objInicio.ConsultaBD();
+//            objInicio.principalEjecucion();
             
             
             //jlblPorvencer.setText("POR VENCER: "+lotes_por_vencer.size());
@@ -198,34 +199,28 @@ public class Principal extends javax.swing.JFrame{
             
         }else{
             jlblSemestre.setText("NO HAY UN SEMESTRE ACTIVO");
+
         }
-   }    
-   public void actulizarPeriodoClick(){
-       List<Semestre> lis=jpa.createQuery("SELECT p from Semestre p where fecha_fin_Real is null").getResultList();  
         if(!lis.isEmpty()){
-            objSemestre=lis.get(0);
-            if(objSemestre.isSemestre_periodo()){
-                jlblSemestre.setText("Semestre: "+(objSemestre.getFecha_Fin().getYear()+1900)+"-II"
-                        + "   Fecha Inicio : "+Herramienta.formatoFechaMas1(objSemestre.getFecha_Inicio())
-                        + "   Fecha Fin : "+Herramienta.formatoFechaMas1(objSemestre.getFecha_Fin()));
+            jbtnCerrarSemestre.setEnabled(true);
+            jlblAdvertencia.setText("Semestre Vigente");
+            objSemestreF=lis.get(0);//siempre será uno ya que un objeto semestre.fecha_fin_real no será null
+            jcbDateInicio.setDatoFecha(objSemestreF.getFecha_Inicio());
+            jcbDateFin.setDatoFecha(objSemestreF.getFecha_Fin());
+            jbtnGuardar.setText("GUARDAR CAMBIOS");
+            if(objSemestreF.isSemestre_periodo()){
+                jcbPeriodoSemestre.setSelectedItem("II");
             }
             else{
-                jlblSemestre.setText("Semestre: "+(objSemestre.getFecha_Fin().getYear()+1900)+"-I"
-                        + "   Fecha Inicio : "+Herramienta.formatoFechaMas1(objSemestre.getFecha_Inicio())
-                        + "   Fecha Fin : "+Herramienta.formatoFechaMas1(objSemestre.getFecha_Fin()));              
+                jcbPeriodoSemestre.setSelectedItem("I");                
             }
-            objServicioFarmacia.ConsultaBD();
-            objServicioFarmacia.principalEjecucion();
-            objCrear_Estudiante.ConsultaBD();
-            objCrear_Estudiante.principalEjecucion();
-        }else{
-            jlblSemestre.setText("NO HAY UN SEMESTRE ACTIVO");
-            objServicioFarmacia.ConsultaBD();
-            objServicioFarmacia.principalEjecucion();
-            objCrear_Estudiante.ConsultaBD();
-            objCrear_Estudiante.principalEjecucion();
         }
-   }
+        else{
+            jbtnCerrarSemestre.setEnabled(false);
+            jlblAdvertencia.setText("");
+            objSemestreF=new Semestre();
+        }
+   }    
    private Semestre objSemestre;
    EntityManager jpa;
    private Usuario user;
@@ -272,27 +267,7 @@ public class Principal extends javax.swing.JFrame{
         }
        this.jpa=OBJjpa;
        actulizarPeriodo();
-       List<Semestre> lis=jpa.createQuery("SELECT p from Semestre p where fecha_fin_Real is null").getResultList();  
-        if(!lis.isEmpty()){
-            jbtnCerrarSemestre.setEnabled(true);
-            jlblAdvertencia.setText("Semestre Vigente");
-            objSemestreF=lis.get(0);//automaticamente por orden da el primero que se creo  
-            jcbDateInicio.setDatoFecha(objSemestreF.getFecha_Inicio());
-            jcbDateFin.setDatoFecha(objSemestreF.getFecha_Fin());
-            jbtnGuardar.setText("GUARDAR CAMBIOS");
-            if(objSemestreF.isSemestre_periodo()){
-                jcbPeriodoSemestre.setSelectedItem("II");
-            }
-            else{
-                jcbPeriodoSemestre.setSelectedItem("I");                
-            }
-        }
-        else{
-            jbtnCerrarSemestre.setEnabled(false);
-            jlblAdvertencia.setText("");
-            objSemestreF=new Semestre();
-        }
-       
+         
        this.user=OBJuser;
        this.objReporte_de_insumos=new Reporte_de_insumos(OBJjpa, this);
        this.objServicio_Asistencial=new Servicio_Asistencial(OBJjpa, this, OBJuser);
@@ -375,7 +350,7 @@ public class Principal extends javax.swing.JFrame{
        
        
        setIconImage(new ImageIcon(getClass().getResource("/images/014-pharmacy.png")).getImage());
-       if(OBJuser.getRol().getNombre_rol().equals("ADMINISTRADOR.QF")){   
+       if(OBJuser.getRol().getNombre_rol().equals("adm_química")){   
            auxFarmacia=true;
            jleftTarifario.setVisible(false);
            jleftServicioAsistencial.setVisible(false);
@@ -499,6 +474,7 @@ public class Principal extends javax.swing.JFrame{
         jbtnSalir = new javax.swing.JButton();
         jbtnGuardar = new javax.swing.JButton();
         jlblAdvertencia = new javax.swing.JLabel();
+        jlblMensaje = new javax.swing.JLabel();
         contenedorPrincipal = new javax.swing.JPanel();
         head = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -763,7 +739,7 @@ public class Principal extends javax.swing.JFrame{
 
         jbtnCerrarSemestre.setBackground(new java.awt.Color(0, 0, 0));
         jbtnCerrarSemestre.setForeground(new java.awt.Color(255, 255, 255));
-        jbtnCerrarSemestre.setText("FINALIZAR SEMESTRE REAL");
+        jbtnCerrarSemestre.setText("CERRAR SEMESTRE");
         jbtnCerrarSemestre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnCerrarSemestreActionPerformed(evt);
@@ -840,6 +816,12 @@ public class Principal extends javax.swing.JFrame{
         jlblAdvertencia.setText("Semestre vigente");
         jPanel9.add(jlblAdvertencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 700, 20));
 
+        jlblMensaje.setBackground(new java.awt.Color(255, 51, 0));
+        jlblMensaje.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jlblMensaje.setForeground(new java.awt.Color(255, 0, 0));
+        jlblMensaje.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel9.add(jlblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 480, 30));
+
         contenedor1.add(jPanel9, java.awt.BorderLayout.CENTER);
 
         jPanel7.add(contenedor1, java.awt.BorderLayout.CENTER);
@@ -889,6 +871,7 @@ public class Principal extends javax.swing.JFrame{
         jlblSemestre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblSemestre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlblSemestre.setText("Semestre 2020-I                   inicio: 2020 Febrero 02                     fin: ??");
+        jlblSemestre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jlblSemestre.setPreferredSize(new java.awt.Dimension(900, 19));
         jlblSemestre.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -3103,10 +3086,13 @@ public class Principal extends javax.swing.JFrame{
         objSemestreF.setFecha_Fin_Real(new Date());
         jpa.getTransaction().begin();
         jpa.persist(objSemestreF);
-        actulizarPeriodoClick();
+        actulizarPeriodo();
         JOptionPane.showMessageDialog(jLabel12, "Semestre culminado");
-        //objCuadrito.setVisible(false);
+        jdialogSemestreAtecion.setVisible(false);
         jpa.getTransaction().commit();
+        objCrear_Estudiante.ConsultaBD();
+        objCrear_Estudiante.principalEjecucion();
+        
     }//GEN-LAST:event_jbtnCerrarSemestreActionPerformed
 
     private void jbtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSalirActionPerformed
@@ -3114,7 +3100,7 @@ public class Principal extends javax.swing.JFrame{
     }//GEN-LAST:event_jbtnSalirActionPerformed
 
     private void jbtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarActionPerformed
-
+        if(Herramienta.isMenor(jcbDateInicio.getDatoFecha(), jcbDateFin.getDatoFecha())){
         objSemestreF.setFecha_Fin(jcbDateFin.getDatoFecha());
         objSemestreF.setFecha_Inicio(jcbDateInicio.getDatoFecha());
         if(((String)jcbPeriodoSemestre.getSelectedItem()).equals("I")){
@@ -3125,10 +3111,15 @@ public class Principal extends javax.swing.JFrame{
         }
         jpa.getTransaction().begin();
         jpa.persist(objSemestreF);
-        actulizarPeriodoClick();
+        actulizarPeriodo();
         JOptionPane.showMessageDialog(jLabel12, "Guardado con exito");
         jdialogSemestreAtecion.setVisible(false);
+        jpa.flush();
         jpa.getTransaction().commit();
+        }
+        else{
+           jlblMensaje.setText("la fecha de inicio no puede ser menor que la fecha fin");
+        }
     }//GEN-LAST:event_jbtnGuardarActionPerformed
 
     private void jleftConsultas_Reporte_InsumoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jleftConsultas_Reporte_InsumoMouseMoved
@@ -3305,6 +3296,7 @@ public class Principal extends javax.swing.JFrame{
     private javax.swing.JLabel jlblEstudianteFlecha1;
     private javax.swing.JLabel jlblHead1;
     private javax.swing.JLabel jlblInventarioFlecha;
+    private javax.swing.JLabel jlblMensaje;
     private javax.swing.JLabel jlblMensaje3;
     private javax.swing.JLabel jlblMinimizar;
     private javax.swing.JLabel jlblNombre1;
