@@ -87,6 +87,15 @@ public class ZObjetoProDiag implements Comparable<ZObjetoProDiag>{
     public void setMes_ind(int mes_ind) {
         this.mes_ind = mes_ind;
     }
+
+    public Escuela getObjEscuela() {
+        return objEscuela;
+    }
+
+    public void setObjEscuela(Escuela objEscuela) {
+        this.objEscuela = objEscuela;
+    }
+    
     
     @Override
     public String toString(){
