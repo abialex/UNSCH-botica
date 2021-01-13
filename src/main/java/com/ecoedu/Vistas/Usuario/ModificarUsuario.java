@@ -422,8 +422,7 @@ public class ModificarUsuario extends javax.swing.JPanel {
     }//GEN-LAST:event_jtfApellidoPaternoKeyReleased
 
     private void jbtnGuardarCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarCambioActionPerformed
-                
-        GuardarModificacion();
+       GuardarModificacion();
     }//GEN-LAST:event_jbtnGuardarCambioActionPerformed
     public void GuardarModificacion(){
         if(jlblAsteriscoApellidoMaterno.getText().isEmpty() && jlblAsteriscoApellidoPaterno.getText().isEmpty()
@@ -438,7 +437,7 @@ public class ModificarUsuario extends javax.swing.JPanel {
             jpa.getTransaction().begin();
             jpa.persist(objPersona);  
             jpa.persist(objUsuario);
-            jpa.createNativeQuery("update Usuario set id_Rol="+((Rol)jcbRol.getSelectedItem()).getId()+" where id_Usuario="+objUsuario.getId()).executeUpdate();
+            jpa.createNativeQuery("update Usuario set id_Rol="+((Rol)jcbRol.getSelectedItem()).getId()+" where id="+objUsuario.getId()).executeUpdate();
             jpa.flush();
             objPrincipal.actualizar_Usuario(objUsuario);
             jlblMensaje.setText("se cambió con exito");
