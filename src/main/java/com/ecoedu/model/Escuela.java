@@ -76,8 +76,8 @@ public class Escuela {
       ('físico matemáticas','físico'),
       ('educación inicial','ed. inicial'),
       ('educación primaria','ed. primaria'),
-      ('educación secundaria', ed.secundaria),
-      ('educación física','ed. física'),
+      ('educación secundaria', 'ed.secundaria'),
+      ('educación física','ed. física');
     
         
 

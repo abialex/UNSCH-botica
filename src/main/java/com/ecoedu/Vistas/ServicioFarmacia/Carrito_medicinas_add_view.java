@@ -344,7 +344,7 @@ public class Carrito_medicinas_add_view extends javax.swing.JDialog {
         Inventario objInventario = (Inventario) jtlblInventario.getValueAt(jtlblInventario.getSelectedRow(), 0);
         List<Lote_detalle> auxlista_Lote_detalle = new ArrayList<>();
         for (int i = 0; i < list_Lote_detalle.size(); i++) {
-            if (objInventario == list_Lote_detalle.get(i).getInventario() && list_Lote_detalle.get(i).getCantidad() != 0) {
+            if (objInventario == list_Lote_detalle.get(i).getInventario() && list_Lote_detalle.get(i).getCantidad_inicial() != 0) {
                 auxlista_Lote_detalle.add(list_Lote_detalle.get(i));
             }//if fin
         }//for fin
@@ -379,7 +379,7 @@ public class Carrito_medicinas_add_view extends javax.swing.JDialog {
 
         if (!jtfCantidad.getText().equals("")) {
             jlblPrecioTotal.setText(Herramienta.dosDecimales(Float.parseFloat(jlblPrecioUnitario.getText()) * Float.parseFloat(jtfCantidad.getText())));
-            if (objLoteDetalleFinal.getCantidad() - Integer.parseInt(jtfCantidad.getText()) >= 0) {
+            if (objLoteDetalleFinal.getCantidad_inicial() - Integer.parseInt(jtfCantidad.getText()) >= 0) {
                 if (auxAuxiliar) {
                     if (objServicioFarmacia.getPrecio_delControlEstudiante() + Float.parseFloat(jlblPrecioTotal.getText()) >= limite_seguro) {
                         jlblAviso.setText("Se supero el limite de " + limite_seguro);
@@ -390,7 +390,7 @@ public class Carrito_medicinas_add_view extends javax.swing.JDialog {
                     }
                 }
             } else {
-                jlblAviso.setText("solo queda " + objLoteDetalleFinal.getCantidad() + " en el lote");
+                jlblAviso.setText("solo queda " + objLoteDetalleFinal.getCantidad_inicial() + " en el lote");
                 jbtnAgregar.setEnabled(false);
             }
         } else {
@@ -501,7 +501,7 @@ public class Carrito_medicinas_add_view extends javax.swing.JDialog {
         Lote_detalle LDprimero = listaLoteDetalle.get(0);
         for (int i = 1; i < listaLoteDetalle.size(); i++) {
             if (LDprimero.getFecha_vencimiento().getTime() > listaLoteDetalle.get(i).getFecha_vencimiento().getTime()) {
-                System.out.println(listaLoteDetalle.get(i).getCantidad() + " ioioi");
+                System.out.println(listaLoteDetalle.get(i).getCantidad_inicial() + " ioioi");
                 LDprimero = listaLoteDetalle.get(i);
             }
         }

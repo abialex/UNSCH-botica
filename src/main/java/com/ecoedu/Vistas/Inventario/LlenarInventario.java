@@ -5,7 +5,6 @@ import com.ecoedu.Vistas.Herramienta;
 import com.ecoedu.Vistas.soloMayusculas;
 import com.ecoedu.Vistas.vista_base.Principal;
 import com.ecoedu.app.TextPrompt;
-import com.ecoedu.model.Detalle_llenado;
 import com.ecoedu.model.Factura;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -37,7 +36,6 @@ public class LlenarInventario extends javax.swing.JPanel {
     String MensajeFabricante="";
     List<Inventario> Lista_Inventario;    
     List<Lote_detalle> Lista_Lote_detalle_final=new ArrayList<>();
-    List<Detalle_llenado> Lista_Detalle_Llenado_final=new ArrayList<>();    
     List<Proveedor> lista_proveedor;
     List<Laboratorio> lista_laboratorio;//lo uso mucho 
     EntityManager jpa;
@@ -92,7 +90,7 @@ public class LlenarInventario extends javax.swing.JPanel {
             }
         }   
     public void principalEjecucion(){
-        llenar_tabla_LoteDetalle(Lista_Lote_detalle_final, Lista_Detalle_Llenado_final);
+        llenar_tabla_LoteDetalle(Lista_Lote_detalle_final);
         autoCompleterFabricante.removeAllItems();
         autoCompleterProductoFarmaceutico.removeAllItems();
         autoCompleterProveedor.removeAllItems();
@@ -701,7 +699,6 @@ public class LlenarInventario extends javax.swing.JPanel {
                 &&jlblAsteFabricante.getText().isEmpty()&&jlblAsteFechaVenc.getText().isEmpty()
                 &&jlblAstePF.getText().isEmpty()&&jlblAstePUC.getText().isEmpty()&&jlblAsteFactura.getText().isEmpty()
                 &&jlblAsteProveedor.getText().isEmpty()){
-            Detalle_llenado objDetalle_llenado=new Detalle_llenado();
          Lote_detalle objLote_Detalle=new Lote_detalle();
          Date objFechaVencimiento=new Date();
          objFechaVencimiento.setYear(Integer.parseInt(jtfAñovencimiento.getText())+100);
@@ -712,7 +709,7 @@ public class LlenarInventario extends javax.swing.JPanel {
          objFechaVencimiento.setSeconds(0);
          //Lote_detalle
          //cantidad,codigo,fecha_Vencimiento,id_inventario,id_fabricante,id_factura,PVR----id_factura
-         objLote_Detalle.setCantidad(Integer.parseInt(jtfCantidad.getText()));
+         objLote_Detalle.setCantidad_inicial(Integer.parseInt(jtfCantidad.getText()));
          objLote_Detalle.setCodigo(jtfCodigoLote.getText());
          objLote_Detalle.setFecha_vencimiento(objFechaVencimiento);
          objLote_Detalle.setInventario(objInventario_final);
@@ -728,11 +725,11 @@ public class LlenarInventario extends javax.swing.JPanel {
         //fin Lote_detalle         
         //Detalle_Llenado
         //P.u,id_medicamento,user,fecha_registro----id_lote_detalle
-        objDetalle_llenado.setPrecio_unitario(Float.parseFloat(jtfPrecioUnitarioCompra.getText()));
-        objDetalle_llenado.setMedicamento(objInventario_final.getMedicamento());
-        objDetalle_llenado.setUsuario(objPrincipal.getUsuario());
-        objDetalle_llenado.setFecha_de_registro(new Date());
-        objDetalle_llenado.setCantidad(Integer.parseInt(jtfCantidad.getText()));
+        objLote_Detalle.setPrecio_unitario(Float.parseFloat(jtfPrecioUnitarioCompra.getText()));
+        objLote_Detalle.setUsuario(objPrincipal.getUsuario());
+        objLote_Detalle.setFecha_de_registro(new Date());
+        objLote_Detalle.setCantidad_actual(Integer.parseInt(jtfCantidad.getText()));
+        objLote_Detalle.setCantidad_inicial(Integer.parseInt(jtfCantidad.getText()));
         //objDetalle_llenado.setLote_detalle(objLote_Detalle);     
         //objInventario_final.setCantidad(objInventario_final.getCantidad()+Integer.parseInt(jtfCantidad.getText()));
         Factura objFactura=new Factura();
@@ -748,9 +745,8 @@ public class LlenarInventario extends javax.swing.JPanel {
         //maybe
         objFactura.setProveedor(objProveedor);
         objLote_Detalle.setFactura(objFactura);
-        Lista_Detalle_Llenado_final.add(objDetalle_llenado);
         Lista_Lote_detalle_final.add(objLote_Detalle);        
-        llenar_tabla_LoteDetalle(Lista_Lote_detalle_final, Lista_Detalle_Llenado_final);
+        llenar_tabla_LoteDetalle(Lista_Lote_detalle_final);
         limpiar();        
         jtfProductoFarmaceutico.requestFocus();
         }
@@ -783,7 +779,7 @@ public class LlenarInventario extends javax.swing.JPanel {
         jlblAstePF.setText("*");
         jlblAstePUC.setText("*");
     }
-    public void llenar_tabla_LoteDetalle(List<Lote_detalle> listaLote,List<Detalle_llenado> listaLlenado){
+    public void llenar_tabla_LoteDetalle(List<Lote_detalle> listaLote){
         DefaultTableModel modelo;
         Object[] fila_actividad;
              //.....................................TABLA......................................
@@ -796,12 +792,12 @@ public class LlenarInventario extends javax.swing.JPanel {
                  };
              //.....................................TABLA...........Fin......................          
              fila_actividad=new Object[modelo.getColumnCount()];  
-             if(listaLote.size()==listaLlenado.size()){//objListaLlenado tostring=precio_unitario
+            //objListaLlenado tostring=precio_unitario
              for (int i = 0; i < listaLote.size(); i++){
                  fila_actividad[0]=listaLote.get(i).getInventario().getMedicamento().getNombre();
                  fila_actividad[1]=listaLote.get(i);
-                 fila_actividad[2]=listaLote.get(i).getCantidad();             
-                 fila_actividad[3]=listaLlenado.get(i);
+                 fila_actividad[2]=listaLote.get(i).getCantidad_inicial();             
+                 fila_actividad[3]=listaLote.get(i);
                  fila_actividad[4]=listaLote.get(i).getPrecio_Venta_Redondeado();
                  fila_actividad[5]=Herramienta.formatoFecha(listaLote.get(i).getFecha_vencimiento());
                  fila_actividad[6]=listaLote.get(i).getLaboratorio().getNombre();
@@ -810,9 +806,7 @@ public class LlenarInventario extends javax.swing.JPanel {
                  fila_actividad[8]=listaLote.get(i).getFactura().getCodigo_factura();             
                  modelo.addRow(fila_actividad);//agregando filas
                  }             
-             }else{
-                 System.out.println("error line 549 Lote:"+listaLote.size()+" Llenado"+listaLlenado.size());
-             }
+          
              
             jtblLoteDetalle.setModel(modelo); 
             jtblLoteDetalle.setGridColor(Color.black);
@@ -848,18 +842,16 @@ public class LlenarInventario extends javax.swing.JPanel {
     
     private void jbtnGuardarLotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarLotesActionPerformed
                  
-        if(!Lista_Detalle_Llenado_final.isEmpty()&& !Lista_Lote_detalle_final.isEmpty()){
+        if(!Lista_Lote_detalle_final.isEmpty()){
             jpa.getTransaction().begin();
-            for (int i = 0; i < Lista_Lote_detalle_final.size(); i++){           
+            for (int i = 0; i < Lista_Lote_detalle_final.size(); i++){    
             jpa.persist(Lista_Lote_detalle_final.get(i));            
-            jpa.refresh(Lista_Lote_detalle_final.get(i));
-            Lista_Detalle_Llenado_final.get(i).setLote_detalle(Lista_Lote_detalle_final.get(i));
-            Lista_Lote_detalle_final.get(i).getInventario().agregarCantidad(Lista_Detalle_Llenado_final.get(i).getCantidad());
-            jpa.persist(Lista_Detalle_Llenado_final.get(i));
+            Lista_Lote_detalle_final.get(i).getInventario().agregarCantidad(Lista_Lote_detalle_final.get(i).getCantidad_actual());
+        
             jpa.flush();//sincronizando en la BD con el programa            
             }      
-        Lista_Lote_detalle_final.clear();Lista_Detalle_Llenado_final.clear();
-        llenar_tabla_LoteDetalle(Lista_Lote_detalle_final, Lista_Detalle_Llenado_final);
+        Lista_Lote_detalle_final.clear();
+        llenar_tabla_LoteDetalle(Lista_Lote_detalle_final);
         JOptionPane.showMessageDialog(jtfMesVen, "Guardado con Éxito");
         jpa.getTransaction().commit();
         }
@@ -1168,10 +1160,9 @@ public class LlenarInventario extends javax.swing.JPanel {
        if(!Lista_Lote_detalle_final.isEmpty()){          
            try{
            Lote_detalle objLote_detalle=(Lote_detalle)jtblLoteDetalle.getValueAt(jtblLoteDetalle.getSelectedRow(),1);
-           Detalle_llenado objDetalle_llenado=(Detalle_llenado)jtblLoteDetalle.getValueAt(jtblLoteDetalle.getSelectedRow(),3);
            Lista_Lote_detalle_final.remove(objLote_detalle);
-           Lista_Detalle_Llenado_final.remove(objDetalle_llenado);
-           llenar_tabla_LoteDetalle(Lista_Lote_detalle_final, Lista_Detalle_Llenado_final);}
+           llenar_tabla_LoteDetalle(Lista_Lote_detalle_final);
+           }
            catch(ArrayIndexOutOfBoundsException e){
                JOptionPane.showMessageDialog(jtfMesVen, "Seleccione un item");
                }}

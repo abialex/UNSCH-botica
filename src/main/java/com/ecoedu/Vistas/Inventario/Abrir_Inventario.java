@@ -1,14 +1,10 @@
 package com.ecoedu.Vistas.Inventario;
-
-
-
-
 import com.ecoedu.Vistas.Herramienta;
 import com.ecoedu.Vistas.ServicioFarmacia.ServicioFarmacia;
 import com.ecoedu.Vistas.vista_base.Principal;
 import com.ecoedu.app.EventoPagina;
-import com.ecoedu.model.Detalle_llenado;
 import com.ecoedu.model.Inventario;
+import com.ecoedu.model.Lote_detalle;
 import com.ecoedu.model.RegistroMensualInventario;
 import com.ecoedu.model.RegistroMensualLotes;
 import com.ecoedu.model.Rol;
@@ -58,11 +54,11 @@ import javax.swing.table.DefaultTableModel;
  * @author yrma
  */
 public class Abrir_Inventario extends javax.swing.JPanel {  
-    List<Detalle_llenado> Lista_lote_detalle=new ArrayList<Detalle_llenado>();
+    List<Lote_detalle> Lista_lote_detalle=new ArrayList<Lote_detalle>();
     List<Inventario> Lista_Inventario;
     Principal objPrincipal;
     List<Rol> Lista_Origen;
-    List<Detalle_llenado> lista_aux;
+    List<Lote_detalle> lista_aux;
     boolean SWITCHBD=false;
     boolean SWITCHimpresion=false;
     //MensajeCarga objMensaje;
@@ -87,14 +83,14 @@ public class Abrir_Inventario extends javax.swing.JPanel {
         Lista_Origen=jpa.createQuery("Select p from Rol p where id_tipo_Roles=4").getResultList();
         Collections.sort(Lista_Origen);        
         lista_registro=jpa.createQuery("SELECT p FROM RegistroMensualLotes p where fecha_cierre_real is null").getResultList();
-        lista_aux=jpa.createQuery("SELECT p FROM Detalle_llenado p").getResultList();
+        lista_aux=jpa.createQuery("SELECT p FROM Lote_detalle p").getResultList();
         if(lista_registro.isEmpty()){
              jlblAdvertencia.setText("");            
              Lista_Inventario=jpa.createQuery("select p from Inventario p where cantidad !=0").getResultList();
              
              Lista_lote_detalle.clear();
-             for (Detalle_llenado detalle_llenado : lista_aux) {
-                 if(!detalle_llenado.getLote_detalle().isIsVencido()){
+             for (Lote_detalle detalle_llenado : lista_aux) {
+                 if(!detalle_llenado.isIsVencido()){
                  Lista_lote_detalle.add(detalle_llenado);}
              }
              Collections.sort(Lista_lote_detalle);//ordenando A-Z (método como Override)            
@@ -107,7 +103,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
              else{
                  jlblAdvertencia.setText("YA ABRIÓ PARA ESTE MES");
                  jbtnAbrirInventario.setVisible(false);
-                 llenarTabla(new ArrayList<Detalle_llenado>());
+                 llenarTabla(new ArrayList<Lote_detalle>());
                  jbtnImprimir.setVisible(false);
                  }
              }
@@ -124,7 +120,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
              jbtnImprimir.setVisible(true);
              jbtnImprimir.setText("Imprimir Apertura de "+Herramienta.getNombreMes(lista_registro.get(0).getFecha_apertura().getMonth()+1));
              jbtnAbrirInventario.setVisible(false);
-             llenarTabla(new ArrayList<Detalle_llenado>());
+             llenarTabla(new ArrayList<Lote_detalle>());
              }
          }
     
@@ -538,10 +534,10 @@ public class Abrir_Inventario extends javax.swing.JPanel {
             RegistroMensualInventario objRegistro=new RegistroMensualInventario(inventario.getCantidad(), fechaApertu, fechaApertuReal, objUsuario, inventario);
             jpa.persist(objRegistro);
             jpa.refresh(objRegistro);
-            for (Detalle_llenado lote_detalle : Lista_lote_detalle){
-                if(lote_detalle.getLote_detalle().getInventario()==inventario){
-                jpa.persist(new RegistroMensualLotes(lote_detalle.getLote_detalle().getCantidad(),fechaApertu, fechaApertuReal, objUsuario, lote_detalle.getLote_detalle(),objRegistro));
-                auxComprobante=auxComprobante+lote_detalle.getLote_detalle().getCantidad();
+            for (Lote_detalle lote_detalle : Lista_lote_detalle){
+                if(lote_detalle.getInventario()==inventario){
+                jpa.persist(new RegistroMensualLotes(lote_detalle.getCantidad_actual(),fechaApertu, fechaApertuReal, objUsuario, lote_detalle,objRegistro));
+                auxComprobante=auxComprobante+lote_detalle.getCantidad_actual();
                 }//fin if
             }//fin for  
             if(auxComprobante!=inventario.getCantidad()){
@@ -610,7 +606,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
                     
                     break;       
                     }
-                }
+                }Detalle_llenado
             } */      
         imprimir();
        
@@ -696,7 +692,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
         //Lista_lote_detalle.clear();
         document.close(); 
     }
-    public void llenarTabla(List<Detalle_llenado> lista_lote_detalle){ 
+    public void llenarTabla(List<Lote_detalle> lista_lote_detalle){ 
         DefaultTableModel modelo;
         Object[] fila_actividad;
              //.....................................TABLA......................................
@@ -714,14 +710,14 @@ public class Abrir_Inventario extends javax.swing.JPanel {
             
              
              fila_actividad=new Object[modelo.getColumnCount()];  
-             for (Detalle_llenado objLote : lista_lote_detalle){
-                 fila_actividad[0]=objLote.getLote_detalle().getCodigo();
-                 fila_actividad[1]=objLote.getLote_detalle().getInventario().getMedicamento().getNombre();
-                 fila_actividad[2]=objLote.getLote_detalle().getCantidad();
-                 fila_actividad[3]=objLote.getLote_detalle().getPrecio_Venta_Redondeado();  
-                 fila_actividad[4]=objLote.getLote_detalle().getFactura().getCodigo_factura();   
-                 fila_actividad[5]=objLote.getLote_detalle().getLaboratorio().getNombre();   
-                 fila_actividad[6]=Herramienta.formatoFecha(objLote.getLote_detalle().getFecha_vencimiento());  
+             for (Lote_detalle objLote : lista_lote_detalle){
+                 fila_actividad[0]=objLote.getCodigo();
+                 fila_actividad[1]=objLote.getInventario().getMedicamento().getNombre();
+                 fila_actividad[2]=objLote.getCantidad_inicial();
+                 fila_actividad[3]=objLote.getPrecio_Venta_Redondeado();  
+                 fila_actividad[4]=objLote.getFactura().getCodigo_factura();   
+                 fila_actividad[5]=objLote.getLaboratorio().getNombre();   
+                 fila_actividad[6]=Herramienta.formatoFecha(objLote.getFecha_vencimiento());  
                  modelo.addRow(fila_actividad);//agregando filas
                  }
             jtblVentas.setModel(modelo); 

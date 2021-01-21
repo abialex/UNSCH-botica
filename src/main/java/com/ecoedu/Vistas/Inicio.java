@@ -581,7 +581,7 @@ public class Inicio extends javax.swing.JPanel {
              for (Lote_detalle lote_detalle : lista_lote_detalle){
                  fila_actividad[0]=lote_detalle.getInventario().getMedicamento().getNombre();
                  fila_actividad[1]=lote_detalle.getCodigo();
-                 fila_actividad[2]=lote_detalle.getCantidad();
+                 fila_actividad[2]=lote_detalle.getCantidad_inicial();
                  modelo.addRow(fila_actividad);//agregando filas
                  }
             jtblMedicamentos_porAgotarse.setModel(modelo); 
@@ -844,7 +844,7 @@ public class Inicio extends javax.swing.JPanel {
              for (int i = 0; i < listaLote.size(); i++){
                  fila_actividad[0]=listaLote.get(i).getInventario().getMedicamento().getNombre();
                  fila_actividad[1]=listaLote.get(i);
-                 fila_actividad[2]=listaLote.get(i).getCantidad();             
+                 fila_actividad[2]=listaLote.get(i).getCantidad_inicial();             
                  fila_actividad[3]=Herramienta.formatoFechaMas1(listaLote.get(i).getFecha_vencimiento());
                              
                  modelo.addRow(fila_actividad);//agregando filas
@@ -891,7 +891,7 @@ public class Inicio extends javax.swing.JPanel {
              for (int i = 0; i < listaLote.size(); i++){
                  fila_actividad[0]=listaLote.get(i).getInventario().getMedicamento().getNombre();
                  fila_actividad[1]=listaLote.get(i);
-                 fila_actividad[2]=listaLote.get(i).getCantidad();             
+                 fila_actividad[2]=listaLote.get(i).getCantidad_inicial();             
                  fila_actividad[3]=Herramienta.formatoFechaMas1(listaLote.get(i).getFecha_vencimiento());
                              
                  modelo.addRow(fila_actividad);//agregando filas

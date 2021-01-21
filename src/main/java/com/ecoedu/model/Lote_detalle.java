@@ -37,20 +37,34 @@ public class Lote_detalle implements Comparable<Lote_detalle>{
     @ManyToOne(cascade = CascadeType.ALL)
     private Factura factura;
     
+    @JoinColumn(insertable = true,updatable = false,name="id_usuario",nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Usuario usuario;
+    
     @Column(name = "precio_venta_redondeado",nullable = false)
     private float precio_venta_redondeado;
     
     @Column(name="fecha_vencimiento",nullable = false)
     private Date  fecha_vencimiento;
     
-    @Column(name="cantidad",nullable = false)
-    private int  cantidad;
+    @Column(name="cantidad_actual",nullable = false)
+    private int  cantidad_actual;
     
     @Column(name="codigo",length = 40,nullable = false)
     private String  codigo;
 
     @Column(name="isVencido",nullable = false)
     private boolean  isVencido;
+    
+    @Column(name="precio_unitario",nullable = false)
+    private float  precio_unitario;
+    
+    @Column(name="fecha_de_registro",nullable = false)
+    private Date fecha_de_registro;
+    
+      @Column(name = "cantidad_inicial", nullable = false)
+    private int cantidad_inicial;
+      
     public float getPrecio_Venta_Redondeado() {
         return precio_venta_redondeado;
     }
@@ -62,8 +76,48 @@ public class Lote_detalle implements Comparable<Lote_detalle>{
     public void setIsVencido(boolean isVencido) {
         this.isVencido = isVencido;
     }
-    
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public int getCantidad_actual() {
+        return cantidad_actual;
+    }
+
+    public void setCantidad_actual(int cantidad_actual) {
+        this.cantidad_actual = cantidad_actual;
+    }
+
+    public float getPrecio_unitario() {
+        return precio_unitario;
+    }
+
+    public void setPrecio_unitario(float precio_unitario) {
+        this.precio_unitario = precio_unitario;
+    }
+
+    public Date getFecha_de_registro() {
+        return fecha_de_registro;
+    }
+
+    public void setFecha_de_registro(Date fecha_de_registro) {
+        this.fecha_de_registro = fecha_de_registro;
+    }
+
+    public int getCantidad_inicial() {
+        return cantidad_inicial;
+    }
+
+    public void setCantidad_inicial(int cantidad_inicial) {
+        this.cantidad_inicial = cantidad_inicial;
+    }
+    
+    
 
     public Factura getFactura() {
         return factura;
@@ -114,13 +168,7 @@ public class Lote_detalle implements Comparable<Lote_detalle>{
         this.inventario = inventario;
     }
 
-    public int getCantidad() {
-        return cantidad;
-    }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
 
     public String getCodigo() {
         return codigo;
@@ -130,7 +178,7 @@ public class Lote_detalle implements Comparable<Lote_detalle>{
         this.codigo = codigo;
     }
     public Lote_detalle quitarCantidad(int cant){
-        this.cantidad=cantidad-cant;
+        this.cantidad_actual=cantidad_actual-cant;
         return this;
     }
     

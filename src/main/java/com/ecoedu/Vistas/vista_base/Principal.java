@@ -106,7 +106,7 @@ public class Principal extends javax.swing.JFrame{
              for (int i = 0; i < listaLote.size(); i++){
                  fila_actividad[0]=listaLote.get(i).getInventario().getMedicamento().getNombre();
                  fila_actividad[1]=listaLote.get(i);
-                 fila_actividad[2]=listaLote.get(i).getCantidad();             
+                 fila_actividad[2]=listaLote.get(i).getCantidad_inicial();             
                  fila_actividad[3]=Herramienta.formatoFechaMas1(listaLote.get(i).getFecha_vencimiento());
                              
                  modelo.addRow(fila_actividad);//agregando filas
@@ -152,7 +152,7 @@ public class Principal extends javax.swing.JFrame{
              for (int i = 0; i < listaLote.size(); i++){
                  fila_actividad[0]=listaLote.get(i).getInventario().getMedicamento().getNombre();
                  fila_actividad[1]=listaLote.get(i);
-                 fila_actividad[2]=listaLote.get(i).getCantidad();             
+                 fila_actividad[2]=listaLote.get(i).getCantidad_inicial();             
                  fila_actividad[3]=Herramienta.formatoFechaMas1(listaLote.get(i).getFecha_vencimiento());
                              
                  modelo.addRow(fila_actividad);//agregando filas

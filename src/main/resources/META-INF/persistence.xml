@@ -8,7 +8,7 @@
     <class>com.ecoedu.model.Servicio_social</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/restaurante_v1?serverTimezone=UTC"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/servicios?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
 
       <property name="javax.persistence.jdbc.password" value="!Metileno300"/>

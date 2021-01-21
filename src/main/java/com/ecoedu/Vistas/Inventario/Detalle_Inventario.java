@@ -3,7 +3,7 @@ package com.ecoedu.Vistas.Inventario;
 
 import com.ecoedu.Vistas.Herramienta;
 import com.ecoedu.Vistas.vista_base.Principal;
-import com.ecoedu.model.Detalle_llenado;
+import com.ecoedu.model.Lote_detalle;
 import com.ecoedu.model.Usuario;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ import javax.swing.table.DefaultTableModel;
 3-Modificar precio Unitario de un Medicamento ya existente;
 */
 public class Detalle_Inventario extends javax.swing.JPanel {   
-    List<Detalle_llenado> Lista_Detalle_Llenado;
+    List<Lote_detalle> list_lote;
     EntityManager jpa;
     Principal objPrincipal;
     List<Usuario> lista_Usuario=new ArrayList<>();
@@ -49,26 +49,26 @@ public class Detalle_Inventario extends javax.swing.JPanel {
            
     }
     public void ConsultaBD(){
-        Query query1=jpa.createQuery("SELECT p FROM Detalle_llenado p");
-        Lista_Detalle_Llenado=query1.getResultList();      
+        Query query1=jpa.createQuery("SELECT p FROM Lote_detalle p");
+        list_lote=query1.getResultList();      
     }   
     public void principalEjecucion(){
-        for (Detalle_llenado detalle_llenado : Lista_Detalle_Llenado){
+        for (Lote_detalle lote_llenado : list_lote){
             boolean auxInventario=true;
             for (Usuario objUsuario : lista_Usuario){
-                if(objUsuario==detalle_llenado.getUsuario()){
+                if(objUsuario==lote_llenado.getUsuario()){
                     auxInventario=false;		
                     break;
                     }
                 }
             if(auxInventario){
-                lista_Usuario.add(detalle_llenado.getUsuario());
+                lista_Usuario.add(lote_llenado.getUsuario());
                 }
             }
         for (Usuario usuario : lista_Usuario){
             jcbUsuarioLlenador.addItem(usuario);
             }
-        llenar_tabla_de_inventario(Lista_Detalle_Llenado);
+        llenar_tabla_de_inventario(list_lote);
         }
      
     
@@ -366,7 +366,7 @@ public class Detalle_Inventario extends javax.swing.JPanel {
     private javax.swing.JPanel vista11;
     // End of variables declaration//GEN-END:variables
 
-    public void llenar_tabla_de_inventario(List<Detalle_llenado> listaDetalleLlenado){
+    public void llenar_tabla_de_inventario(List<Lote_detalle> listaDetalleLlenado){
         Collections.sort(listaDetalleLlenado);
         DefaultTableModel modelo;
         Object[] fila_actividad;
@@ -384,11 +384,11 @@ public class Detalle_Inventario extends javax.swing.JPanel {
              for (int i = 0; i < listaDetalleLlenado.size(); i++){
                  fila_actividad[0]=Herramienta.formatoFecha(listaDetalleLlenado.get(i).getFecha_de_registro());
                  fila_actividad[1]=listaDetalleLlenado.get(i).getUsuario().getPersona().getInfoPersona();
-                 fila_actividad[2]=listaDetalleLlenado.get(i).getMedicamento().getNombre(); 
-                 fila_actividad[3]=listaDetalleLlenado.get(i).getCantidad(); 
+                 fila_actividad[2]=listaDetalleLlenado.get(i).getInventario().getMedicamento().getNombre(); 
+                 fila_actividad[3]=listaDetalleLlenado.get(i).getCantidad_inicial(); 
                  fila_actividad[4]=listaDetalleLlenado.get(i).getPrecio_unitario();
-                 fila_actividad[5]=listaDetalleLlenado.get(i).getLote_detalle().getPrecio_Venta_Redondeado();
-                 fila_actividad[6]=listaDetalleLlenado.get(i).getLote_detalle().getCodigo();  
+                 fila_actividad[5]=listaDetalleLlenado.get(i).getPrecio_Venta_Redondeado();
+                 fila_actividad[6]=listaDetalleLlenado.get(i).getCodigo();  
 
                  
                  modelo.addRow(fila_actividad);//agregando filas
