@@ -132,7 +132,7 @@ public class Herramienta {
         List<T> listGenericos = new ArrayList<T>();
         //System.out.println("SELECT p FROM "+generico.getSimpleName()+" p where "+Columna +"LIKE "+"'"+palabra+"%"+"'");
         Query query=jpa.createQuery
-        ("SELECT p FROM "+generico.getSimpleName()+" p where id_DiagnosticoCodigo LIKE "+"'"+palabra+"%'");
+        ("SELECT p FROM "+generico.getSimpleName()+" p where "+Columna+" LIKE "+"'"+palabra+"%'");
         listGenericos=query.getResultList(); 
         return listGenericos; 
     }
