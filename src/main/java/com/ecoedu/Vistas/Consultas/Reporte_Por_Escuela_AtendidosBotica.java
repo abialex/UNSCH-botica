@@ -330,7 +330,7 @@ public class Reporte_Por_Escuela_AtendidosBotica extends javax.swing.JPanel {
     }
     private void jbtnCrearRecetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCrearRecetaActionPerformed
         try {
-            if(Herramienta.fechaMenor(jcbYearDesde.getDatoFecha(),jcbYearHasta.getDatoFecha())){
+            if(Herramienta.isMenor(jcbYearDesde.getDatoFecha(),jcbYearHasta.getDatoFecha())){
                 imprimirEscuelitas();
                 }
             else{

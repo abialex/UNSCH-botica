@@ -226,7 +226,7 @@ public class Reporte_Diagnostico extends javax.swing.JPanel {
 
     private void jbtnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVerActionPerformed
         try {
-            if(Herramienta.fechaMenor(jcbYearDesde.getDatoFecha(), jcbYearHasta.getDatoFecha())){
+            if(Herramienta.isMenor(jcbYearDesde.getDatoFecha(), jcbYearHasta.getDatoFecha())){
                 if("POR DIAGNÓSTICO".equals((String)jcbTipoBusqueda.getSelectedItem())){
                     imprimir(1);    
                     }
