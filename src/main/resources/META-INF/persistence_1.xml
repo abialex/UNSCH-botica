@@ -7,13 +7,12 @@
     <class>com.ecoedu.model.Tipo_Asistencial</class>
     <class>com.ecoedu.model.Servicio_social</class>
     <properties>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/restaurante_v1?serverTimezone=UTC"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
-
-      <property name="javax.persistence.jdbc.password" value="!Metileno300"/>
-      <property name="hibernate.show_sql" value="false"/>
-      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=Servidor1102"/>
+      <property name="javax.persistence.jdbc.user" value="Alexis"/>
+      <property name="javax.persistence.jdbc.password" value="1234"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.hbm2ddl.auto" value="none"/>
     </properties>
   </persistence-unit>
 </persistence>

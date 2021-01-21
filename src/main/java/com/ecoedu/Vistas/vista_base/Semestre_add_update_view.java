@@ -23,11 +23,12 @@ public class Semestre_add_update_view extends javax.swing.JDialog {
     
     public Semestre_add_update_view(java.awt.Frame parent, boolean modal,Semestre objSemestre,EntityManager jpa) {
         super(parent, modal);
+        initComponents();
         this.objSemestre=objSemestre;
         this.objPrincipal=(Principal) parent;
         this.jpa=jpa;
-        initComponents();
         principalEjecucion();
+        this.setLocationRelativeTo(null);
     }
     public void principalEjecucion(){
            if(objSemestre!=null){

@@ -84,7 +84,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
             }
         }
     public void ConsultaBD(){    
-        Lista_Origen=jpa.createQuery("Select p from Rol p where id_tipo_Roles=10").getResultList();
+        Lista_Origen=jpa.createQuery("Select p from Rol p where id_tipo_Roles=4").getResultList();
         Collections.sort(Lista_Origen);        
         lista_registro=jpa.createQuery("SELECT p FROM RegistroMensualLotes p where fecha_cierre_real is null").getResultList();
         lista_aux=jpa.createQuery("SELECT p FROM Detalle_llenado p").getResultList();
@@ -141,7 +141,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDialog1 = new javax.swing.JDialog();
+        Aviso_view = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
         confirmarProceso = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -188,13 +188,12 @@ public class Abrir_Inventario extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jbtnAbrirInventario = new javax.swing.JButton();
         jbtnImprimir = new javax.swing.JButton();
 
-        jDialog1.setMinimumSize(new java.awt.Dimension(350, 250));
-        jDialog1.setModal(true);
-        jDialog1.setUndecorated(true);
+        Aviso_view.setMinimumSize(new java.awt.Dimension(350, 250));
+        Aviso_view.setModal(true);
+        Aviso_view.setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 251, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -371,7 +370,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
 
         jPanel1.add(confirmarImpresion, "card2");
 
-        jDialog1.getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+        Aviso_view.getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         setBackground(new java.awt.Color(0, 255, 204));
         setInheritsPopupMenu(true);
@@ -480,9 +479,6 @@ public class Abrir_Inventario extends javax.swing.JPanel {
         jLabel18.setPreferredSize(new java.awt.Dimension(10, 14));
         jPanel9.add(jLabel18, java.awt.BorderLayout.LINE_START);
 
-        jLabel2.setText("jLabel2");
-        jPanel9.add(jLabel2, java.awt.BorderLayout.PAGE_START);
-
         cuerpo1.add(jPanel9);
 
         jbtnAbrirInventario.setBackground(new java.awt.Color(0, 0, 0));
@@ -517,9 +513,9 @@ public class Abrir_Inventario extends javax.swing.JPanel {
 
     private void jbtnAbrirInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAbrirInventarioActionPerformed
      
-        jDialog1.setSize(350,250);
-        jDialog1.setLocationRelativeTo(null);
-        jDialog1.setVisible(true);
+        Aviso_view.setSize(350,250);
+        Aviso_view.setLocationRelativeTo(null);
+        Aviso_view.setVisible(true);
         confirmarProceso.setVisible(true);
         confirmarProceso.setVisible(false);
         carga.setVisible(false);
@@ -558,7 +554,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
         jpa.flush();
         ConsultaBD();
         principalEjecucion();
-        jDialog1.dispose();
+        Aviso_view.dispose();
         //objMensaje.setVisible(false);
         //JOptionPane.showMessageDialog(jlblAdvertencia, "Aperturó con exito el mes de "+Herramienta.getNombreMes(fechaApertuReal.getMonth()+1));
         //int confirmado = JOptionPane.showConfirmDialog(jlblAdvertencia,"¿Desea Imprimir la Apertura del Inventario?");
@@ -594,7 +590,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnAceptarActionPerformed
 
     private void jbtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelarActionPerformed
-        jDialog1.dispose();
+        Aviso_view.dispose();
     }//GEN-LAST:event_jbtnCancelarActionPerformed
 
     private void jbtnCancelarImpresionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelarImpresionActionPerformed
@@ -620,13 +616,13 @@ public class Abrir_Inventario extends javax.swing.JPanel {
        
     }//GEN-LAST:event_jbtnImprimirActionPerformed
     public void imprimirInventarioApertura(Date Fe) throws MalformedURLException, IOException{
-        
-        String ol="images\\unsch.png";
+       
+        String ol="images/unsch.png";
         Image unsch=new Image(ImageDataFactory.create(ol));
         PdfWriter writer=null;
         try {
              writer=new PdfWriter
-                ("Carpeta_de_Archivos\\Inventario_Apertura"+(Fe.getYear()+1900)+"_"+Fe.getMonth()+"_"+Fe.getDate()+".pdf");           
+                ("Carpeta_de_Archivos/Inventario_Apertura"+(Fe.getYear()+1900)+"_"+(Fe.getMonth()+1)+"_"+Fe.getDate()+".pdf");           
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(jLabel12, "El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso");
         }  
@@ -661,9 +657,11 @@ public class Abrir_Inventario extends javax.swing.JPanel {
             table.addHeaderCell(new Cell().add(new Paragraph("FACTURA").setFontSize(tamFond).setFont(bold)).setTextAlignment(TextAlignment.CENTER)); 
             table.addHeaderCell(new Cell().add(new Paragraph("Proveedor").setFontSize(tamFond).setFont(bold)).setTextAlignment(TextAlignment.CENTER)); 
             table.addHeaderCell(new Cell().add(new Paragraph("Stock Inicial").setFontSize(tamFond).setFont(bold)).setTextAlignment(TextAlignment.CENTER)); 
-
+        
       Collections.sort(lista_registro);//ordenando A-Z (método como Override)
+   
         for (RegistroMensualLotes Lote_detalle : lista_registro){
+            
             if(Lote_detalle.getLote_detalle().getInventario().getMedicamento().getRolorigen()==Origen){
                 
                 auxAgregar=true;                            
@@ -762,6 +760,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog Aviso_view;
     private javax.swing.JPanel body;
     private javax.swing.JPanel body2;
     private javax.swing.JPanel carga;
@@ -770,13 +769,11 @@ public class Abrir_Inventario extends javax.swing.JPanel {
     private javax.swing.JPanel cuerpo1;
     private javax.swing.JPanel head;
     private javax.swing.JPanel head2;
-    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

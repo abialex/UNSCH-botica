@@ -1,7 +1,7 @@
 package com.ecoedu.Vistas.Inventario;
 
 
-import com.ecoedu.Vistas.vista_base.CuadroCarritoMedicinas;
+import com.ecoedu.Vistas.vista_base.Cuadro_Mediano;
 import com.ecoedu.Vistas.vista_base.Principal;
 import com.ecoedu.model.Descarga;
 import com.ecoedu.model.Detalle_Medicamentos;
@@ -90,19 +90,20 @@ public class Descargo extends javax.swing.JPanel{
      
     
     public void ConsultaBD(){
+        //observación
         if(objUsuario.getRol().getNombre_rol().equals("TÉCNICO")){
-            Lista_RolDescargo=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=11 and abre_rol='Des'").getResultList();
+            Lista_RolDescargo=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=6 and abre_rol='Des'").getResultList();
             }
         else{
-            Lista_RolDescargo=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=11").getResultList();
+            Lista_RolDescargo=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=6").getResultList();
             }
         listaLotes=jpa.createQuery("SELECT p FROM Lote_detalle p where isVencido=0").getResultList();
 
         jcbTipoDescargo.removeAllItems();
         for (Rol rol : Lista_RolDescargo){           
             jcbTipoDescargo.addItem(rol);}
-        
-        Lista_LotesVencidos=jpa.createQuery("SELECT p FROM Lote_detalle p where fecha_vencimiento <= GETDATE() and isVencido=0").getResultList();  
+        //curdate en mysql y getdate en sql server
+        Lista_LotesVencidos=jpa.createQuery("SELECT p FROM Lote_detalle p where fecha_vencimiento <= CURDATE() and isVencido=0").getResultList();  
         Lista_Usuario=jpa.createQuery("Select p from Usuario p ").getResultList();
         principalEjecucion();
         
@@ -995,7 +996,7 @@ public class Descargo extends javax.swing.JPanel{
 
     private void jbtnAgregarMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAgregarMedicamentosActionPerformed
  
-       CuadroCarritoMedicinas objCuadroCarritoMedicinas=new CuadroCarritoMedicinas(jpa,this);
+       Cuadro_Mediano objCuadroCarritoMedicinas=new Cuadro_Mediano(jpa,this);
        objCuadroCarritoMedicinas.setVisible(true);
        objPrincipal.setEnabled(false);        
     }//GEN-LAST:event_jbtnAgregarMedicamentosActionPerformed

@@ -8,7 +8,7 @@ package com.ecoedu.Vistas.vista_base;
 
 import com.ecoedu.Vistas.Inventario.Descargo;
 import com.ecoedu.Vistas.ServicioAsistencial.Servicio_Asistencial;
-import com.ecoedu.Vistas.ServicioFarmacia.ActualizarControlDelAlumno;
+import com.ecoedu.Vistas.ServicioFarmacia.Control_alumno_update_view;
 import com.ecoedu.Vistas.ServicioFarmacia.Cantidad_Medicinas;
 import com.ecoedu.Vistas.ServicioFarmacia.ServicioFarmacia;
 import com.ecoedu.model.Estudiante;
@@ -18,30 +18,18 @@ import javax.persistence.EntityManager;
  *
  * @author yrma
  */
-public class CuadroCarritoMedicinas extends javax.swing.JFrame {
+public class Cuadro_Mediano extends javax.swing.JFrame {
     Cantidad_Medicinas objCantMedicinas;
-    ActualizarControlDelAlumno objActualizarControlDelAlumno;
+    Control_alumno_update_view objActualizarControlDelAlumno;
     EntityManager jpa;    
     
-    public CuadroCarritoMedicinas(EntityManager objJPA,ServicioFarmacia objServicioFarmacia,int limite_seguro){
+    public Cuadro_Mediano(EntityManager objJPA,ServicioFarmacia objServicioFarmacia,int limite_seguro){
         initComponents();
         this.objCantMedicinas=new Cantidad_Medicinas(objJPA, this, objServicioFarmacia,limite_seguro);
         contenedor.add(objCantMedicinas);     
         this.setLocationRelativeTo(null);
     }
-    public CuadroCarritoMedicinas(EntityManager objJPA,Estudiante objEstudiante,ServicioFarmacia objServicioFarmacia,Semestre objSemestres){
-        initComponents();
-        this.objActualizarControlDelAlumno=new ActualizarControlDelAlumno(objJPA,objEstudiante,this,objServicioFarmacia,objSemestres);
-        contenedor.add(objActualizarControlDelAlumno);
-        this.setLocationRelativeTo(null);
-    }
-    public CuadroCarritoMedicinas(EntityManager objJPA,Estudiante objEstudiante,Servicio_Asistencial objServicio_Asistencial,Semestre objSemestres){
-        initComponents();
-        this.objActualizarControlDelAlumno=new ActualizarControlDelAlumno(objJPA,objEstudiante,this,objServicio_Asistencial, objSemestres);
-        contenedor.add(objActualizarControlDelAlumno);
-        this.setLocationRelativeTo(null);
-    }
-    public CuadroCarritoMedicinas(EntityManager objJPA,Descargo objDescargo){
+    public Cuadro_Mediano(EntityManager objJPA,Descargo objDescargo){
         initComponents();
         this.objCantMedicinas=new Cantidad_Medicinas(objJPA,this,objDescargo);
         contenedor.add(objCantMedicinas);

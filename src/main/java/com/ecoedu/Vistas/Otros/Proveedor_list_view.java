@@ -42,8 +42,7 @@ public class Proveedor_list_view extends javax.swing.JPanel{
            
     }
     public void ConsultaBD(){
-        Query query1=jpa.createQuery("SELECT p FROM Proveedor p ");
-        lista_proveedores=query1.getResultList();    
+        lista_proveedores=jpa.createQuery("SELECT p FROM Proveedor p ").getResultList();
         //Collections.sort(Lista_LabProv);
     }   
     public void principalEjecucion(){  

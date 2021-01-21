@@ -68,9 +68,9 @@ public class LlenarInventario extends javax.swing.JPanel {
         if(lista_registro.isEmpty()){
             Query query2=jpa.createQuery("SELECT p FROM Inventario p");
             Lista_Inventario=query2.getResultList();
-            Query query3=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=3");
+            Query query3=jpa.createQuery("SELECT p FROM Laboratorio p ");
             lista_laboratorio=query3.getResultList();        
-            Query query4=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=2");
+            Query query4=jpa.createQuery("SELECT p FROM Proveedor p");
             lista_proveedor=query4.getResultList();
             principalEjecucion();
             }

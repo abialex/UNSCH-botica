@@ -22,7 +22,7 @@ import com.ecoedu.Vistas.Inventario.LlenarInventario;
 import com.ecoedu.Vistas.Inventario.Ver_inventario;
 import com.ecoedu.Vistas.Medicamento.CrearMedicamento;
 import com.ecoedu.Vistas.Medicamento.ModificarMedicamento;
-import com.ecoedu.Vistas.Otros.ProveedorLIstView;
+import com.ecoedu.Vistas.Otros.Proveedor_list_view;
 import com.ecoedu.Vistas.ServicioAsistencial.Servicio_Asistencial;
 import com.ecoedu.Vistas.ServicioFarmacia.ServicioFarmacia;
 import com.ecoedu.Vistas.Tarifario.Crear_Tarifario;
@@ -224,7 +224,7 @@ public class Principal extends javax.swing.JFrame{
    private Modificar_Estudiante objModificar_Estudiante;
    private Reporte_Por_Escuela objReporte_Por_Escuela;
    private Reporte_Diagnostico objReporte_Diagnostico;
-   private ProveedorLIstView objProveedor;
+   private Proveedor_list_view objProveedor;
    private ModificarMedicamento objModificarMedicamento;
    private Reporte_Condicion objReporte_Condicion;
    private Servicio_Asistencial objServicio_Asistencial;
@@ -258,7 +258,7 @@ public class Principal extends javax.swing.JFrame{
        this.user=OBJuser;
        this.objReporte_de_insumos=new Reporte_de_insumos(OBJjpa, this);
        this.objServicio_Asistencial=new Servicio_Asistencial(OBJjpa, this, OBJuser);
-       this.objProveedor=new ProveedorLIstView(OBJjpa, this);
+       this.objProveedor=new Proveedor_list_view(OBJjpa, this);
        this.objReporte_Diagnostico=new Reporte_Diagnostico(OBJjpa, this);
        this.objEntragEntrega_del_dia=new Entrega_del_dia(OBJjpa);
        this.objCrearMedicamento=new CrearMedicamento(OBJjpa, this);
@@ -3023,7 +3023,6 @@ public class Principal extends javax.swing.JFrame{
     private void jlblSemestreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblSemestreMouseClicked
         if(auxFarmacia){
         Semestre_add_update_view objSemestre_view=new Semestre_add_update_view(this,true,objSemestreF,jpa);
-        objSemestre_view.setLocationRelativeTo(null);
         objSemestre_view.setVisible(true);
         }
            

@@ -60,7 +60,7 @@ public class CrearMedicamento extends javax.swing.JPanel{
         Lista_Medicamento=jpa.createQuery("SELECT p FROM Medicamento p").getResultList();
         Lista_RolOrigen=jpa.createQuery("select p From Rol p where id_tipo_Roles=4").getResultList();
         
-            
+        
     }   
     public void principalEjecucion(){  
         llenar_tabla_Medicamento(Lista_Medicamento);
