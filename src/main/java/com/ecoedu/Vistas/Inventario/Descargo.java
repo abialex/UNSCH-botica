@@ -79,7 +79,7 @@ public class Descargo extends javax.swing.JPanel{
          Lista_Medicamentos_Campaña.add(objDetalle);
          for (Lote_detalle lote_detalle : listaLotes){
              if(lote_detalle==objDetalle.getLote_detalle()){
-                 lote_detalle.setCantidad(lote_detalle.getCantidad()-objDetalle.getCantidad());
+                 lote_detalle.setCantidad_inicial(lote_detalle.getCantidad_inicial()-objDetalle.getCantidad());
                  lote_detalle.getInventario().setCantidad(lote_detalle.getInventario().getCantidad()-objDetalle.getCantidad());
                  break;
                  }                          
@@ -932,7 +932,7 @@ public class Descargo extends javax.swing.JPanel{
            for (Lote_detalle listaLote : listaLotes){
                if(listaLote.getCodigo().equals(jtfCodigoLotePerdida.getText())){
                    objLote=listaLote;
-                   jlblCantidadName.setText(listaLote.getCantidad()+"");
+                   jlblCantidadName.setText(listaLote.getCantidad_inicial()+"");
                    jlblConcName.setText(listaLote.getInventario().getMedicamento().getConcentracion());
                    jlblFFname.setText(listaLote.getInventario().getMedicamento().getForma_farmaceutica());
                    jlblProductoFarmaceuticoName.setText(listaLote.getInventario().getMedicamento().getNombre());
@@ -959,7 +959,7 @@ public class Descargo extends javax.swing.JPanel{
             jlblAsteriscoCantidadPerdida.setText("*");
         }else{
             jlblAsteriscoCantidadPerdida.setText("");
-            if(Integer.parseInt(jtfCantidadPerdida.getText())>objLote.getCantidad()){
+            if(Integer.parseInt(jtfCantidadPerdida.getText())>objLote.getCantidad_inicial()){
                 jbtnGuardarFaltantes.setEnabled(false);
                 }
             else{
@@ -1041,7 +1041,7 @@ public class Descargo extends javax.swing.JPanel{
         objDescargoFaltante.setUsuario(objUsuario);
         objDescargoFaltante.setCodigo_documento(jtfCodigoDocumento.getText());
         objDescargoFaltante.setTipo((Rol)jcbTipoDescargo.getSelectedItem());
-        objLote.setCantidad(objLote.getCantidad()-objDescargoFaltante.getCantidad());
+        objLote.setCantidad_inicial(objLote.getCantidad_inicial()-objDescargoFaltante.getCantidad());
         objLote.getInventario().setCantidad(objLote.getInventario().getCantidad()-objDescargoFaltante.getCantidad());
         jpa.getTransaction().begin();
         jpa.persist(objDescargoFaltante);
@@ -1063,7 +1063,7 @@ public class Descargo extends javax.swing.JPanel{
                 
                 for (Lote_detalle lote : Lista_CarritosDeVencidos){
                     Descarga objDescargoVencido=new Descarga();
-                    objDescargoVencido.setCantidad(lote.getCantidad());
+                    objDescargoVencido.setCantidad(lote.getCantidad_inicial());
                     //objDescargoFaltante.setDestino_persona(TOOL_TIP_TEXT_KEY);
                     objDescargoVencido.setFecha(new Date());
                     objDescargoVencido.setLote_detalle(lote);
@@ -1206,7 +1206,7 @@ public class Descargo extends javax.swing.JPanel{
              fila_actividad=new Object[modelo.getColumnCount()];  
              for (Lote_detalle objLote: Lista_CarritoLote){
                  fila_actividad[0]=objLote;
-                 fila_actividad[1]=objLote.getCantidad();  
+                 fila_actividad[1]=objLote.getCantidad_inicial();  
                  modelo.addRow(fila_actividad);//agregando filas
                  }
             jtblLotesSeleccionados.setModel(modelo); 

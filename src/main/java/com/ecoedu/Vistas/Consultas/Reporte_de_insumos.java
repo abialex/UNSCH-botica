@@ -4,7 +4,6 @@ import com.ecoedu.Vistas.vista_base.Principal;
 import com.ecoedu.app.EventoPagina;
 import com.ecoedu.model.Control_paciente;
 import com.ecoedu.model.Detalle_Medicamentos;
-import com.ecoedu.model.Detalle_llenado;
 import com.ecoedu.model.Estudiante;
 import com.ecoedu.model.Inventario;
 import com.ecoedu.model.Lote_detalle;
@@ -265,7 +264,7 @@ public class Reporte_de_insumos extends javax.swing.JPanel {
                  fila_actividad[2]=listadetalleMedicamento.get(i).getInventario().getMedicamento().getForma_farmaceutica();
                  fila_actividad[1]=listadetalleMedicamento.get(i).getInventario().getMedicamento().getConcentracion();             
                  fila_actividad[3]=Herramienta.formatoFechaMas1(listadetalleMedicamento.get(i).getFecha_vencimiento());  
-                 fila_actividad[4]=listadetalleMedicamento.get(i).getCantidad();   
+                 fila_actividad[4]=listadetalleMedicamento.get(i).getCantidad_inicial();   
                  //fila_actividad[5]=Herramienta.formatoFecha(listadetalleMedicamento.get(i).getLote_detalle().getFecha_vencimiento());   
                  //fila_actividad[6]=listadetalleMedicamento.get(i).getPrecio_Unitario();
                  //fila_actividad[7]=listadetalleMedicamento.get(i).getPrecio_Total();
@@ -340,7 +339,7 @@ public class Reporte_de_insumos extends javax.swing.JPanel {
             else{
                 table.addCell(new Paragraph(Herramienta.formatoFecha(Lote_detalle.getFecha_vencimiento())).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(tam).setBackgroundColor(com.itextpdf.kernel.color.Color.RED));
                 }
-            table.addCell(new Paragraph(Integer.toString(Lote_detalle.getCantidad())).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(tam));//stock final
+            table.addCell(new Paragraph(Integer.toString(Lote_detalle.getCantidad_inicial())).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(tam));//stock final
             }
         }     
         document.add(table);  

@@ -181,6 +181,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
          
          Lista_Procedencia =jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=3").getResultList();
          Lista_Condicion=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=2").getResultList();
+
      }
      public void principalEjecucion(){         
          jtfLookCodigo.setText("");
@@ -219,7 +220,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
          Lista_carrito_medicamentos.add(objDetalleMedicamento);
          for (Lote_detalle lote_detalle : Lista_lote_detalle){
              if(lote_detalle==objDetalleMedicamento.getLote_detalle()){
-                 lote_detalle.setCantidad(lote_detalle.getCantidad()-objDetalleMedicamento.getCantidad());
+                 lote_detalle.setCantidad_inicial(lote_detalle.getCantidad_inicial()-objDetalleMedicamento.getCantidad());
                  lote_detalle.getInventario().setCantidad(lote_detalle.getInventario().getCantidad()-objDetalleMedicamento.getCantidad());
                  break;
                  }                          
@@ -232,7 +233,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
      public void devolverDelCarrito(Detalle_Medicamentos objDetalleMedicamento){
          for (Lote_detalle lote_detalle : Lista_lote_detalle){
              if(lote_detalle==objDetalleMedicamento.getLote_detalle()){
-                 lote_detalle.setCantidad(lote_detalle.getCantidad()+objDetalleMedicamento.getCantidad());
+                 lote_detalle.setCantidad_inicial(lote_detalle.getCantidad_inicial()+objDetalleMedicamento.getCantidad());
                  lote_detalle.getInventario().setCantidad(lote_detalle.getInventario().getCantidad()+objDetalleMedicamento.getCantidad());
                  break;
                  }                          
