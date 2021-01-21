@@ -37,6 +37,7 @@ public class Login extends javax.swing.JPanel{
         @Override
         public void run(){
             conectarBD();
+            iniciarSesion();
         }        
     }
     public class ProcesoCarga extends Thread{
@@ -523,8 +524,8 @@ public class Login extends javax.swing.JPanel{
         jbtnIngresar.setEnabled(false);
         if(auxOpera){
             try{
-                Query query=jpa.createQuery("SELECT e FROM Usuario e where nickname="+"'"+jtfUsuario.getText()+"'"+" and "+
-                "contraseña="+"'"+ jtfContraseña.getText()+"'");//DigestUtils.md5Hex(jtfContraseña.getText())
+                Query query=jpa.createQuery("SELECT e FROM Usuario e where nickname="+"'"+"farmacia3"+"'"+" and "+ //jtfUsuario.getText()
+                "contraseña="+"'"+ "admin2"+"'");//DigestUtils.md5Hex(jtfContraseña.getText())
                 List<Usuario> listaUsuario=query.getResultList();
                 if(!listaUsuario.isEmpty()){
                     usuario = listaUsuario.get(0);
