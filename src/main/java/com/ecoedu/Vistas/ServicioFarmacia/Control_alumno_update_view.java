@@ -1,9 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.ecoedu.Vistas.ServicioFarmacia;
 
-
-
 import com.ecoedu.Vistas.ServicioAsistencial.Servicio_Asistencial;
-import com.ecoedu.Vistas.vista_base.CuadroCarritoMedicinas;
+import com.ecoedu.Vistas.vista_base.Cuadro_Mediano;
 import com.ecoedu.model.Control_paciente;
 import com.ecoedu.model.Estudiante;
 import com.ecoedu.model.Semestre;
@@ -11,64 +14,43 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
 
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
- * @author yrma
+ * @author alexis
  */
-public class ActualizarControlDelAlumno extends javax.swing.JPanel{
+public class Control_alumno_update_view extends javax.swing.JDialog {
     EntityManager jpa;
-    CuadroCarritoMedicinas objCuadroCarritoMedicinas;
+
     ServicioFarmacia objServicioFarmacia;
     Servicio_Asistencial objServicio_Asistencial;
     Estudiante objEstudiante;
     Semestre objSemestre;
-    boolean auxServis_Farmacia_o_Asistencial=false;
-    public ActualizarControlDelAlumno(EntityManager objJpa,Estudiante objEstudiante,CuadroCarritoMedicinas objCuadroCarritoMedicinas,ServicioFarmacia OBJServicioFarmacia,Semestre objSemestres){
-        initComponents();
-        auxServis_Farmacia_o_Asistencial=true;
+    
+    public Control_alumno_update_view(java.awt.Frame parent, boolean modal,EntityManager objJpa,Estudiante objEstudiante,
+            ServicioFarmacia objServicioFarmacia,Semestre objSemestre) {
+        super(parent, modal);
         this.objEstudiante=objEstudiante;
         this.jpa=objJpa;
-        this.objServicioFarmacia=OBJServicioFarmacia;
-        this.objCuadroCarritoMedicinas=objCuadroCarritoMedicinas;  
-        this.objSemestre=objSemestres;
-        principalEjecucion();        
+        this.objServicioFarmacia=objServicioFarmacia;
+        this.objSemestre=objSemestre;
+        initComponents();
+        principalEjecucion();
+        this.setLocationRelativeTo(null);
     }
-    public ActualizarControlDelAlumno(EntityManager objJpa,Estudiante objEstudiante,CuadroCarritoMedicinas objCuadroCarritoMedicinas,Servicio_Asistencial objServicio_asistencial,Semestre objSemestres){
-        initComponents();
-        auxServis_Farmacia_o_Asistencial=true;
-        this.objEstudiante=objEstudiante;
-        this.jpa=objJpa;
-        this.objServicio_Asistencial=objServicio_asistencial;
-        this.objCuadroCarritoMedicinas=objCuadroCarritoMedicinas;  
-        this.objSemestre=objSemestres;
-        principalEjecucion();        
-    } 
-  
-    public void principalEjecucion(){
+    
+     public void principalEjecucion(){
         jlblEstEscuela.setText(objEstudiante.getEscuela().getNombre());
         jlblEstCodigo.setText(objEstudiante.getCodigo());
         jlblEstCondicion.setText(objEstudiante.getCondicion().getNombre_rol());
         jlblEstNombres.setText(objEstudiante.getPersona().getInfoPersona());
         jcbSerie.setSelectedItem((String)objEstudiante.getSerie());
-        desglozarDatos(); 
      }
-    
-    public void desglozarDatos(){
-         
-         }
-     
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         contenedor = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jlblCondicion = new javax.swing.JLabel();
@@ -90,11 +72,13 @@ public class ActualizarControlDelAlumno extends javax.swing.JPanel{
         jlblEstCondicion = new javax.swing.JLabel();
         jbtnAgregar1 = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 251, 255));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        setMaximumSize(new java.awt.Dimension(100, 176));
-        setPreferredSize(new java.awt.Dimension(700, 350));
-        setLayout(new java.awt.BorderLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 251, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setMaximumSize(new java.awt.Dimension(100, 176));
+        jPanel1.setPreferredSize(new java.awt.Dimension(700, 350));
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
         contenedor.setBackground(new java.awt.Color(255, 255, 255));
         contenedor.setMaximumSize(new java.awt.Dimension(700, 300));
@@ -217,7 +201,30 @@ public class ActualizarControlDelAlumno extends javax.swing.JPanel{
 
         contenedor.add(jPanel2, java.awt.BorderLayout.CENTER);
 
-        add(contenedor, java.awt.BorderLayout.CENTER);
+        jPanel1.add(contenedor, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 700, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 350, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAgregarActionPerformed
@@ -234,26 +241,26 @@ public class ActualizarControlDelAlumno extends javax.swing.JPanel{
         //que el objeto cambió algún atributo, este lo actualiza en la BD
         jpa.persist(objControlNuevo);
         JOptionPane.showMessageDialog(jLabel12, "Se actualizó y se renovó el control con exito");
-        if(auxServis_Farmacia_o_Asistencial){
+        if(true){//cambiar a una variable para al acceso dependiendo si es asistencia o farmacia
             objServicioFarmacia.ConsultaBD();
             objServicioFarmacia.principalEjecucion();
-            objServicioFarmacia.llenarControlAlumno();
-            objServicioFarmacia.getPrincipal().setEnabled(true);}
+            objServicioFarmacia.llenarControlAlumno();}
         else{
             objServicio_Asistencial.ConsultaBD();
             objServicio_Asistencial.principalEjecucion();
-            objServicio_Asistencial.llenarControlAlumno();
-            objServicio_Asistencial.getPrincipal().setEnabled(true);}
-        objCuadroCarritoMedicinas.setVisible(false);
+            objServicio_Asistencial.llenarControlAlumno();}
+        this.setVisible(false);
         jpa.getTransaction().commit();
     }//GEN-LAST:event_jbtnAgregarActionPerformed
 
     private void jbtnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAgregar1ActionPerformed
-        
-        objServicioFarmacia.getPrincipal().setEnabled(true);
-        objCuadroCarritoMedicinas.setVisible(false);
+
+        this.setVisible(false);
     }//GEN-LAST:event_jbtnAgregar1ActionPerformed
-    
+
+    /**
+     * @param args the command line arguments
+     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contenedor;
@@ -261,6 +268,7 @@ public class ActualizarControlDelAlumno extends javax.swing.JPanel{
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton jbtnAgregar;
     private javax.swing.JButton jbtnAgregar1;

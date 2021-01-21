@@ -139,7 +139,6 @@ public class ServicioFarmacia extends javax.swing.JPanel {
         this.jpa=jpa2;
         this.objPrincipal=OBJPrincipal;
         this.objUsuario=OBJUsuario;   
-         jlblMensajito.setText("El gaaaaaaaaaaaa");
     }
     
     private Semestre objSemestre;
@@ -188,7 +187,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
          cuerpo1ListaRecetas.setVisible(true);
          cuerp2CrearRecetas.setVisible(false);     
          limpiarVista1();
-         Limpiarcuerp2CrearRecetas();
+         Limpiarcuerpo2CrearRecetas();
          jtfLookCodigo.setEditable(true);
          if(!objUsuario.getRol().getNombre_rol().equals("adm_química")){
              jbtnImprimir.setVisible(false);
@@ -960,10 +959,10 @@ public class ServicioFarmacia extends javax.swing.JPanel {
    
     
     public void llenarControlAlumno(){//usando acceso BD  
-        boolean aux=true;
+        boolean isActivo=false;
         for (int i = 0; i < Lista_control_paciente.size(); i++){
             if (Lista_control_paciente.get(i).getEstudiante().getCodigo().equals(jtfLookCodigo.getText())){ 
-                aux=false;                
+                isActivo=false;                
                 objControl_paciente_Final=Lista_control_paciente.get(i);
                 limite_seguro=objControl_paciente_Final.getLimite_control();
                 jlblCondicion.setText(objControl_paciente_Final.getEstudiante().getCondicion().getNombre_rol());
@@ -990,7 +989,8 @@ public class ServicioFarmacia extends javax.swing.JPanel {
             jbtnImprimir.setEnabled(false);
             jlblAdvertencia.setText("");
         }
-        if(aux){            
+        //detectando si el alumno no renovó su control de 110 soles
+        if(!isActivo){            
             List<Estudiante> Lista_Estudiante=jpa.createQuery("SELECT p FROM Estudiante p where codigo='"+jtfLookCodigo.getText()+"'").getResultList();
             if(Lista_Estudiante.isEmpty()){
                 jlblAdvertencia.setText("NO SE ENCONTRÓ ALUMNO CON EL CÓDIGO: "+jtfLookCodigo.getText());
@@ -998,11 +998,12 @@ public class ServicioFarmacia extends javax.swing.JPanel {
                 }
             else{
                 if(objSemestre!=null){
-                Cuadro_Mediano objCuadroCarrito=new Cuadro_Mediano(jpa, Lista_Estudiante.get(0), this,objSemestre);
-                objCuadroCarrito.setVisible(true);
-                objPrincipal.setEnabled(false);}
-                }
+                    Control_alumno_update_view objControl_alumno_update_view=new Control_alumno_update_view(objPrincipal, true, jpa,
+                                                                                   Lista_Estudiante.get(0), this, objSemestre);
+                    objControl_alumno_update_view.setVisible(true);
             }
+                }
+        }
        llenar_Tabla_de_Recetas(Lista_Recetas);        
     }
     private void jbtnCrearRecetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCrearRecetaActionPerformed
@@ -1058,7 +1059,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
         for (Detalle_Medicamentos Lista_carrito_medicamento : Lista_carrito_medicamentos){
             devolverDelCarrito(Lista_carrito_medicamento);            
         }
-        Limpiarcuerp2CrearRecetas();
+        Limpiarcuerpo2CrearRecetas();
         
     }//GEN-LAST:event_jbtnCancelarCrearDiagnosticoActionPerformed
 
@@ -1114,17 +1115,15 @@ public class ServicioFarmacia extends javax.swing.JPanel {
             jlblAdvertencia.setText("");           
             if(!Lista_Recetas.isEmpty()){
                 objReceta=fechadeUltimaReceta(Lista_Recetas);
-                if((-objReceta.getFecha_creada().getTime()+new Date().getTime())/86400000<179){//menor de 6 meses
-                    objEstudiante.setCondicion(Lista_Condicion.get(1));
+                if((-objReceta.getFecha_creada().getTime()+new Date().getTime())/86400000<181){//menor de 6 meses
                     JOptionPane.showMessageDialog(jlblNombres, "CONCURRENTE"+(objReceta.getFecha_creada().getTime()-new Date().getTime())/86400000);
                     jpa.createNativeQuery("update Estudiante set id_RolCondicion="+5+" where id_Estudiante="+objEstudiante.getId()).executeUpdate();
-                    jpa.persist(objEstudiante);}
+                }
                 else{
                     JOptionPane.showMessageDialog(jlblNombres, "REINGRESANTE");
-                    objEstudiante.setCondicion(Lista_Condicion.get(2));
                     jpa.createNativeQuery("update Estudiante set id_RolCondicion="+6+" where id_Estudiante="+objEstudiante.getId()).executeUpdate();
-                    jpa.persist(objEstudiante);//Reingresante
                     }
+                jpa.persist(objEstudiante);
                 }            
             int confirmado = JOptionPane.showConfirmDialog(jlblNombres,"¿Desea Imprimir la Receta?");
             if (JOptionPane.OK_OPTION == confirmado){
@@ -1140,7 +1139,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
                 }
             else{
                 System.out.println("vale... no borro nada...");}
-             Limpiarcuerp2CrearRecetas();            
+             Limpiarcuerpo2CrearRecetas();            
             jtfLookCodigo.setEditable(true);
             jpa.getTransaction().commit();//finnnnnnnnnnnnnnnnnnnnnnnnn transact
             ConsultaBD();
@@ -1158,14 +1157,9 @@ public class ServicioFarmacia extends javax.swing.JPanel {
         catch (HeadlessException e) {
             JOptionPane.showMessageDialog(jlblNombres, e.toString());
         }
-        
-       
-        
-        
-        
     }//GEN-LAST:event_jbtnGuardarActionPerformed
 
-    public void Limpiarcuerp2CrearRecetas(){
+    public void Limpiarcuerpo2CrearRecetas(){
         jtfCodigoDiagnostico.setText("");
         Lista_carrito_medicamentos.clear();
         llenar_Tabla_de_carrito_medicina(Lista_carrito_medicamentos);

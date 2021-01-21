@@ -4,7 +4,7 @@ package com.ecoedu.Vistas.ServicioFarmacia;
 import com.ecoedu.Vistas.Herramienta;
 import com.ecoedu.Vistas.Inventario.Descargo;
 import com.ecoedu.Vistas.soloMayusculas;
-import com.ecoedu.Vistas.vista_base.CuadroCarritoMedicinas;
+import com.ecoedu.Vistas.vista_base.Cuadro_Mediano;
 import com.ecoedu.model.Detalle_Medicamentos;
 import com.ecoedu.model.Inventario;
 import com.ecoedu.model.Lote_detalle;
@@ -30,7 +30,7 @@ import javax.swing.JLabel;
  */
 public class Cantidad_Medicinas extends javax.swing.JPanel{
     EntityManager jpa;
-    CuadroCarritoMedicinas objCuadroCarritoMedicinas;
+    Cuadro_Mediano objCuadroCarritoMedicinas;
     List<Inventario> list_Inventario=new ArrayList<>();
     List<Lote_detalle> list_Lote_detalle;
     Detalle_Medicamentos objDetalle_Medicamento_Final=new Detalle_Medicamentos();
@@ -39,7 +39,7 @@ public class Cantidad_Medicinas extends javax.swing.JPanel{
     Descargo objDescargo;
     private int limite_seguro;
     private boolean auxAuxiliar;
-    public Cantidad_Medicinas(EntityManager objJpa,CuadroCarritoMedicinas objCuadroCarritoMedicinas,ServicioFarmacia OBJServicioFarmacia,int limite_seguros){
+    public Cantidad_Medicinas(EntityManager objJpa,Cuadro_Mediano objCuadroCarritoMedicinas,ServicioFarmacia OBJServicioFarmacia,int limite_seguros){
         initComponents();
         this.limite_seguro=limite_seguros;
         this.jpa=objJpa;
@@ -50,7 +50,7 @@ public class Cantidad_Medicinas extends javax.swing.JPanel{
         jtfMedicamento.setDocument(new soloMayusculas());
         principalEjecucion();        
     }
-    public Cantidad_Medicinas(EntityManager objJpa,CuadroCarritoMedicinas objCuadroCarrito,Descargo sobjDescargo){
+    public Cantidad_Medicinas(EntityManager objJpa,Cuadro_Mediano objCuadroCarrito,Descargo sobjDescargo){
         initComponents();
         auxAuxiliar=false;
         jtfMedicamento.setDocument(new soloMayusculas());

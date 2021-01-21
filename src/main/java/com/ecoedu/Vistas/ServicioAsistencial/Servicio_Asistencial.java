@@ -1,7 +1,8 @@
 package com.ecoedu.Vistas.ServicioAsistencial;
 import com.ecoedu.Vistas.Herramienta;
+import com.ecoedu.Vistas.ServicioFarmacia.Control_alumno_update_view;
 import com.ecoedu.Vistas.ServicioFarmacia.ServicioFarmacia;
-import com.ecoedu.Vistas.vista_base.CuadroCarritoMedicinas;
+import com.ecoedu.Vistas.vista_base.Cuadro_Mediano;
 import com.ecoedu.Vistas.vista_base.Principal;
 import com.ecoedu.model.Control_paciente;
 import com.ecoedu.model.Detalle_Servicio_Social;
@@ -680,9 +681,10 @@ public class Servicio_Asistencial extends javax.swing.JPanel {
                 }
             else{
                 if(objSemestre!=null){
-                CuadroCarritoMedicinas objCuadroCarrito=new CuadroCarritoMedicinas(jpa, Lista_Estudiante.get(0), this,objSemestre);
-                objCuadroCarrito.setVisible(true);
-                objPrincipal.setEnabled(false);}
+                /*Control_alumno_update_view objControl_alumno_update_view=new Control_alumno_update_view(objPrincipal, true, jpa,
+                                                                                   Lista_Estudiante.get(0), this, objSemestre);
+                    objControl_alumno_update_view.setVisible(true);*/
+                }
                 }
             }
         llenar_Tabla_de_Asistenciales(Lista_servicio_social);
