@@ -61,7 +61,7 @@ public class Ver_inventario extends javax.swing.JPanel {
     public void ConsultaBD(){
         Lista_Origen=jpa.createQuery("Select p from Rol p where id_tipo_Roles=10").getResultList();
         Collections.sort(Lista_Origen);
-        Query query1=jpa.createQuery("SELECT p FROM Detalle_llenado p ");
+        Query query1=jpa.createQuery("SELECT p FROM Lote_detalle p ");
         Lista_lotes=query1.getResultList();      
     }   
     public void principalEjecucion(){
