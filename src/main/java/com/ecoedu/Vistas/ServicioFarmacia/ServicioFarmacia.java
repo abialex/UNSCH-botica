@@ -1041,9 +1041,8 @@ public class ServicioFarmacia extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnVolver2ActionPerformed
 
     private void jbtnADDmedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnADDmedicamentosActionPerformed
-       Cuadro_Mediano objCuadroCarritoMedicinas=new Cuadro_Mediano(jpa,this,limite_seguro);
-       objCuadroCarritoMedicinas.setVisible(true);
-       objPrincipal.setEnabled(false);
+       Carrito_medicinas_add_view objCarrito_medicinas_add_view=new Carrito_medicinas_add_view(objPrincipal, true, jpa, this, limite_seguro);
+       objCarrito_medicinas_add_view.setVisible(true);
        
     }//GEN-LAST:event_jbtnADDmedicamentosActionPerformed
 
