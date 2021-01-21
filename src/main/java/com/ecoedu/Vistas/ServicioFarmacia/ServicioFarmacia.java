@@ -1,7 +1,7 @@
 package com.ecoedu.Vistas.ServicioFarmacia;
 import com.ecoedu.Vistas.Herramienta;
 import com.ecoedu.Vistas.soloMayusculas;
-import com.ecoedu.Vistas.vista_base.CuadroCarritoMedicinas;
+import com.ecoedu.Vistas.vista_base.Cuadro_Mediano;
 import com.ecoedu.Vistas.vista_base.Principal;
 import com.ecoedu.model.Control_paciente;
 import com.ecoedu.model.Detalle_Medicamentos;
@@ -138,7 +138,8 @@ public class ServicioFarmacia extends javax.swing.JPanel {
         initComponents();        
         this.jpa=jpa2;
         this.objPrincipal=OBJPrincipal;
-        this.objUsuario=OBJUsuario;        
+        this.objUsuario=OBJUsuario;   
+         jlblMensajito.setText("El gaaaaaaaaaaaa");
     }
     
     private Semestre objSemestre;
@@ -160,7 +161,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
              else{                 
                  jbtnCrearReceta.setVisible(true);
                  jbtnAgregarMedicamentoExtemporaneo.setVisible(true);
-                 jlblMensajito.setText("LISTA DE RECETAS DEL ESTUDIANTE");
+            
                  jlblMensajito.setForeground(Color.black); 
                  List<Semestre> lis=jpa.createQuery("SELECT p from Semestre p where fecha_fin_Real is null").getResultList();  
                  if(!lis.isEmpty()){
@@ -168,7 +169,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
                      Lista_control_paciente=jpa.createQuery("SELECT p FROM Control_paciente p where iSactivo=1 and id_Semestre="+objSemestre.getId()).getResultList();
                      jbtnCrearReceta.setVisible(true);
                      jbtnAgregarMedicamentoExtemporaneo.setVisible(true);
-                     jlblMensajito.setText("");
+                          jlblMensajito.setText("LISTA DE RECETAS DEL ESTUDIANTE");
                      }
                  else{
                      jbtnCrearReceta.setVisible(false);
@@ -179,8 +180,8 @@ public class ServicioFarmacia extends javax.swing.JPanel {
          }
         
          
-         Lista_Procedencia =jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=5").getResultList();
-         Lista_Condicion=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=8").getResultList();
+         Lista_Procedencia =jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=3").getResultList();
+         Lista_Condicion=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=2").getResultList();
      }
      public void principalEjecucion(){         
          jtfLookCodigo.setText("");
@@ -189,7 +190,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
          limpiarVista1();
          Limpiarcuerp2CrearRecetas();
          jtfLookCodigo.setEditable(true);
-         if(!objUsuario.getRol().getNombre_rol().equals("ADMINISTRADOR.QF")){
+         if(!objUsuario.getRol().getNombre_rol().equals("adm_química")){
              jbtnImprimir.setVisible(false);
          }         
          jbtnImprimir.setEnabled(false);
@@ -239,10 +240,10 @@ public class ServicioFarmacia extends javax.swing.JPanel {
          } 
          
      }
-     public List<Lote_detalle> getListaInventario(){
+     public List<Lote_detalle> getListaInventario(){//filtrando medicina que es de farmacia
          List<Lote_detalle> lista_Lote=new ArrayList<>();
          for (Lote_detalle lote_detalle : Lista_lote_detalle) {
-             if(lote_detalle.getInventario().getMedicamento().getRolorigen().getNombre_rol().equals("Med. Farmacia")){
+             if(lote_detalle.getInventario().getMedicamento().getRolorigen().getNombre_rol().equals("farmacia")){
                  lista_Lote.add(lote_detalle);
              }
          }
@@ -563,7 +564,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
         jPanel9.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jlblMensajito.setBackground(new java.awt.Color(255, 255, 255));
-        jlblMensajito.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 3, 18)); // NOI18N
+        jlblMensajito.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jlblMensajito.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlblMensajito.setText("LISTA DE RECETAS DEL ESTUDIANTE");
         jlblMensajito.setPreferredSize(new java.awt.Dimension(178, 30));
@@ -997,7 +998,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
                 }
             else{
                 if(objSemestre!=null){
-                CuadroCarritoMedicinas objCuadroCarrito=new CuadroCarritoMedicinas(jpa, Lista_Estudiante.get(0), this,objSemestre);
+                Cuadro_Mediano objCuadroCarrito=new Cuadro_Mediano(jpa, Lista_Estudiante.get(0), this,objSemestre);
                 objCuadroCarrito.setVisible(true);
                 objPrincipal.setEnabled(false);}
                 }
@@ -1005,8 +1006,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
        llenar_Tabla_de_Recetas(Lista_Recetas);        
     }
     private void jbtnCrearRecetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCrearRecetaActionPerformed
-        Query query1=jpa.createQuery("SELECT p FROM Lote_detalle p where isVencido=0");
-        Lista_lote_detalle=query1.getResultList();
+        Lista_lote_detalle=jpa.createQuery("SELECT p FROM Lote_detalle p where isVencido=0").getResultList();
         cuerpo1ListaRecetas.setVisible(false);
         cuerp2CrearRecetas.setVisible(true);      
         jtfLookCodigo.setEditable(false);
@@ -1040,7 +1040,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnVolver2ActionPerformed
 
     private void jbtnADDmedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnADDmedicamentosActionPerformed
-       CuadroCarritoMedicinas objCuadroCarritoMedicinas=new CuadroCarritoMedicinas(jpa,this,limite_seguro);
+       Cuadro_Mediano objCuadroCarritoMedicinas=new Cuadro_Mediano(jpa,this,limite_seguro);
        objCuadroCarritoMedicinas.setVisible(true);
        objPrincipal.setEnabled(false);
        
@@ -1176,7 +1176,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
         boolean auxDiag=false;
         if(!jtfCodigoDiagnostico.getText().equals("")){
             TextAutoCOmpleterCodigoDiagnostico.removeAllItems();        
-            Lista_diagnostico=Herramienta.findbyLike(Diagnostico.class, "id_CondicionCodigo",jtfCodigoDiagnostico.getText(),jpa);
+            Lista_diagnostico=Herramienta.findbyLike(Diagnostico.class, "id",jtfCodigoDiagnostico.getText(),jpa);
             for (Diagnostico diagnostico : Lista_diagnostico){
                       TextAutoCOmpleterCodigoDiagnostico.addItem(diagnostico.getId()); 
                       if(jtfCodigoDiagnostico.getText().equals(diagnostico.getId())){
@@ -1308,7 +1308,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
         
     }
     public void imprimirEstudiante() throws FileNotFoundException, DocumentException, IOException{
-        String ol="images\\unsch.png";
+        String ol="/home/alexis/Descargas/boticawithJunut2-20210112T210646Z-001/boticawithJunut2/src/main/resources/images/unsch.png";//dirección cambia
         Image unsch=new Image(ImageDataFactory.create(ol));
         int fontTamaño=9;
         int fontHeadTamaño=11;
