@@ -7,6 +7,8 @@ package com.ecoedu.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -17,8 +19,8 @@ import javax.persistence.Id;
 @Entity
 public class Proveedor {    
     @Id
-    @Column(unique = true, nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     
     
     @Column(name = "nombre",nullable = false)
@@ -33,11 +35,11 @@ public class Proveedor {
     @Column(name = "descripcion",nullable = true)
     private String descripcion;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id_proveedor) {
+    public void setId(int id_proveedor) {
         this.id = id_proveedor;
     }
 
@@ -72,6 +74,13 @@ public class Proveedor {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    @Override
+    public String toString() {
+        return nombre; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
     
     

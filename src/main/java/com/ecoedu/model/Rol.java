@@ -76,5 +76,52 @@ public class Rol implements Comparable<Rol>{
     }
     
     
+    /*
+           INSERT INTO Rol (nombre_rol,abre_rol,id_tipo_Roles) VALUES 
+      ('masculino','m',1), 
+      ('femenino','f',1),
+
+      ('nuevo','n',2),
+      ('concurrente','c',2),
+      ('reingresante','r',2),
+
+      ('odontología','',3 ),
+      ('obstetricia','',3 ),
+      ('medicina','',3),
+      ('psicología','',3),
+      ('otros','',3),
+
+      ('camp. alpachaca','',4) ,
+      ('ins. odontología','',4),
+      ('ins. enfermería','',4),
+      ('farmacia','',4),
+      ('ins. laboratorio','',4),
+      ('ins. farmacia','',4),
+      ('ins. obstetricia','',4),
+
+
+      ('jefa','',5),
+      ('adm_química','',5),
+      ('química','',5),
+      ('trabajadora social','',5),
+      ('consultante','',5),
+
+      ('pérdida','',6),
+      ('vencido','',6),
+      ('donación','',6),
+      ('campaña','',6),
+      ('odontología','',6),
+      ('enfermería','',6),
+      ('laboratorio','',6),
+      ('obstetricia','',6),
+
+      ('asistencial','',7),
+      ('laboratorio','',7),
+      ('imagenes','',7),
+      ('otros servicios','',7);
+    
+    */
+    
+    
     
 }

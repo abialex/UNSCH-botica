@@ -7,6 +7,8 @@ package com.ecoedu.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -17,8 +19,8 @@ import javax.persistence.Id;
 @Entity
 public class Escuela {
     @Id
-    @Column(unique = true, nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     
     
     @Column(name = "nombre",nullable = false)
@@ -27,11 +29,11 @@ public class Escuela {
     @Column(name = "abreviatura",nullable = true)
     private String abreviatura;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id_escuela) {
+    public void setId(int id_escuela) {
         this.id = id_escuela;
     }
 
@@ -50,6 +52,39 @@ public class Escuela {
     public void setAbreviatura(String abreviatura) {
         this.abreviatura = abreviatura;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
+    
+    /*
+         INSERT INTO Escuela (nombre,abreviatura) VALUES 
+      ('ingenería de sistemas','sistemas'), 
+      ('ingenería civil','civil'),
+      ('ingenería química','química'),
+      ('ingenería agroforestal','forestal'),
+      ('ingenería de minas','minas'),
+      ('ingenería agrícola','agrícola'),
+      ('agronomía','agronomía'),
+      ('medicina humana','medicina'),
+      ('enfermería','enfermería'),
+      ('obstetricia','obstetricia'),
+      ('farmacia y bioquímica','farmacia'),
+      ('industria alimentarias','industria'),
+      ('físico matemáticas','físico'),
+      ('educación inicial','ed. inicial'),
+      ('educación primaria','ed. primaria'),
+      ('educación secundaria', ed.secundaria),
+      ('educación física','ed. física'),
+    
+        
+
+    
+    */
+    
+    
     
     
     

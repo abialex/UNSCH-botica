@@ -7,6 +7,8 @@ package com.ecoedu.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -17,8 +19,8 @@ import javax.persistence.Id;
 @Entity
 public class Laboratorio {    
     @Id
-    @Column(unique = true, nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     
     
     @Column(name = "nombre",nullable = false)
@@ -30,11 +32,11 @@ public class Laboratorio {
     @Column(name = "descripcion",nullable = true)
     private String descripcion;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId_proveedor(String id_laboratorio) {
+    public void setId_proveedor(int id_laboratorio) {
         this.id = id_laboratorio;
     }
 

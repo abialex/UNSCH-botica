@@ -19,24 +19,33 @@ public class Tipo_Roles implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @Column(name = "nombre_rol",nullable = false,length = 30)
-    private String nombre_rol;
+    @Column(name = "nombre",nullable = false,length = 30)
+    private String nombre;
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id_tipo_Roles) {
-        this.id = id_tipo_Roles;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre_rol() {
-        return nombre_rol;
+        return nombre;
     }
 
-    public void setNombre_rol(String nombre_rol) {
-        this.nombre_rol = nombre_rol;
+    public void setNombre_rol(String nombre) {
+        this.nombre = nombre;
     }
-    
+    /*
+    INSERT INTO Tipo_Roles (nombre) VALUES 
+    ('sexo'), 
+    ('condición'),
+    ('procedencia'),
+    ('origen'),
+    ('cargo'),
+    ('descargo');
+    ('servicios')
+    */
     
 }
