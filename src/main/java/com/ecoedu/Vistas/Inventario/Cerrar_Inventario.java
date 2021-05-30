@@ -1927,15 +1927,15 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
     }
     //
     public void imprimirInventarioCierre(boolean iSpreliminar,Date Fe,RegistroMensualLotes list_registro_mensual_lotes,boolean iSdescruce) throws MalformedURLException, IOException{ 
-        String ol="src/main/resources/images/unsch.png";
+        String ol="images/unsch.png";
         Image unsch=new Image(ImageDataFactory.create(ol));
         PdfWriter writer=null;
         try {
              writer=new PdfWriter
-                ("Carpeta_de_ArchivosInventario_Cierre"+(Fe.getYear()+1900)+"_"+Fe.getMonth()+"_"+Fe.getDate()+".pdf");           
+                ("Carpeta_de_Archivos/Inventario_Cierre/Inventario_Cierre_"+(Fe.getYear()+1900)+"_"+Fe.getMonth()+"_"+Fe.getDate()+".pdf");           
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(jLabel12, "El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso");
-        }  
+            JOptionPane.showMessageDialog(jLabel12, "El proceso no tiene acceso al archivo siendo utilizado por otro proceso");
+         }
         PdfDocument pdf = new PdfDocument(writer);
         Document document=new Document(pdf,PageSize.A4.rotate());     
         EventoPagina evento = new EventoPagina(document);
