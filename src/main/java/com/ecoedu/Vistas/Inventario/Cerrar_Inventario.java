@@ -1377,10 +1377,9 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
             jlblPF.setText(objRegistroMensualLotes.getLote_detalle().getInventario().getMedicamento().getNombre());
             jlblFF.setText(objRegistroMensualLotes.getLote_detalle().getInventario().getMedicamento().getForma_farmaceutica());
             jlblConc.setText(objRegistroMensualLotes.getLote_detalle().getInventario().getMedicamento().getConcentracion());
-            jlblCantFinal.setText(objRegistroMensualLotes.getLote_detalle().getCantidad_inicial()+"");
             jlblCantInicial.setText(objRegistroMensualLotes.getCantidad_inicial()+"");
             if(objRegistroMensualLotes.getLote_detalle().isIsVencido()){jlblCantFinal.setText("vencido");}
-            else{jlblCantFinal.setText(objRegistroMensualLotes.getLote_detalle().getCantidad_inicial()+"");}
+            else{jlblCantFinal.setText(objRegistroMensualLotes.getLote_detalle().getCantidad_actual()+"");}
             jlblCodigoLote.setText(objRegistroMensualLotes.getLote_detalle().getCodigo());
             jlblFechaAperturada.setText(Herramienta.formatoFechaHoraMas1(objRegistroMensualLotes.getFecha_apertura_real()));
             jlblFechaVen.setText(Herramienta.formatoFechaMas1(objRegistroMensualLotes.getLote_detalle().getFecha_vencimiento()));
@@ -2193,7 +2192,7 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
                  //fila_actividad[3]=objRegistro.getLote_detalle().getPrecio_Venta_Redondeado();  
                  fila_actividad[4]=objRegistro.getUsuario_apertura().getPersona().getInfoPersona(); 
                  if(objRegistro.getLote_detalle().isIsVencido()){fila_actividad[3]="VENC.";}
-                 else{fila_actividad[3]=objRegistro.getLote_detalle().getCantidad_inicial();}   
+                 else{fila_actividad[3]=objRegistro.getLote_detalle().getCantidad_actual();}   
                  fila_actividad[5]=Herramienta.formatoFechaMas1(objRegistro.getLote_detalle().getFecha_vencimiento());  
                  modelo.addRow(fila_actividad);//agregando filas
                  }
