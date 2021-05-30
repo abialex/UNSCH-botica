@@ -424,6 +424,7 @@ public class Carrito_medicinas_add_view extends javax.swing.JDialog {
 
     private void jbtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAgregarActionPerformed
         if (!jtfCantidad.getText().equals("")) {
+            //reutilizando para carrito de campaña
             if (auxAuxiliar) {
                 objDetalle_Medicamento_Final.setCantidad(Integer.parseInt(jtfCantidad.getText()));//get
                 objDetalle_Medicamento_Final.setPrecio_Total(Float.parseFloat(jlblPrecioTotal.getText()));//get
