@@ -220,7 +220,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
          Lista_carrito_medicamentos.add(objDetalleMedicamento);
          for (Lote_detalle lote_detalle : Lista_lote_detalle){
              if(lote_detalle==objDetalleMedicamento.getLote_detalle()){
-                 lote_detalle.setCantidad_inicial(lote_detalle.getCantidad_inicial()-objDetalleMedicamento.getCantidad());
+                 lote_detalle.setCantidad_actual(lote_detalle.getCantidad_actual()-objDetalleMedicamento.getCantidad());
                  lote_detalle.getInventario().setCantidad(lote_detalle.getInventario().getCantidad()-objDetalleMedicamento.getCantidad());
                  break;
                  }                          
@@ -963,7 +963,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
         boolean isActivo=false;
         for (int i = 0; i < Lista_control_paciente.size(); i++){
             if (Lista_control_paciente.get(i).getEstudiante().getCodigo().equals(jtfLookCodigo.getText())){ 
-                isActivo=false;                
+                isActivo=true;                
                 objControl_paciente_Final=Lista_control_paciente.get(i);
                 limite_seguro=objControl_paciente_Final.getLimite_control();
                 jlblCondicion.setText(objControl_paciente_Final.getEstudiante().getCondicion().getNombre_rol());
@@ -997,7 +997,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
                 jlblAdvertencia.setText("NO SE ENCONTRÓ ALUMNO CON EL CÓDIGO: "+jtfLookCodigo.getText());
                 limpiarVista1();
                 }
-            else{
+            else{//si no hay semestre creado, no se permite actualizar control
                 if(objSemestre!=null){
                     Control_alumno_update_view objControl_alumno_update_view=new Control_alumno_update_view(objPrincipal, true, jpa,
                                                                                    Lista_Estudiante.get(0), this, objSemestre);
