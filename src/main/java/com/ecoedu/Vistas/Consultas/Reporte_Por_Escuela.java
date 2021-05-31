@@ -3,6 +3,7 @@ import com.ecoedu.Vistas.Herramienta;
 import com.ecoedu.Vistas.vista_base.Principal;
 import com.ecoedu.model.Control_paciente;
 import com.ecoedu.model.Detalle_Medicamentos;
+import com.ecoedu.model.Escuela;
 import com.ecoedu.model.Estudiante;
 import com.ecoedu.model.Receta;
 import com.ecoedu.model.Rol;
@@ -41,7 +42,7 @@ import org.dom4j.DocumentException;
 public class Reporte_Por_Escuela extends javax.swing.JPanel {
     private Principal objPrincipal;
     private EntityManager jpa;   
-    private List<Rol> Lista_Escuelas;
+    private List<Escuela> Lista_Escuelas;
     //datos q se desglozan de la BD               
     private List<Receta> Lista_Recetas=new ArrayList<>();//    
     private List<Semestre> list_semestre;
@@ -51,7 +52,7 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
         this.objPrincipal=OBJPrincipal;             
     }
      public void ConsultaBD(){
-         Lista_Escuelas=jpa.createQuery("SELECT p FROM Rol p where id_tipo_Roles=1").getResultList();    
+         Lista_Escuelas=jpa.createQuery("SELECT p FROM Escuela p").getResultList();    
          list_semestre=jpa.createQuery("select p from Semestre p").getResultList();         
      }    
      public void principalEjecucion() throws DocumentException, IOException{    
@@ -63,10 +64,10 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
                  }
              }
          jcbEscuela.removeAllItems();
-         for (Rol RolEscuela : Lista_Escuelas){
+         for (Escuela RolEscuela : Lista_Escuelas){
              jcbEscuela.addItem(RolEscuela);
              }
-         Rol objEscuela1=new Rol();
+         Escuela objEscuela1=new Escuela();
          objEscuela1.setId(450);
          imprimir(objEscuela1);
          jbtnImprimir.setEnabled(false);
@@ -254,7 +255,7 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
     private void jbtnCrearRecetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCrearRecetaActionPerformed
         try {
             if(Herramienta.isMenor(jcbYearDesde.getDatoFecha(),jcbYearHasta.getDatoFecha())){
-                imprimir((Rol)jcbEscuela.getSelectedItem());
+                imprimir((Escuela)jcbEscuela.getSelectedItem());
                 }
             else{
                 JOptionPane.showMessageDialog(jPanel5, "La fecha (Desde) no debe ser mayor que (Hasta)");
@@ -276,8 +277,8 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jbtnImprimirActionPerformed
   
-    public void imprimir(Rol objEscuela) throws FileNotFoundException, DocumentException, IOException{
-        List<Estudiante> listaE=Herramienta.findbyWhere(Estudiante.class,"id_Rolescuela", objEscuela.getId(), jpa); 
+    public void imprimir(Escuela objEscuela) throws FileNotFoundException, DocumentException, IOException{
+        List<Estudiante> listaE=Herramienta.findbyWhere(Estudiante.class,"id_escuela", objEscuela.getId(), jpa); 
         DefaultTableModel modelo;
         Object[] fila_actividad;
              //.....................................TABLA......................................
@@ -295,14 +296,14 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
              fila_actividad=new Object[modelo.getColumnCount()]; 
         if(!listaE.isEmpty()){
             jbtnImprimir.setEnabled(true);
-        String ol="images\\unsch.png";
+        String ol="images/unsch.png";
         Image unsch=new Image(ImageDataFactory.create(ol));
       
         int fontTamaño=8;
         int fontHeadTamaño=10;
         PdfWriter writer=null;
         try {
-             writer=new PdfWriter("Carpeta_de_Archivos\\Reporte_Escuela.pdf");            
+             writer=new PdfWriter("Carpeta_de_Archivos/Reporte_Escuela.pdf");            
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(jPanel5, "El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso");
         }                
@@ -317,7 +318,7 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
         document.add(paragIma);                  
         Paragraph paraEscCodSerie=new Paragraph(new Text("DESDE: ").setFont(bold)).add(Herramienta.formatoFecha(jcbYearDesde.getDatoFecha()))
                 .add(new Text("     HASTA: ").setFont(bold)).add(Herramienta.formatoFecha(jcbYearHasta.getDatoFecha()))
-                .add(new Text("     ESCUELA: ").setFont(bold)).add(objEscuela.getNombre_rol());                
+                .add(new Text("     ESCUELA: ").setFont(bold)).add(objEscuela.getNombre());                
         document.add(paraEscCodSerie);
         document.add(new Paragraph(" "));    
         table.addHeaderCell(new Cell().add(new Paragraph("Código").setFont(bold)).setTextAlignment(TextAlignment.CENTER).setFontSize(fontHeadTamaño));         
@@ -334,11 +335,11 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
         table.addHeaderCell(new Cell().add(new Paragraph("Q.F").setFont(bold)).setTextAlignment(TextAlignment.CENTER).setFontSize(fontHeadTamaño));               
                
       for(Estudiante estudiante : listaE){
-          List<Control_paciente> objControl=Herramienta.findbyWhere(Control_paciente.class,"id_Estudiante", estudiante.getId(), jpa);
+          List<Control_paciente> objControl=Herramienta.findbyWhere(Control_paciente.class,"id_estudiante", estudiante.getId(), jpa);
           List<Receta> listaReceta=Herramienta.findbyBeetWeen(Receta.class,"fecha_creada",jcbYearDesde.getDatoFecha(),jcbYearHasta.getDatoFecha(),objControl.get(0).getId(), jpa);
           Collections.sort(listaReceta);//ordenando A-Z (método como Override)          
           for(Receta receta : listaReceta){
-              List<Detalle_Medicamentos> listMedi=Herramienta.findbyWhere(Detalle_Medicamentos.class,"id_Receta", receta.getId(), jpa);
+              List<Detalle_Medicamentos> listMedi=Herramienta.findbyWhere(Detalle_Medicamentos.class,"id_receta", receta.getId(), jpa);
             Collections.sort(listMedi);//ordenando A-Z (método como Override)            
             for (Detalle_Medicamentos Detalle_Medicamento : listMedi){   
             table.addCell(new Paragraph(estudiante.getCodigo()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//codigo
@@ -468,7 +469,7 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtnCrearReceta;
     private javax.swing.JButton jbtnImprimir;
-    private javax.swing.JComboBox<Rol> jcbEscuela;
+    private javax.swing.JComboBox<Escuela> jcbEscuela;
     private javax.swing.JComboBox<Semestre> jcbSemestre;
     private rojeru_san.componentes.RSDateChooser jcbYearDesde;
     private rojeru_san.componentes.RSDateChooser jcbYearHasta;
