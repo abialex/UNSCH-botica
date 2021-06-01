@@ -294,8 +294,8 @@ public class Reporte_Diagnostico extends javax.swing.JPanel {
          return listaAuxProcedencia;
          }
     public void imprimir(int a) throws FileNotFoundException, DocumentException, IOException{
-        List<Receta> All_Recetass=Herramienta.findbyBeetWeen(Receta.class, "fecha_creada", jcbYearDesde.getDatoFecha(),jcbYearHasta.getDatoFecha(), jpa);
-        List<Diagnostico> Lista_Diagnostico=desglozarRecetatoDiagnostico(All_Recetass);
+        List<Receta> lista_recetas=Herramienta.findbyBeetWeen(Receta.class, "fecha_creada", jcbYearDesde.getDatoFecha(),jcbYearHasta.getDatoFecha(), jpa);
+        List<Diagnostico> Lista_Diagnostico=desglozarRecetatoDiagnostico(lista_recetas);
         List<ZObjetoProDiag> Lista_zObjetoProdiag=new ArrayList<>();
         DefaultTableModel modelo;
         Object[] fila_actividad;
@@ -311,15 +311,15 @@ public class Reporte_Diagnostico extends javax.swing.JPanel {
                  };
              //.....................................TABLA...........Fin......................           
              fila_actividad=new Object[modelo.getColumnCount()]; 
-        if(!All_Recetass.isEmpty() && a==1){
+        if(!lista_recetas.isEmpty() && a==1){
             jbtnImprimir.setEnabled(true);
-            String ol="images\\unsch.png";
+            String ol="images/unsch.png";
             Image unsch=new Image(ImageDataFactory.create(ol));            
             int fontTamaño=9;
             int fontHeadTamaño=11;
             PdfWriter writer=null;
             try {
-                writer=new PdfWriter("Carpeta_de_Archivos\\Reporte_Diagnostico.pdf"); 
+                writer=new PdfWriter("Carpeta_de_Archivos/Reporte_Diagnostico.pdf"); 
                 }
             catch (FileNotFoundException e) {
                 JOptionPane.showMessageDialog(jPanel5, "El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso");
@@ -343,7 +343,7 @@ public class Reporte_Diagnostico extends javax.swing.JPanel {
             table.addHeaderCell(new Cell().add(new Paragraph("Cantidad").setFont(bold)).setTextAlignment(TextAlignment.CENTER).setFontSize(fontHeadTamaño));   
             for(Diagnostico diagnostico : Lista_Diagnostico){
                 int cant=0;
-                for(Receta allreceta : All_Recetass){
+                for(Receta allreceta : lista_recetas){
                     if(diagnostico==allreceta.getDiagnosito()){
                         cant++;          
                         }
@@ -394,13 +394,13 @@ public class Reporte_Diagnostico extends javax.swing.JPanel {
              fila_actividad=new Object[modelo.getColumnCount()]; 
         if(!All_Recetass.isEmpty() && a==1){
             jbtnImprimir.setEnabled(true);
-            String ol="images\\unsch.png";
+            String ol="images/unsch.png";
             Image unsch=new Image(ImageDataFactory.create(ol));            
             int fontTamaño=9;
             int fontHeadTamaño=11;
             PdfWriter writer=null;
             try {
-                writer=new PdfWriter("Carpeta_de_Archivos\\Reporte_Procedencia.pdf"); 
+                writer=new PdfWriter("Carpeta_de_Archivos/Reporte_Procedencia.pdf"); 
                 }
             catch (FileNotFoundException e) {
                 JOptionPane.showMessageDialog(jPanel5, "El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso procedencia");
