@@ -169,9 +169,9 @@ public class Herramienta {
         List<T> listGenericos=new ArrayList<>();
         try {
             Query query=jpa.createQuery("SELECT p FROM "+generico.getSimpleName()+" p where "+Columna+" BETWEEN "+"'"+
-            (FechaInicio.getYear()+1900)+(Herramienta.conOsin0(FechaInicio.getMonth()+1))+(Herramienta.conOsin0(FechaInicio.getDate())+" 00:00:00 ")+"'"
+            (FechaInicio.getYear()+1900)+"-"+(Herramienta.conOsin0(FechaInicio.getMonth()+1))+"-"+(Herramienta.conOsin0(FechaInicio.getDate())+" 00:00:00 ")+"'"
             +" and "+"'"+
-            (FechaFin.getYear()+1900)+(Herramienta.conOsin0(FechaFin.getMonth()+1))+(Herramienta.conOsin0(FechaFin.getDate()))+" 23:59:59 "+"'");
+            (FechaFin.getYear()+1900)+"-"+(Herramienta.conOsin0(FechaFin.getMonth()+1))+"-"+(Herramienta.conOsin0(FechaFin.getDate()))+" 23:59:59 "+"'");
         listGenericos=query.getResultList();  
             
         } catch (Exception e) {
