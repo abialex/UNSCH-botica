@@ -657,7 +657,7 @@ public class Servicio_Asistencial extends javax.swing.JPanel {
                 jlblSerie.setText(Lista_control_paciente.get(i).getEstudiante().getSerie());
                 jlblEscuela.setText(Lista_control_paciente.get(i).getEstudiante().getEscuela().getNombre());
                 jlblMontoTotal.setText("S/"+Herramienta.dosDecimales(Lista_control_paciente.get(i).getMonto_total()));              
-                Lista_servicio_social=Herramienta.findbyWhere(Servicio_social.class,"id_Control_paciente",objControl_paciente_Final.getId(), jpa);
+                Lista_servicio_social=Herramienta.findbyWhere(Servicio_social.class,"id_Control_paciente="+objControl_paciente_Final.getId(), jpa);
                 jbtnCrearServicio.setEnabled(true);
                 jbtnImprimirServicios.setEnabled(true);
                 if(Lista_servicio_social.isEmpty()){
@@ -701,7 +701,7 @@ public class Servicio_Asistencial extends javax.swing.JPanel {
 
     private void jtblServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblServiciosMouseClicked
         Servicio_social objServicio_Social=(Servicio_social)jtblServicios.getValueAt(jtblServicios.getSelectedRow(),1);
-        lista_DetalleServicioSocial=Herramienta.findbyWhere(Detalle_Servicio_Social.class, "id_Servicio_social", objServicio_Social.getId(), jpa);
+        lista_DetalleServicioSocial=Herramienta.findbyWhere(Detalle_Servicio_Social.class, "id_Servicio_social="+ objServicio_Social.getId(), jpa);
         llenar_Tabla_de_DetalleAsistencialesMirar(lista_DetalleServicioSocial);
         jlblFechaVer.setText(Herramienta.formatoFechaHoraMas1(objServicio_Social.getFecha()));
         cuerpoListaServicios.setVisible(false);

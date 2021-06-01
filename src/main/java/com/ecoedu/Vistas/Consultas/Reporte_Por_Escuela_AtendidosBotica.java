@@ -354,7 +354,7 @@ public class Reporte_Por_Escuela_AtendidosBotica extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnImprimirActionPerformed
   
     public void imprimir(Rol objEscuela) throws FileNotFoundException, DocumentException, IOException{
-        List<Estudiante> listaE=Herramienta.findbyWhere(Estudiante.class,"id_Rolescuela", objEscuela.getId(), jpa); 
+        List<Estudiante> listaE=Herramienta.findbyWhere(Estudiante.class,"id_Rolescuela="+ objEscuela.getId(), jpa); 
         DefaultTableModel modelo;
         Object[] fila_actividad;
              //.....................................TABLA......................................
@@ -400,11 +400,11 @@ public class Reporte_Por_Escuela_AtendidosBotica extends javax.swing.JPanel {
         table.addHeaderCell(new Cell().add(new Paragraph("Apellidos y Nombres").setFont(bold)).setTextAlignment(TextAlignment.CENTER).setFontSize(fontHeadTamaño));         
               
       for(Estudiante estudiante : listaE){
-          List<Control_paciente> objControl=Herramienta.findbyWhere(Control_paciente.class,"id_Estudiante", estudiante.getId(), jpa);
+          List<Control_paciente> objControl=Herramienta.findbyWhere(Control_paciente.class,"id_Estudiante="+ estudiante.getId(), jpa);
           List<Receta> listaReceta=Herramienta.findbyBeetWeen(Receta.class,"fecha_creada",jcbYearDesde.getDatoFecha(),jcbYearHasta.getDatoFecha(),objControl.get(0).getId(), jpa);
           Collections.sort(listaReceta);//ordenando A-Z (método como Override)          
           for(Receta receta : listaReceta){
-              List<Detalle_Medicamentos> listMedi=Herramienta.findbyWhere(Detalle_Medicamentos.class,"id_Receta", receta.getId(), jpa);
+              List<Detalle_Medicamentos> listMedi=Herramienta.findbyWhere(Detalle_Medicamentos.class,"id_Receta="+ receta.getId(), jpa);
             Collections.sort(listMedi);//ordenando A-Z (método como Override)            
             for (Detalle_Medicamentos Detalle_Medicamento : listMedi){   
             table.addCell(new Paragraph(estudiante.getCodigo()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//codigo

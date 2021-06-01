@@ -973,8 +973,8 @@ public class ServicioFarmacia extends javax.swing.JPanel {
                 jlblSerie.setText(Lista_control_paciente.get(i).getEstudiante().getSerie());
                 jlblEscuela.setText(Lista_control_paciente.get(i).getEstudiante().getEscuela().getNombre());
                 jlblMontoTotal.setText("S/"+Herramienta.dosDecimales(Lista_control_paciente.get(i).getMonto_total()));              
-                Lista_Recetas=Herramienta.findbyWhere(Receta.class,"id_Control_paciente",objControl_paciente_Final.getId(), jpa);
-                Lista_Servicio=Herramienta.findbyWhere(Servicio_social.class,"id_Control_paciente",objControl_paciente_Final.getId(), jpa);
+                Lista_Recetas=Herramienta.findbyWhere(Receta.class,"id_Control_paciente="+objControl_paciente_Final.getId(), jpa);
+                Lista_Servicio=Herramienta.findbyWhere(Servicio_social.class,"id_Control_paciente="+objControl_paciente_Final.getId(), jpa);
                 jbtnCrearReceta.setEnabled(true);
                 jbtnImprimir.setEnabled(true);
                 if(Lista_Recetas.isEmpty()){
@@ -1020,7 +1020,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
         Receta objReceta=(Receta)jtblRecetas.getValueAt(jtblRecetas.getSelectedRow(),0);
         //for (int i = 0; i < Lista_Recetas.size(); i++){
             //if(Lista_Recetas.get(i)==objReceta){ 
-                Lista_detalle_medicamento=Herramienta.findbyWhere(Detalle_Medicamentos.class,"id_Receta", objReceta.getId(), jpa);
+                Lista_detalle_medicamento=Herramienta.findbyWhere(Detalle_Medicamentos.class,"id_Receta="+ objReceta.getId(), jpa);
                 llenar_Detalle_de_Recetas(Lista_detalle_medicamento);
                 cuerpo1ListaRecetas.setVisible(false);
                 cuerpo4VerDetallesDeLaReceta.setVisible(true);
@@ -1336,7 +1336,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
       Collections.sort(Lista_Recetas);//ordenando A-Z (método como Override)
       Collections.sort(Lista_Servicio);
         for(Receta receta : Lista_Recetas){
-            List<Detalle_Medicamentos> listMedi=Herramienta.findbyWhere(Detalle_Medicamentos.class,"id_Receta", receta.getId(), jpa);
+            List<Detalle_Medicamentos> listMedi=Herramienta.findbyWhere(Detalle_Medicamentos.class,"id_Receta="+ receta.getId(), jpa);
             Collections.sort(listMedi);//ordenando A-Z (método como Override)
             Paragraph p = new Paragraph("Receta N°").setFont(bold).setFontSize(10)
                     .add(new Text(""+receta.getId()).setFont(bold).setFontSize(10))
@@ -1363,7 +1363,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
         tableSocial.addHeaderCell(new Cell().add(new Paragraph("Servicio").setFont(bold)).setTextAlignment(TextAlignment.CENTER).setFontSize(fontHeadTamaño));         
         tableSocial.addHeaderCell(new Cell().add(new Paragraph("Precio").setFont(bold)).setTextAlignment(TextAlignment.CENTER).setFontSize(fontHeadTamaño));        
         for (Servicio_social servicio_social : Lista_Servicio){
-            List<Detalle_Servicio_Social> lista_Detalle_ServicioSocial=Herramienta.findbyWhere(Detalle_Servicio_Social.class,"id_Servicio_social", servicio_social.getId(), jpa);
+            List<Detalle_Servicio_Social> lista_Detalle_ServicioSocial=Herramienta.findbyWhere(Detalle_Servicio_Social.class,"id_Servicio_social="+ servicio_social.getId(), jpa);
             for (Detalle_Servicio_Social detalle_Servicio_Social : lista_Detalle_ServicioSocial) {
                 tableSocial.addCell(new Paragraph(Herramienta.formatoFecha(servicio_social.getFecha())).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));
                 tableSocial.addCell(new Paragraph(detalle_Servicio_Social.getTarifario().getDescripcion()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));

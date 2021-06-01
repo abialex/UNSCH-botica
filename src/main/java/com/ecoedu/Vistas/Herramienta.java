@@ -216,12 +216,12 @@ public class Herramienta {
         }               
         return listGenericos; 
     }
-    public static <T> List<T> findbyWhere(Class<T> generico,String Columna,int idFK,EntityManager jpa){
+    public static <T> List<T> findbyWhere(Class<T> generico,String Columna,EntityManager jpa){
         List<T> listGenericos=new ArrayList<>();
         try {
-            System.out.println("SELECT p FROM "+generico.getSimpleName()+" p where "+Columna+" = "+idFK);
+            System.out.println("SELECT p FROM "+generico.getSimpleName()+" p where "+Columna);
             Query query=jpa.createQuery             
-        ("SELECT p FROM "+generico.getSimpleName()+" p where "+Columna+" = "+idFK);
+        ("SELECT p FROM "+generico.getSimpleName()+" p where "+Columna);
         listGenericos=query.getResultList(); 
             
         } catch (Exception e) {

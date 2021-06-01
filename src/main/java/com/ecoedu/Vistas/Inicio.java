@@ -219,7 +219,7 @@ public class Inicio extends javax.swing.JPanel {
     public List<ZObjetoProDiag> getListaEstudiantesCaceritos(List<Control_paciente> lista){
         List<ZObjetoProDiag> lista_EstudiantesCaceritos=new ArrayList<>();
         for (Control_paciente control_paciente : lista) {
-            lista_EstudiantesCaceritos.add(new ZObjetoProDiag(control_paciente.getEstudiante(),Herramienta.findbyWhere(Receta.class, "id_Control_Paciente", control_paciente.getId(), jpa).size()));
+            lista_EstudiantesCaceritos.add(new ZObjetoProDiag(control_paciente.getEstudiante(),Herramienta.findbyWhere(Receta.class, "id_Control_Paciente="+control_paciente.getId(), jpa).size()));
         }
         Collections.sort(lista_EstudiantesCaceritos);
         return lista_EstudiantesCaceritos;

@@ -57,6 +57,7 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
      }    
      public void principalEjecucion() throws DocumentException, IOException{    
          jcbSemestre.removeAllItems();
+         //fijando el semestre activo por defecto
          for (Semestre semestre : list_semestre){
              jcbSemestre.addItem(semestre);
              if(semestre.getFecha_Fin_Real()==null){
@@ -69,7 +70,7 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
              }
          Escuela objEscuela1=new Escuela();
          objEscuela1.setId(450);
-         imprimir(objEscuela1);
+         imprimir(objEscuela1,(Semestre)jcbSemestre.getSelectedItem());
          jbtnImprimir.setEnabled(false);
          }
      @SuppressWarnings("unchecked")     
@@ -255,7 +256,7 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
     private void jbtnCrearRecetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCrearRecetaActionPerformed
         try {
             if(Herramienta.isMenor(jcbYearDesde.getDatoFecha(),jcbYearHasta.getDatoFecha())){
-                imprimir((Escuela)jcbEscuela.getSelectedItem());
+                imprimir((Escuela)jcbEscuela.getSelectedItem(),(Semestre)jcbSemestre.getSelectedItem());
                 }
             else{
                 JOptionPane.showMessageDialog(jPanel5, "La fecha (Desde) no debe ser mayor que (Hasta)");
@@ -277,8 +278,8 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jbtnImprimirActionPerformed
   
-    public void imprimir(Escuela objEscuela) throws FileNotFoundException, DocumentException, IOException{
-        List<Estudiante> listaE=Herramienta.findbyWhere(Estudiante.class,"id_escuela", objEscuela.getId(), jpa); 
+    public void imprimir(Escuela objEscuela,Semestre objSemestre) throws FileNotFoundException, DocumentException, IOException{
+        List<Estudiante> listaE=Herramienta.findbyWhere(Estudiante.class,"id_escuela="+objEscuela.getId(), jpa); 
         DefaultTableModel modelo;
         Object[] fila_actividad;
              //.....................................TABLA......................................
@@ -318,7 +319,8 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
         document.add(paragIma);                  
         Paragraph paraEscCodSerie=new Paragraph(new Text("DESDE: ").setFont(bold)).add(Herramienta.formatoFecha(jcbYearDesde.getDatoFecha()))
                 .add(new Text("     HASTA: ").setFont(bold)).add(Herramienta.formatoFecha(jcbYearHasta.getDatoFecha()))
-                .add(new Text("     ESCUELA: ").setFont(bold)).add(objEscuela.getNombre());                
+                .add(new Text("     ESCUELA: ").setFont(bold)).add(objEscuela.getNombre())     
+             .add(new Text("     SEMESTRE: ").setFont(bold)).add("semestre");             
         document.add(paraEscCodSerie);
         document.add(new Paragraph(" "));    
         table.addHeaderCell(new Cell().add(new Paragraph("Código").setFont(bold)).setTextAlignment(TextAlignment.CENTER).setFontSize(fontHeadTamaño));         
@@ -335,11 +337,17 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
         table.addHeaderCell(new Cell().add(new Paragraph("Q.F").setFont(bold)).setTextAlignment(TextAlignment.CENTER).setFontSize(fontHeadTamaño));               
                
       for(Estudiante estudiante : listaE){
-          List<Control_paciente> objControl=Herramienta.findbyWhere(Control_paciente.class,"id_estudiante", estudiante.getId(), jpa);
-          List<Receta> listaReceta=Herramienta.findbyBeetWeen(Receta.class,"fecha_creada",jcbYearDesde.getDatoFecha(),jcbYearHasta.getDatoFecha(),objControl.get(0).getId(), jpa);
-          Collections.sort(listaReceta);//ordenando A-Z (método como Override)          
-          for(Receta receta : listaReceta){
-              List<Detalle_Medicamentos> listMedi=Herramienta.findbyWhere(Detalle_Medicamentos.class,"id_receta", receta.getId(), jpa);
+          List<Control_paciente> list_control=Herramienta.findbyWhere(Control_paciente.class,"id_estudiante ="+estudiante.getId()+" and id_semestre="+objSemestre.getId() , jpa);
+          for(Control_paciente objControl : list_control){
+          List<Receta> listaReceta=Herramienta.findbyBeetWeen(Receta.class,"fecha_creada",jcbYearDesde.getDatoFecha(),jcbYearHasta.getDatoFecha(),objControl.getId(), jpa);
+          for(Receta objReceta : listaReceta){
+              Lista_Recetas.add(objReceta);
+           }
+          }
+          
+          Collections.sort(Lista_Recetas);//ordenando A-Z (método como Override)          
+          for(Receta receta : Lista_Recetas){
+              List<Detalle_Medicamentos> listMedi=Herramienta.findbyWhere(Detalle_Medicamentos.class,"id_receta ="+receta.getId(), jpa);
             Collections.sort(listMedi);//ordenando A-Z (método como Override)            
             for (Detalle_Medicamentos Detalle_Medicamento : listMedi){   
             table.addCell(new Paragraph(estudiante.getCodigo()).setFont(font).setTextAlignment(TextAlignment.CENTER).setFontSize(fontTamaño));//codigo
@@ -387,6 +395,7 @@ public class Reporte_Por_Escuela extends javax.swing.JPanel {
             
 
         }
+        Lista_Recetas=new ArrayList<Receta>();
     }
     /*
     public void imprimirEstudiante() throws FileNotFoundException, DocumentException, IOException{
