@@ -32,7 +32,7 @@ public class Proveedor_list_view extends javax.swing.JPanel{
     List<Proveedor> lista_proveedores;
     EntityManager jpa;
     Principal objPrincipal;    
-    Proveedor objProveedor;
+    Proveedor objProveedor= new Proveedor();
     
     
     public Proveedor_list_view(EntityManager objJPA,Principal OBJPrincipal) {
@@ -49,6 +49,7 @@ public class Proveedor_list_view extends javax.swing.JPanel{
         jbtnGuardar.setEnabled(false);
         llenar_tabla_Medicamento(lista_proveedores);
         jtfNombre.setDocument(new soloMayusculas());
+        jbtnGuardar.setText("GUARDAR");
         
     }
 
@@ -147,7 +148,7 @@ public class Proveedor_list_view extends javax.swing.JPanel{
         jLabel12.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Proveedores");
+        jLabel12.setText("PROVEEDORES");
         jLabel12.setPreferredSize(new java.awt.Dimension(900, 70));
         head.add(jLabel12);
 
@@ -226,7 +227,7 @@ public class Proveedor_list_view extends javax.swing.JPanel{
 
         jLabel33.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 18)); // NOI18N
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel33.setText("Lista Proveedor / Laboratorio");
+        jLabel33.setText("LIsta de proveedores");
         jLabel33.setPreferredSize(new java.awt.Dimension(300, 30));
         jPanel11.add(jLabel33);
 
@@ -381,6 +382,8 @@ public class Proveedor_list_view extends javax.swing.JPanel{
         jtfAbreviatura.setText(objProveedor.getAbreviatura());
         jtfDIrección.setText(objProveedor.getDireccion());
         jtaDescripcion.setText(objProveedor.getDescripcion());
+        jlblAsteriscoNombre.setText("");
+        jbtnGuardar.setText("MODIFICAR");
     }//GEN-LAST:event_jbtlProveedorMouseClicked
 
     private void jtfNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyReleased
@@ -393,22 +396,35 @@ public class Proveedor_list_view extends javax.swing.JPanel{
         }
     }//GEN-LAST:event_jtfNombreKeyReleased
 
-    public void guardarProveedorOLab(){
+    public void guardar_proveedor(){
         if(!jtfNombre.getText().isEmpty()){
+        
+        Proveedor objProveedorNew=new Proveedor();
+        objProveedorNew.setNombre(jtfNombre.getText());
+        objProveedorNew.setAbreviatura(jtfAbreviatura.getText());
+        objProveedorNew.setDireccion(jtfDIrección.getText());
+        objProveedorNew.setDescripcion(jtaDescripcion.getText());
+            
         objProveedor.setNombre(jtfNombre.getText());
         objProveedor.setAbreviatura(jtfAbreviatura.getText());
         objProveedor.setDireccion(jtfDIrección.getText());
         objProveedor.setDescripcion(jtaDescripcion.getText());
         jpa.getTransaction().begin();
-        jpa.persist(objProveedor);
+            if(jbtnGuardar.getText().equals("GUARDAR")){
+                 jpa.persist(objProveedorNew);
+            }
+            else{
+                 jpa.persist(objProveedor);
+            }
         jpa.getTransaction().commit();
-        ConsultaBD();
         jtfNombre.setText("");
         jtfAbreviatura.setText("");
         jtfDIrección.setText("");
         jtaDescripcion.setText("");
+        ConsultaBD();
         llenar_tabla_Medicamento(lista_proveedores);
         jbtnGuardar.setEnabled(false);
+        jbtnGuardar.setText("GUARDAR");
         jlblMensaje.setText("guardó con éxito");
         }
         else{
@@ -417,13 +433,13 @@ public class Proveedor_list_view extends javax.swing.JPanel{
         
     }
     private void jbtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarActionPerformed
-        guardarProveedorOLab();
+        guardar_proveedor();
         
     }//GEN-LAST:event_jbtnGuardarActionPerformed
 
     private void jbtnGuardarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbtnGuardarKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-            guardarProveedorOLab();
+            guardar_proveedor();
         }
     }//GEN-LAST:event_jbtnGuardarKeyPressed
 
