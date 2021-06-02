@@ -344,11 +344,15 @@ public class Reporte_Diagnostico extends javax.swing.JPanel {
             for(Diagnostico diagnostico : Lista_Diagnostico){
                 int cant=0;
                 for(Receta allreceta : lista_recetas){
-                    if(diagnostico==allreceta.getDiagnosito()){
-                        cant++;          
-                        }
-                    }//fin for allreceta
-                Lista_zObjetoProdiag.add(new ZObjetoProDiag(diagnostico,cant));
+                    if((Semestre)jcbSemestre.getSelectedItem()==allreceta.getControl_Paciente().getSemestre()){
+                        if(diagnostico==allreceta.getDiagnosito()){
+                            cant++;          
+                         }
+                    }//fin for allreceta   
+                }
+                if(cant!=0){
+                     Lista_zObjetoProdiag.add(new ZObjetoProDiag(diagnostico,cant));
+                }
             }//fin for receta
             Collections.sort(Lista_zObjetoProdiag);
             for(int i=Lista_zObjetoProdiag.size()-1;0<=i;i--){
@@ -362,7 +366,7 @@ public class Reporte_Diagnostico extends javax.swing.JPanel {
             }            
             llenar_Tabla_de_Recetas(modelo); 
             if(modelo.getRowCount()==0){
-                JOptionPane.showMessageDialog(jPanel5, "No se encontró Procedentes/Diagnostico en el Rango de la Fecha");
+                JOptionPane.showMessageDialog(jPanel5, "No se encontró alumnos");
                 jbtnImprimir.setEnabled(false);
                 }
             document.add(table);  
@@ -371,7 +375,7 @@ public class Reporte_Diagnostico extends javax.swing.JPanel {
         else{
             jbtnImprimir.setEnabled(false);
             llenar_Tabla_de_Recetas(modelo);    
-            JOptionPane.showMessageDialog(jPanel5, "no se encontró recetas en este rango de Fecha");                     
+            JOptionPane.showMessageDialog(jPanel5, "no se encontró alumnos");                     
         }
     }
     public void imprimirProcedencia(int a) throws FileNotFoundException, DocumentException, IOException{
@@ -425,11 +429,16 @@ public class Reporte_Diagnostico extends javax.swing.JPanel {
             for(Rol procedencia : Lista_Procedencia){
                 int cant=0;
                 for(Receta allreceta : All_Recetass){
+                    if((Semestre)jcbSemestre.getSelectedItem()==allreceta.getControl_Paciente().getSemestre()){
                     if(procedencia==allreceta.getRolProcedencia()){
                         cant++;          
-                        }
+                        }         
+                    }
+               
                     }//fin for allreceta
-                Lista_zObjetoProdiag.add(new ZObjetoProDiag(procedencia,cant));
+                if(cant!=0){
+                    Lista_zObjetoProdiag.add(new ZObjetoProDiag(procedencia,cant));
+                }
                 }//fin for receta
             Collections.sort(Lista_zObjetoProdiag);
             for(int i=Lista_zObjetoProdiag.size()-1;0<=i;i--){
@@ -441,7 +450,7 @@ public class Reporte_Diagnostico extends javax.swing.JPanel {
             }            
             llenar_Tabla_de_Recetas(modelo); 
             if(modelo.getRowCount()==0){
-                JOptionPane.showMessageDialog(jPanel5, "No se encontró Procedentes/Diagnostico en el Rango de la Fecha");
+                JOptionPane.showMessageDialog(jPanel5, "No se encontró alumnos");
                 jbtnImprimir.setEnabled(false);
                 }
             document.add(table);  
@@ -450,7 +459,7 @@ public class Reporte_Diagnostico extends javax.swing.JPanel {
         else{
             jbtnImprimir.setEnabled(false);
             llenar_Tabla_de_Recetas(modelo);    
-            JOptionPane.showMessageDialog(jPanel5, "no se encontró recetas en este rango de Fecha");                     
+            JOptionPane.showMessageDialog(jPanel5, "No se encontró alumnos");                     
         }
     }
     /*
