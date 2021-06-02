@@ -333,7 +333,7 @@ public class Principal extends javax.swing.JFrame{
        bodyContenedor.add(objReporte_de_insumos);//24
        bodyContenedor.validate();
        bodyContenedor.add(objInicio);//25
-       bodyContenedor.validate();
+          bodyContenedor.validate();
        
        
        setIconImage(new ImageIcon(getClass().getResource("/images/014-pharmacy.png")).getImage());
@@ -410,6 +410,7 @@ public class Principal extends javax.swing.JFrame{
        jtfsub_Medicina.setVisible(false);
        jtfsub_Estudiante.setVisible(false);
        jtfsub_Tarifario.setVisible(false);
+       jtfsub_Otros.setVisible(false);
        
        }
    @SuppressWarnings("unchecked")
@@ -1958,6 +1959,7 @@ public class Principal extends javax.swing.JFrame{
         jlblConsultasFlecha1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/008-left-arrow.png")));
         jlblInventarioFlecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/008-left-arrow.png")));
         jlblEstudianteFlecha1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/008-left-arrow.png")));
+         jtfsub_Otros.setVisible(false);
         
                 
     }//GEN-LAST:event_jleftServicioFarmaciaMouseClicked
@@ -1977,6 +1979,7 @@ public class Principal extends javax.swing.JFrame{
         jtfsub_Medicina.setVisible(false);
         jtfsub_Usuario.setVisible(false);
         jtfsub_inventario.setVisible(false);
+        jtfsub_Otros.setVisible(false);
         jlblConsultasFlecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/008-left-arrow.png")));
         jlblUsuarioFlecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/008-left-arrow.png")));
         jlblConsultasFlecha1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/008-left-arrow.png")));
@@ -2018,6 +2021,7 @@ public class Principal extends javax.swing.JFrame{
         jtfsub_Medicina.setVisible(false);
         jtfsub_Usuario.setVisible(false);
         jtfsub_inventario.setVisible(false);
+        jtfsub_Otros.setVisible(false);
         
     }//GEN-LAST:event_jleftConsultasMouseClicked
 
@@ -2234,6 +2238,7 @@ public class Principal extends javax.swing.JFrame{
         jtfsub_Estudiante.setVisible(false);
         jtfsub_Medicina.setVisible(false);
         jtfsub_inventario.setVisible(false);
+        jtfsub_Otros.setVisible(false);
     }//GEN-LAST:event_jleftUsuarioMouseClicked
 
     private void jleftUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jleftUsuarioMouseExited
@@ -2262,39 +2267,21 @@ public class Principal extends javax.swing.JFrame{
     }//GEN-LAST:event_jleftProveedorYfabricanteMouseMoved
 
     private void jleftProveedorYfabricanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jleftProveedorYfabricanteMouseClicked
-        /*bodyContenedor.setVisible(true);
-        objInicio.setVisible(false);
-        objReporte_Condicion.setVisible(false);//16
-        objModificarMedicamento.setVisible(false);//15
-        objVer_inventario.setVisible(false);//1
-        objDetalle_Inventario.setVisible(false);//2
-        objCrear_Estudiante.setVisible(false);//3   
-        objBusquedaVentas.setVisible(false);//4
-        objLlenarInventario.setVisible(false);//5
-        objCrearUsuario.setVisible(false);//6
-        objModificarUsuario.setVisible(false);//7           
-        objCrearMedicamento.setVisible(false);//8        
-        objEntragEntrega_del_dia.setVisible(false);//10
-        objModificar_Estudiante.setVisible(false);//11
-        objReporte_Por_Escuela.setVisible(false);//12
-        objReporte_Diagnostico.setVisible(false);//13 
-        objServicioFarmacia.setVisible(false);//9
-        objProveedorLaboratorio.setVisible(true);//14
-        objServicio_Asistencial.setVisible(false);//17
-        objAbrir_Inventario.setVisible(false);//18
-        objCerrar_Inventario.setVisible(false);//19
-        objReporte_Por_Escuela_AtendidosBotica.setVisible(false);//20
-        objCrear_Tarifario.setVisible(false);
-        objModificar_Tarifario.setVisible(false);//22
-        objDescargo.setVisible(false);//23
-        objProveedorLaboratorio.ConsultaBD();
-        objProveedorLaboratorio.principalEjecucion();
+           if(jtfsub_Otros.isShowing()){
+            jtfsub_Otros.setVisible(false);
+            jlblOtrosFlecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/008-left-arrow.png")));
+            
+        }
+        else{
+            jlblOtrosFlecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/008-down-arrow.png")));
+            jtfsub_Otros.setVisible(true);
+        }
+           jtfsub_Usuario.setVisible(false);
+        jtfsub_Tarifario.setVisible(false);
         jtfsub_Consultas.setVisible(false);
         jtfsub_Estudiante.setVisible(false);
         jtfsub_Medicina.setVisible(false);
-        jtfsub_Usuario.setVisible(false);
-        objReporte_de_insumos.setVisible(false);
-        jtfsub_inventario.setVisible(false);*/
+        jtfsub_inventario.setVisible(false);
         
     }//GEN-LAST:event_jleftProveedorYfabricanteMouseClicked
 
@@ -2885,6 +2872,12 @@ public class Principal extends javax.swing.JFrame{
             jtfsub_Tarifario.setVisible(true);
             }
         jtfsub_Usuario.setVisible(false);
+        jtfsub_Consultas.setVisible(false);
+        jtfsub_Estudiante.setVisible(false);
+        jtfsub_Medicina.setVisible(false);
+        jtfsub_Tarifario.setVisible(false);
+        jtfsub_inventario.setVisible(false);
+        jtfsub_Otros.setVisible(false);
 
     }//GEN-LAST:event_jleftTarifarioMouseClicked
 
@@ -3113,7 +3106,7 @@ public class Principal extends javax.swing.JFrame{
     }//GEN-LAST:event_jleftInicioMouseExited
 
     private void jleftOtros_proveedorMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jleftOtros_proveedorMouseMoved
-        // TODO add your handling code here:
+         jleftOtros_proveedor.setBackground(colorMoved);
     }//GEN-LAST:event_jleftOtros_proveedorMouseMoved
 
     private void jleftOtros_proveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jleftOtros_proveedorMouseClicked
@@ -3150,14 +3143,15 @@ public class Principal extends javax.swing.JFrame{
         jtfsub_Usuario.setVisible(false);
         objReporte_de_insumos.setVisible(false);
         jtfsub_inventario.setVisible(false);
+        jtfsub_Otros.setVisible(false);
     }//GEN-LAST:event_jleftOtros_proveedorMouseClicked
 
     private void jleftOtros_proveedorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jleftOtros_proveedorMouseExited
-        // TODO add your handling code here:
+         jleftOtros_proveedor.setBackground(colorExitSub);
     }//GEN-LAST:event_jleftOtros_proveedorMouseExited
 
     private void jleftOtros_laboratoriolMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jleftOtros_laboratoriolMouseMoved
-        // TODO add your handling code here:
+        jleftOtros_laboratoriol.setBackground(colorMoved);
     }//GEN-LAST:event_jleftOtros_laboratoriolMouseMoved
 
     private void jleftOtros_laboratoriolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jleftOtros_laboratoriolMouseClicked
@@ -3165,11 +3159,11 @@ public class Principal extends javax.swing.JFrame{
     }//GEN-LAST:event_jleftOtros_laboratoriolMouseClicked
 
     private void jleftOtros_laboratoriolMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jleftOtros_laboratoriolMouseExited
-        // TODO add your handling code here:
+        jleftOtros_laboratoriol.setBackground(colorExitSub);
     }//GEN-LAST:event_jleftOtros_laboratoriolMouseExited
 
     private void jleftOtros_semestreMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jleftOtros_semestreMouseMoved
-        // TODO add your handling code here:
+        jleftOtros_semestre.setBackground(colorMoved);
     }//GEN-LAST:event_jleftOtros_semestreMouseMoved
 
     private void jleftOtros_semestreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jleftOtros_semestreMouseClicked
@@ -3177,7 +3171,7 @@ public class Principal extends javax.swing.JFrame{
     }//GEN-LAST:event_jleftOtros_semestreMouseClicked
 
     private void jleftOtros_semestreMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jleftOtros_semestreMouseExited
-        // TODO add your handling code here:
+       jleftOtros_semestre.setBackground(colorExitSub);
     }//GEN-LAST:event_jleftOtros_semestreMouseExited
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
