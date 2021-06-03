@@ -59,7 +59,7 @@ public class Ver_inventario extends javax.swing.JPanel {
         this.objPrincipal=OBJPrincipal;
     }
     public void ConsultaBD(){
-        Lista_Origen=jpa.createQuery("Select p from Rol p where id_tipo_Roles=10").getResultList();
+        Lista_Origen=jpa.createQuery("Select p from Rol p where id_tipo_Roles=4").getResultList();
         Collections.sort(Lista_Origen);
         Query query1=jpa.createQuery("SELECT p FROM Lote_detalle p ");
         Lista_lotes=query1.getResultList();      
@@ -73,11 +73,11 @@ public class Ver_inventario extends javax.swing.JPanel {
     public void desglozarDatos(){
          for (int i = 0; i < Lista_lotes.size(); i++){
             boolean auxInventario=true;
-            for (int j = 0; j < Lista_Inventario.size(); j++){
+                for (int j = 0; j < Lista_Inventario.size(); j++){
                 if(Lista_Inventario.get(j)==Lista_lotes.get(i).getInventario()){
                     auxInventario=false;		
                     break;
-                    }
+                    } 
                 }
             if(auxInventario){               
                 Lista_Inventario.add(Lista_lotes.get(i).getInventario());
@@ -361,12 +361,12 @@ public class Ver_inventario extends javax.swing.JPanel {
     }//GEN-LAST:event_jtblInventarioOperacionesMouseClicked
  
     public void Lista_LotesDetalle_llenado(Date Fe) throws MalformedURLException, IOException{
-        String ol="images\\unsch.png";
+        String ol="images/unsch.png";
         Image unsch=new Image(ImageDataFactory.create(ol));
         PdfWriter writer=null;
         try {
              writer=new PdfWriter
-                ("Carpeta_de_Archivos\\Inventario_"+(Fe.getYear()+1900)+"_"+Fe.getMonth()+"_"+Fe.getDate()+".pdf");           
+                ("Carpeta_de_Archivos/Inventario/Inventario_"+(Fe.getYear()+1900)+"_"+Fe.getMonth()+"_"+Fe.getDate()+".pdf");           
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(jLabel12, "El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso");
         }  
@@ -382,7 +382,7 @@ public class Ver_inventario extends javax.swing.JPanel {
         PdfFont font=PdfFontFactory.createFont(FontConstants.HELVETICA);
         PdfFont bold=PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD); 
         //configurar para que sea automático
-        Paragraph paragIma=new Paragraph("     ").add(unsch).add("                                              INVENTARIO GENERAL DE "+Herramienta.getNombreMes((Fe.getMonth()+1))+" DEL 2019 II" ).setFontSize(16).setFont(bold);  
+        Paragraph paragIma=new Paragraph("     ").add(unsch).add("                                              INVENTARIO GENERAL DE "+Herramienta.getNombreMes((Fe.getMonth()+1))+" DEL "+(Fe.getYear()+1900) ).setFontSize(16).setFont(bold);  
         document.add(paragIma); 
         //Paragraph parag2=new Paragraph("Servicio Farmacia                                                                                                                                                                 "+Herramienta.formatoFechaHoraMas1(new Date()));         
         //document.add(parag2);
@@ -434,8 +434,9 @@ public class Ver_inventario extends javax.swing.JPanel {
             //table.addCell(new Paragraph(Integer.toString(Lote_RegistroCierre.getLote_detalle().getCantidad())).setFont(font).setTextAlignment(TextAlignment.CENTER));//stock final
         }}}
         if(auxAgregar){
-            Paragraph ols=new Paragraph(Origen.getNombre_rol()).setTextAlignment(TextAlignment.CENTER).setFont(bold).setFontSize(14);
-            document.add(ols);
+           
+            Paragraph objParagraph_1=new Paragraph(Origen.getNombre_rol()).setTextAlignment(TextAlignment.CENTER).setFont(bold).setFontSize(14);
+            document.add(objParagraph_1);
             document.add(table);            
             document.add(new AreaBreak());  
                 
@@ -451,7 +452,7 @@ public class Ver_inventario extends javax.swing.JPanel {
         try {
             Date Fe=new Date();
             Lista_LotesDetalle_llenado(Fe);
-            String url="Carpeta_de_Archivos\\Inventario_"+(Fe.getYear()+1900)+"_"+Fe.getMonth()+"_"+Fe.getDate()+".pdf";
+            String url="Carpeta_de_Archivos/Inventario/Inventario_"+(Fe.getYear()+1900)+"_"+Fe.getMonth()+"_"+Fe.getDate()+".pdf";
             ProcessBuilder p=new ProcessBuilder();
             p.command("cmd.exe","/c",url);
             p.start();                          
@@ -463,12 +464,12 @@ public class Ver_inventario extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton1ActionPerformed
     public void imprimir(Date Fe) throws FileNotFoundException, DocumentException, IOException{
-        String ol="images\\unsch.png";
+        String ol="images/unsch.png";
         Image unsch=new Image(ImageDataFactory.create(ol));
         PdfWriter writer=null;
         try {
              writer=new PdfWriter
-                ("Carpeta_de_Archivos\\Inventario_"+(Fe.getYear()+1900)+"_"+Fe.getMonth()+"_"+Fe.getDate()+".pdf");           
+                ("Carpeta_de_Archivos/Inventario/Inventario_"+(Fe.getYear()+1900)+"_"+Fe.getMonth()+"_"+Fe.getDate()+".pdf");           
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(jLabel12, "El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso");
         }  
