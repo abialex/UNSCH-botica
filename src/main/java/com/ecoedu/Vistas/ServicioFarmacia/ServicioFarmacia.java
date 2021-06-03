@@ -1117,11 +1117,11 @@ public class ServicioFarmacia extends javax.swing.JPanel {
                 objReceta=fechadeUltimaReceta(Lista_Recetas);
                 if((-objReceta.getFecha_creada().getTime()+new Date().getTime())/86400000<181){//menor de 6 meses
                     JOptionPane.showMessageDialog(jlblNombres, "CONCURRENTE"+(objReceta.getFecha_creada().getTime()-new Date().getTime())/86400000);
-                    jpa.createNativeQuery("update Estudiante set id_RolCondicion="+5+" where id_Estudiante="+objEstudiante.getId()).executeUpdate();
+                    jpa.createNativeQuery("update Estudiante set id_condicion="+4+" where id="+objEstudiante.getId()).executeUpdate();
                 }
                 else{
                     JOptionPane.showMessageDialog(jlblNombres, "REINGRESANTE");
-                    jpa.createNativeQuery("update Estudiante set id_RolCondicion="+6+" where id_Estudiante="+objEstudiante.getId()).executeUpdate();
+                    jpa.createNativeQuery("update Estudiante set id_condicion="+5+" where id="+objEstudiante.getId()).executeUpdate();
                     }
                 jpa.persist(objEstudiante);
                 }            
@@ -1129,7 +1129,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
             if (JOptionPane.OK_OPTION == confirmado){
                 try {                
                     imprimirReceta(Lista_carrito_medicamentos);
-                    String url="Carpeta_de_Archivos\\Control_Estudiante"+objControl_paciente_Final.getEstudiante().getCodigo()+"receta.pdf";
+                    String url="Carpeta_de_Archivos/Recetas/receta_"+objControl_paciente_Final.getEstudiante().getCodigo()+".pdf";
                     ProcessBuilder p=new ProcessBuilder();
                     p.command("cmd.exe","/c",url);
                     p.start();            
@@ -1253,7 +1253,7 @@ public class ServicioFarmacia extends javax.swing.JPanel {
         
         PdfWriter writer=null;
         try {
-             writer=new PdfWriter("Carpeta_de_Archivos\\Control_Estudiante"+objControl_paciente_Final.getEstudiante().getCodigo()+"receta.pdf");           
+             writer=new PdfWriter("Carpeta_de_Archivos/Recetas/receta_"+objControl_paciente_Final.getEstudiante().getCodigo()+ListaMedicamentosDetalle.get(0).getReceta().getId()+".pdf");           
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(jLabel12, "El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso");
         } 
@@ -1302,13 +1302,13 @@ public class ServicioFarmacia extends javax.swing.JPanel {
         
     }
     public void imprimirEstudiante() throws FileNotFoundException, DocumentException, IOException{
-        String ol="/home/alexis/Descargas/boticawithJunut2-20210112T210646Z-001/boticawithJunut2/src/main/resources/images/unsch.png";//dirección cambia
+        String ol="images/unsch.png";//dirección cambia
         Image unsch=new Image(ImageDataFactory.create(ol));
         int fontTamaño=9;
         int fontHeadTamaño=11;
         PdfWriter writer=null;
         try {
-             writer=new PdfWriter("Carpeta_de_Archivos\\Control_Estudiante"+objControl_paciente_Final.getEstudiante().getCodigo()+".pdf");           
+             writer=new PdfWriter("Carpeta_de_Archivos/Control_estudiante/Control_Estudiante"+objControl_paciente_Final.getEstudiante().getCodigo()+".pdf");           
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(jLabel12, "El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso");
         } 

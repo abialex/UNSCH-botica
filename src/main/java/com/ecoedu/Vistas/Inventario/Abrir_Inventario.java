@@ -618,7 +618,7 @@ public class Abrir_Inventario extends javax.swing.JPanel {
         PdfWriter writer=null;
         try {
              writer=new PdfWriter
-                ("Carpeta_de_Archivos/Inventario_Apertura"+(Fe.getYear()+1900)+"_"+(Fe.getMonth()+1)+"_"+Fe.getDate()+".pdf");           
+                ("Carpeta_de_Archivos/Inventario_Apertura/Inventario_Apertura"+(Fe.getYear()+1900)+"_"+(Fe.getMonth()+1)+"_"+Fe.getDate()+".pdf");           
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(jLabel12, "El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso");
         }  

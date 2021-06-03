@@ -1534,7 +1534,7 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
         try{
             Date Fe=new Date();
             imprimirInventarioCierre(algo,Fe,Lista_Registro_Mensual.get(0),true);
-            String url="Carpeta_de_Archivos/Inventario_Cierre"+(Fe.getYear()+1900)+"_"+(Fe.getMonth()+1)+"_"+Fe.getDate()+".pdf";
+            String url="Carpeta_de_Archivos/Inventario_cierre/Inventario_Cierre"+(Fe.getYear()+1900)+"_"+(Fe.getMonth()+1)+"_"+Fe.getDate()+".pdf";
             ProcessBuilder p=new ProcessBuilder();
             p.command("cmd.exe","/c",url);
             p.start();            
@@ -1547,7 +1547,7 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
         try{
             Date Fe=new Date();
             imprimirDescruce(Fe,Lista_Registro_Mensual.get(0));
-            String url="Carpeta_de_Archivos/Lista_Descruce"+(Fe.getYear()+1900)+"_"+(Fe.getMonth()+1)+"_"+Fe.getDate()+".pdf";
+            String url="Carpeta_de_Archivos/Descruce/Lista_Descruce"+(Fe.getYear()+1900)+"_"+(Fe.getMonth()+1)+"_"+Fe.getDate()+".pdf";
             ProcessBuilder p=new ProcessBuilder();
             p.command("cmd.exe","/c",url);
             p.start();            
@@ -2070,12 +2070,12 @@ public class Cerrar_Inventario extends javax.swing.JPanel{
         }
     
     public void imprimirDescruce(Date Fe,RegistroMensualLotes obj ) throws MalformedURLException, IOException{ 
-        String ol="src/main/resources/images/unsch.png";
-        Image unsch=new Image(ImageDataFactory.create(ol));
+        String url="images/unsch.png";
+        Image unsch=new Image(ImageDataFactory.create(url));
         PdfWriter writer=null;
         try {
              writer=new PdfWriter
-                ("Carpeta_de_Archivos/Lista_Descruce"+(Fe.getYear()+1900)+"_"+Fe.getMonth()+"_"+Fe.getDate()+".pdf");           
+                ("Carpeta_de_Archivos/Descruce/Lista_Descruce"+(Fe.getYear()+1900)+"_"+Fe.getMonth()+"_"+Fe.getDate()+".pdf");           
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(jLabel12, "El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso");
         }  
