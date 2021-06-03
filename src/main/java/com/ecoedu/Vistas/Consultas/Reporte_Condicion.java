@@ -4,6 +4,7 @@ import com.ecoedu.Vistas.vista_base.Principal;
 import com.ecoedu.model.Control_paciente;
 import com.ecoedu.model.Receta;
 import com.ecoedu.model.Rol;
+import com.ecoedu.model.Semestre;
 import com.ecoedu.model.ZObjetoProDiag;
 import com.itextpdf.io.font.FontConstants;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -41,7 +42,8 @@ import org.dom4j.DocumentException;
 public class Reporte_Condicion extends javax.swing.JPanel {
     private Principal objPrincipal;
     private EntityManager jpa;   
-    private List<Control_paciente> Lista_ControlPaciente=new ArrayList<>();//
+    private List<Control_paciente> lista_ControlPaciente=new ArrayList<>();//
+    private List<Semestre> lista_semestre=new ArrayList<>();//
     //datos q se desglozan de la BD               
     private List<Receta> Lista_Recetas=new ArrayList<>();//    
     public Reporte_Condicion(EntityManager jpa2,Principal OBJPrincipal ){
@@ -50,12 +52,20 @@ public class Reporte_Condicion extends javax.swing.JPanel {
         this.objPrincipal=OBJPrincipal;             
     }
      public void ConsultaBD(){
-         Lista_ControlPaciente=jpa.createQuery("select p from Control_paciente p where iSactivo=1").getResultList();
+         lista_semestre=jpa.createQuery("select p from Semestre p").getResultList();
+      
          
      }    
-     public void principalEjecucion() throws DocumentException, IOException{                   
+     public void principalEjecucion() throws DocumentException, IOException{             
+        jcbSemestre.removeAllItems();
+        for (Semestre semestre : lista_semestre){
+             jcbSemestre.addItem(semestre);
+             if(semestre.getFecha_Fin_Real()==null){
+                 jcbSemestre.setSelectedItem(semestre);
+                 }
+             }
             jbtnImprimir.setEnabled(false);
-            jlblMensaje.setText("Cantidad de Condiciones en lo que va del Año "+(new Date().getYear()+1900) );
+            //jlblMensaje.setText("Cantidad de Condiciones en lo que va del Año "+(new Date().getYear()+1900) );
             imprimirProcedencia();
             }
      @SuppressWarnings("unchecked")     
@@ -67,8 +77,10 @@ public class Reporte_Condicion extends javax.swing.JPanel {
         body = new javax.swing.JPanel();
         head2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jcbSemestre = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
-        jlblMensaje = new javax.swing.JLabel();
+        jbtnImprimir1 = new javax.swing.JButton();
         body2 = new javax.swing.JPanel();
         cuerpo1ListaRecetas = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -105,14 +117,26 @@ public class Reporte_Condicion extends javax.swing.JPanel {
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel7.setPreferredSize(new java.awt.Dimension(890, 100));
 
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel14.setText("Semestre");
+        jPanel7.add(jLabel14);
+
+        jPanel7.add(jcbSemestre);
+
         jLabel6.setPreferredSize(new java.awt.Dimension(40, 30));
         jPanel7.add(jLabel6);
 
-        jlblMensaje.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
-        jlblMensaje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblMensaje.setText("Reporte de Condición");
-        jlblMensaje.setPreferredSize(new java.awt.Dimension(700, 70));
-        jPanel7.add(jlblMensaje);
+        jbtnImprimir1.setBackground(new java.awt.Color(0, 0, 0));
+        jbtnImprimir1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbtnImprimir1.setForeground(new java.awt.Color(255, 255, 255));
+        jbtnImprimir1.setText("Ver");
+        jbtnImprimir1.setPreferredSize(new java.awt.Dimension(200, 25));
+        jbtnImprimir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnImprimir1ActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jbtnImprimir1);
 
         head2.add(jPanel7);
 
@@ -200,7 +224,7 @@ public class Reporte_Condicion extends javax.swing.JPanel {
 
     private void jbtnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnImprimirActionPerformed
 
-        String url="Carpeta_de_Archivos\\Reporte_Condicion.pdf";
+        String url="Carpeta_de_Archivos/Reporte_Condicion.pdf";
         ProcessBuilder p=new ProcessBuilder();
         p.command("cmd.exe","/c",url);
         try {
@@ -210,6 +234,14 @@ public class Reporte_Condicion extends javax.swing.JPanel {
             Logger.getLogger(Reporte_Condicion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jbtnImprimirActionPerformed
+
+    private void jbtnImprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnImprimir1ActionPerformed
+        try {        
+            imprimirProcedencia();
+        } catch (DocumentException | IOException ex) {
+            Logger.getLogger(Reporte_Condicion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jbtnImprimir1ActionPerformed
   
      public List<Rol> desglozarControlPacientetoCondicion(List<Control_paciente> lista_control){
          List<Rol> listaAuxCondicion=new ArrayList<>();
@@ -230,7 +262,9 @@ public class Reporte_Condicion extends javax.swing.JPanel {
      
     
     public void imprimirProcedencia() throws FileNotFoundException, DocumentException, IOException{
-        List<Rol> listaCondiciones=desglozarControlPacientetoCondicion(Lista_ControlPaciente);
+        Semestre objSemestre=(Semestre)jcbSemestre.getSelectedItem();
+        lista_ControlPaciente=jpa.createQuery("select p from Control_paciente p where id_semestre="+objSemestre.getId()).getResultList();
+        List<Rol> listaCondiciones=desglozarControlPacientetoCondicion(lista_ControlPaciente);
         List<ZObjetoProDiag> Lista_zObjetoProdiag=new ArrayList<>();
         DefaultTableModel modelo;
         Object[] fila_actividad;
@@ -245,9 +279,9 @@ public class Reporte_Condicion extends javax.swing.JPanel {
                  };
              //.....................................TABLA...........Fin......................           
              fila_actividad=new Object[modelo.getColumnCount()]; 
-        if(!Lista_ControlPaciente.isEmpty()){
+        if(!lista_ControlPaciente.isEmpty()){
             jbtnImprimir.setEnabled(true);
-            String ol="images\\unsch.png";
+            String ol="images/unsch.png";
             Image unsch=null;
             try{             
              unsch=new Image(ImageDataFactory.create(ol)); 
@@ -260,7 +294,7 @@ public class Reporte_Condicion extends javax.swing.JPanel {
             int fontHeadTamaño=11;
             PdfWriter writer=null;
             try {
-                writer=new PdfWriter("Carpeta_de_Archivos\\Reporte_Condicion.pdf"); 
+                writer=new PdfWriter("Carpeta_de_Archivos/Reporte condicion/Reporte_Condicion_semestre_"+objSemestre.getId()+".pdf"); 
                 }
             catch (FileNotFoundException e) {
                 JOptionPane.showMessageDialog(jPanel7, "El proceso no tiene acceso al archivo porque está siendo utilizado por otro proceso procedencia");
@@ -275,8 +309,8 @@ public class Reporte_Condicion extends javax.swing.JPanel {
             Paragraph paragIma=new Paragraph("").add(unsch).add(
                 new Text("                  REPORTE DE CONDICIONES DEL AÑO "+(new Date().getYear()+1900)).setFontSize(16).setFont(bold).setTextAlignment(TextAlignment.CENTER));  
             document.add(paragIma);   
-            Paragraph paraEscCodSerie=new Paragraph(new Text("reporte hasta la fecha de : ").setFont(bold))
-                    .add(new Text(Herramienta.formatoFechaHora(new Date())).setFont(bold));
+            Paragraph paraEscCodSerie=new Paragraph(new Text("Semestre: ").setFont(bold))
+                    .add(new Text(objSemestre.getId()+"").setFont(bold));
             document.add(paraEscCodSerie);            
             document.add(new Paragraph(" "));
             table.addHeaderCell(new Cell().add(new Paragraph("Condicion").setFont(bold)).setTextAlignment(TextAlignment.CENTER).setFontSize(fontHeadTamaño));         
@@ -284,7 +318,7 @@ public class Reporte_Condicion extends javax.swing.JPanel {
             //Control_paciente control_paciente : Lista_ControlPaciente
             for(Rol objCondicion : listaCondiciones){
                 int cant=0;
-                for(Control_paciente control_paciente : Lista_ControlPaciente){
+                for(Control_paciente control_paciente : lista_ControlPaciente){
                     if(control_paciente.getEstudiante().getCondicion()==objCondicion){
                         cant++;          
                         }
@@ -325,13 +359,15 @@ public class Reporte_Condicion extends javax.swing.JPanel {
     private javax.swing.JPanel head2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtnImprimir;
-    private javax.swing.JLabel jlblMensaje;
+    private javax.swing.JButton jbtnImprimir1;
+    private javax.swing.JComboBox<Semestre> jcbSemestre;
     private javax.swing.JTable jtblRecetas;
     // End of variables declaration//GEN-END:variables
 public void llenar_Tabla_de_Recetas(DefaultTableModel modelo){        
